@@ -46,8 +46,10 @@ h1, h2, h3, h4 {
    for the intro sequence. The screen sticks to the top for the length of
    the stage, so it appears to hold still while #page-content -- the very
    next thing in normal flow -- scrolls up over it. */
+/* Full viewport: the call bar is still hidden below the fold while the
+   intro is on screen, so there is nothing here to make room for. */
 .intro-stage {
-  height: calc(100dvh - var(--cta-bar-height, 0px));
+  height: 100dvh;
 }
 /* Fixed rather than sticky on purpose: sticky only holds while its
    container has leftover room, so holding for one viewport would need a
@@ -56,7 +58,7 @@ h1, h2, h3, h4 {
    above reserves the one viewport of scroll that drives the retreat. */
 .intro-screen {
   position: fixed;
-  inset: 0 0 var(--cta-bar-height, 0px) 0;
+  inset: 0;
   z-index: 1;
   padding: 0;
   color: var(--intro-black);
@@ -80,9 +82,6 @@ h1, h2, h3, h4 {
 .intro-screen__body {
   display: flex;
   flex-direction: column;
-  /* Fills the screen element, which is already one viewport minus the call
-     bar. Asking for 100dvh here instead would overflow that by exactly the
-     bar's height and push the phone CTA underneath it. */
   min-height: 100%;
   padding: 6vw 4vw 5vw;
 }
@@ -195,18 +194,26 @@ h1, h2, h3, h4 {
   .intro-screen__rotator-word { clip-path: none !important; opacity: 1; transition: opacity 0.3s ease; }
 }
 
-/* Persistent call bar: a full-width strip permanently docked to the bottom
-   edge. It does not float over the page -- everything that scrolls keeps
-   clear of it, because js/main.js measures its height into --cta-bar-height
-   and the intro screen and #page-content both subtract that. In effect it
-   shortens the viewport rather than covering the last line of whatever you
-   were reading. */
+/* Call bar: a full-width strip docked to the bottom edge, which slides up
+   once --tab-reveal (js/main.js, derived from --intro-progress) rises from
+   0 to 1 -- as you leave the red intro -- and then stays for the rest of
+   the visit. Driven straight off scroll position rather than a CSS
+   transition, so it tracks the wheel 1:1 instead of trailing it.
+
+   It still never covers the page: #page-content reserves --cta-bar-height
+   at the bottom from the very start, so the strip slides into space that
+   was always its own and nothing reflows at the reveal.
+
+   z-index sits below the navbar's on purpose -- this is a persistent
+   affordance, not an overlay, and if the two ever meet the nav should win.
+   No drop shadow for the same reason: it should read as an edge of the
+   page, not a panel hovering above it. */
 .intro-floating-cta {
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 150;
+  z-index: 90;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -219,10 +226,14 @@ h1, h2, h3, h4 {
   text-transform: uppercase;
   letter-spacing: -0.005em;
   padding: 0.875rem 1.25rem;
-  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.3);
+  transform: translateY(calc((1 - var(--tab-reveal, 0)) * 100%));
+  opacity: var(--tab-reveal, 0);
 }
 .intro-floating-cta:hover { background-color: var(--intro-black); color: #fff; }
 .intro-floating-cta__icon { width: 1.125rem; height: 1.125rem; flex-shrink: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .intro-floating-cta { transform: none; transition: opacity 0.3s ease; }
+}
 
 /* Serif (Bodoni Moda) stays reserved for large display moments: the Hero H1,
    section H2s, and the reason-band pull-quote. Small, repeated headings
@@ -394,7 +405,8 @@ h1, h2, h3, h4 {
 .theme-toggle {
   position: fixed;
   left: 1.5rem;
-  bottom: calc(1.5rem + var(--cta-bar-height, 0px));
+  /* Rides up with the call bar as it reveals, so the two never overlap. */
+  bottom: calc(1.5rem + var(--tab-reveal, 0) * var(--cta-bar-height, 0px));
   z-index: 200;
   width: 2.75rem;
   height: 2.75rem;

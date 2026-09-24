@@ -31,19 +31,23 @@ zbudowany na wzór loveandmoney.com i GSAP "pinned panels with overscroll":
   - Bonus dla docelowego portu: bez GSAP całość jest znacznie łatwiejsza do
     przeniesienia na Webflow, gdzie Custom Code jest zablokowany planem.
 - **Pasek telefoniczny** (`.intro-floating-cta`) — czerwony pasek na całą
-  szerokość, na stałe przy dolnej krawędzi, widoczny przez całą wizytę.
-  Świadomie **nie** nakłada się na treść: JS mierzy jego wysokość do
-  `--cta-bar-height`, a `.intro-stage`, `.intro-screen`, `#page-content`
-  (padding-bottom) i `.theme-toggle` odejmują tę wartość. Efekt: pasek
-  **skraca viewport**, zamiast zasłaniać ostatnią linijkę treści —
-  sprawdzone, dół stopki styka się z górą paska co do piksela.
-  - Wcześniejsza wersja („metka” wyjeżdżająca od dołu w połowie przejścia,
-    sterowana `--tab-reveal`) została odrzucona przez klienta właśnie za
-    to, że zasłaniała treść. `--tab-reveal` już nie istnieje.
-  - Pułapka: `.intro-screen__body` musi mieć `min-height: 100%`, nie
-    `100dvh` — przy `100dvh` zawartość intro przekracza skrócony ekran
-    dokładnie o wysokość paska i chowa mobilny przycisk „Zadzwoń teraz”
-    pod paskiem.
+  szerokość przy dolnej krawędzi. Łączy dwie rzeczy, o które prosił klient:
+  - **Pojawia się na scroll**, dokładnie jak wcześniejsza „metka”: siedzi
+    poza ekranem przez pierwsze 45% zakresu intro, wysuwa się między 45%
+    a 80% (`--tab-reveal` liczone z `--intro-progress` w tym samym
+    handlerze) i zostaje do końca wizyty.
+  - **Nie zasłania treści**: JS mierzy jego wysokość do `--cta-bar-height`,
+    a `#page-content` rezerwuje ją jako `padding-bottom` **od startu** —
+    dzięki temu pasek wsuwa się w miejsce, które i tak było jego, i nic
+    się nie przesuwa w momencie ujawnienia. Sprawdzone: na dole strony dół
+    stopki styka się z górą paska co do piksela. `.theme-toggle` unosi się
+    razem z nim (`bottom` mnożone przez `--tab-reveal`).
+  - `.intro-stage` i `.intro-screen` zostają na pełnym viewporcie — w
+    trakcie intro paska nie ma na ekranie, więc nie ma dla czego robić
+    miejsca.
+  - Bez `box-shadow` i z `z-index: 90`, czyli **pod** nawigacją (100):
+    to trwały element interfejsu, nie overlay. Wersja z cieniem i
+    `z-index: 150` została odrzucona.
 - **Uwaga na testowanie**: to środowisko podglądu (Browser pane) samo
   resetuje `scrollY` do 0 między osobnymi wywołaniami narzędzia — testowanie
   scrolla wymaga `browser_batch` (scroll + screenshot w jednej sekwencji),

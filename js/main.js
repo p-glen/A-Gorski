@@ -69,6 +69,11 @@
         if (done) root.setAttribute('data-intro-done', '');
         else root.removeAttribute('data-intro-done');
       }
+      // The call bar rises over the back half of the intro's own scroll
+      // range, then holds. --intro-progress clamps at 1 once you are past
+      // the intro, so this stays at 1 for the rest of the visit.
+      var tabReveal = Math.min(Math.max((progress - 0.45) / 0.35, 0), 1);
+      root.style.setProperty('--tab-reveal', tabReveal.toFixed(3));
       ticking = false;
     };
     window.addEventListener('scroll', function () {
