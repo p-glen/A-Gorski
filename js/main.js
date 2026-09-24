@@ -31,6 +31,22 @@
 
   var introScreen = document.querySelector('.intro-screen');
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // The call bar is fixed to the bottom edge and must not cover anything, so
+  // its measured height is published as --cta-bar-height; the intro screen,
+  // #page-content and the theme toggle all subtract it (see style.css). It is
+  // measured rather than hardcoded because the label wraps at narrow widths.
+  var callBar = document.querySelector('.intro-floating-cta');
+  if (callBar) {
+    var setCallBarHeight = function () {
+      root.style.setProperty('--cta-bar-height', callBar.offsetHeight + 'px');
+    };
+    setCallBarHeight();
+    window.addEventListener('resize', setCallBarHeight);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(setCallBarHeight);
+    }
+  }
   if (introScreen && !reduceMotion) {
     // Opts the intro retreat and the nav slide-in into their scroll-linked
     // CSS (see style.css). Without it -- no JS, or reduced motion -- the
@@ -53,12 +69,6 @@
         if (done) root.setAttribute('data-intro-done', '');
         else root.removeAttribute('data-intro-done');
       }
-      // The floating tab rises over the back half of the intro's own scroll
-      // range and then holds at fully-shown for the rest of the page --
-      // --intro-progress itself clamps at 1 once you've scrolled past, so
-      // this naturally stays at 1 forever after too.
-      var tabReveal = Math.min(Math.max((progress - 0.45) / 0.35, 0), 1);
-      root.style.setProperty('--tab-reveal', tabReveal.toFixed(3));
       ticking = false;
     };
     window.addEventListener('scroll', function () {

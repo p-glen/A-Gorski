@@ -47,7 +47,7 @@ h1, h2, h3, h4 {
    the stage, so it appears to hold still while #page-content -- the very
    next thing in normal flow -- scrolls up over it. */
 .intro-stage {
-  height: 100dvh;
+  height: calc(100dvh - var(--cta-bar-height, 0px));
 }
 /* Fixed rather than sticky on purpose: sticky only holds while its
    container has leftover room, so holding for one viewport would need a
@@ -56,7 +56,7 @@ h1, h2, h3, h4 {
    above reserves the one viewport of scroll that drives the retreat. */
 .intro-screen {
   position: fixed;
-  inset: 0;
+  inset: 0 0 var(--cta-bar-height, 0px) 0;
   z-index: 1;
   padding: 0;
   color: var(--intro-black);
@@ -80,7 +80,10 @@ h1, h2, h3, h4 {
 .intro-screen__body {
   display: flex;
   flex-direction: column;
-  min-height: 100dvh;
+  /* Fills the screen element, which is already one viewport minus the call
+     bar. Asking for 100dvh here instead would overflow that by exactly the
+     bar's height and push the phone CTA underneath it. */
+  min-height: 100%;
   padding: 6vw 4vw 5vw;
 }
 
@@ -96,6 +99,8 @@ h1, h2, h3, h4 {
      document-flow space of its own, so this stands in for it -- js/main.js
      sets the real pixel value from the nav's measured height. */
   padding-top: var(--nav-height, 0px);
+  /* Keeps the footer's last line clear of the fixed call bar. */
+  padding-bottom: var(--cta-bar-height, 0px);
 }
 
 /* Headline: single word element, its font-size computed in JS from the
@@ -190,18 +195,21 @@ h1, h2, h3, h4 {
   .intro-screen__rotator-word { clip-path: none !important; opacity: 1; transition: opacity 0.3s ease; }
 }
 
-/* Persistent floating CTA: fixed to the bottom, docked off-screen until
-   --tab-reveal (set in js/main.js from --intro-progress, once the intro is
-   mostly scrolled past) rises from 0 to 1, then it stays visible for the
-   rest of the visit. Driven directly off scroll position, not a CSS
-   transition, so it tracks the finger/wheel 1:1 instead of trailing it. */
+/* Persistent call bar: a full-width strip permanently docked to the bottom
+   edge. It does not float over the page -- everything that scrolls keeps
+   clear of it, because js/main.js measures its height into --cta-bar-height
+   and the intro screen and #page-content both subtract that. In effect it
+   shortens the viewport rather than covering the last line of whatever you
+   were reading. */
 .intro-floating-cta {
   position: fixed;
-  left: 50%;
+  left: 0;
+  right: 0;
   bottom: 0;
   z-index: 150;
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.625rem;
   background-color: var(--intro-red);
   color: var(--intro-black);
@@ -211,16 +219,10 @@ h1, h2, h3, h4 {
   text-transform: uppercase;
   letter-spacing: -0.005em;
   padding: 0.875rem 1.25rem;
-  border-radius: 14px 14px 0 0;
   box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.3);
-  transform: translate(-50%, calc((1 - var(--tab-reveal, 0)) * 140%));
-  opacity: var(--tab-reveal, 0);
 }
 .intro-floating-cta:hover { background-color: var(--intro-black); color: #fff; }
 .intro-floating-cta__icon { width: 1.125rem; height: 1.125rem; flex-shrink: 0; }
-@media (prefers-reduced-motion: reduce) {
-  .intro-floating-cta { transition: opacity 0.3s ease; }
-}
 
 /* Serif (Bodoni Moda) stays reserved for large display moments: the Hero H1,
    section H2s, and the reason-band pull-quote. Small, repeated headings
@@ -392,7 +394,7 @@ h1, h2, h3, h4 {
 .theme-toggle {
   position: fixed;
   left: 1.5rem;
-  bottom: 1.5rem;
+  bottom: calc(1.5rem + var(--cta-bar-height, 0px));
   z-index: 200;
   width: 2.75rem;
   height: 2.75rem;
@@ -1021,7 +1023,6 @@ h1, h2, h3, h4 {
     font-size: 0.75rem;
     padding: 0.75rem 1rem;
     gap: 0.5rem;
-    border-radius: 10px 10px 0 0;
     white-space: nowrap;
   }
   .intro-floating-cta__icon { width: 1rem; height: 1rem; }
