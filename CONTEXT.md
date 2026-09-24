@@ -137,12 +137,15 @@ niektóre wcześniejsze ustalenia poniżej:
       krawędź, sumowanych (wiele warstw maski domyślnie składa się przez
       `add`). Każda wygasza się do środka na stałym dystansie, więc
       rozświetlona obwódka ma równą grubość i trzyma się **prostych
-      krawędzi** sekcji. Boki `min(95px, 11%)`, góra/dół `70px` — płytko
-      i to jest celowe: po porównaniu z referencją (obejrzaną na żywo)
-      pasmo tam sięga jakieś 5–8% szerokości, a środek jest praktycznie
-      czarny. Wcześniejsze `22%` na stronę podbarwiało prawie połowę
-      sekcji i kładło tekst na washu. Cap procentowy jest konieczny, bo
-      na stałych pikselach pasma nachodzą na siebie na telefonie.
+      krawędzi** sekcji. Grubość siedzi w `--rim-x` / `--rim-y` na
+      `.siren-rim` (obecnie `min(52px, 6%)` i `36px`) — wartości
+      powtarzają się w ośmiu miejscach, więc stroi się je w jednym.
+      Płytko i to jest celowe: po porównaniu z referencją (obejrzaną na
+      żywo) pasmo tam sięga jakieś 5–8% szerokości, a środek jest
+      praktycznie czarny. Kolejne odrzucone wersje: `22%` na stronę
+      (podbarwiało pół sekcji, tekst na washu) i `11%`. Cap procentowy
+      jest konieczny, bo na stałych pikselach pasma nachodzą na siebie
+      na telefonie.
     - `.siren-rim__spin` — `conic-gradient` (`--accent-alert` +
       `--siren-blue`), kwadratowy i przewymiarowany (`width: 150%;
       aspect-ratio: 1`), żeby narożniki pokrywały sekcję przy każdym
@@ -154,9 +157,11 @@ niektóre wcześniejsze ustalenia poniżej:
       punkt, i został rozjaśniony (`#4E77B0` dark / `#5583C0` light) —
       przy poprzednim `#3E5C82` ginął na tle sekcji. Conic musi zaczynać
       i kończyć tym samym kolorem, inaczej na zawinięciu widać szew.
-    - Tempo: 22 s na pełny obrót, `linear` (zmierzone 16,4°/s) — wolniej
-      niż referencja. Clip przez `overflow: hidden` na sekcji, statyczne
-      przy `prefers-reduced-motion`.
+    - Tempo: 12 s na pełny obrót, `linear` (zmierzone 30°/s). 22 s było
+      za wolne — ruch ledwo się rejestrował. Krycie `0.55`, żeby kolor
+      wtapiał się w tło sekcji, a nie leżał na nim paskiem. Clip przez
+      `overflow: hidden` na sekcji, statyczne przy
+      `prefers-reduced-motion`.
     - Odrzucone po drodze: wersja pulsująca (oddech `opacity`/`scale`) oraz
       wersja conic + eliptyczna winieta — ta druga czytała się jako
       obracające się koło, nie jako obwódka.

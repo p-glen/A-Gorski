@@ -643,18 +643,20 @@ h1, h2, h3, h4 {
      middle falls outside every band, so it stays clean. */
   /* Kept deliberately shallow: the glow belongs to the perimeter, and the
      moment it reaches into the column the copy sits on a wash. The side
-     bands are also capped as a share of the width, or on a phone the two
-     would meet in the middle. */
+     band is also capped as a share of the width, or on a phone the two
+     sides would meet in the middle. Tune the whole rim from these two. */
+  --rim-x: min(52px, 6%);
+  --rim-y: 36px;
   -webkit-mask:
-    linear-gradient(to right, #000, transparent min(95px, 11%)),
-    linear-gradient(to left, #000, transparent min(95px, 11%)),
-    linear-gradient(to bottom, #000, transparent 70px),
-    linear-gradient(to top, #000, transparent 70px);
+    linear-gradient(to right, #000, transparent var(--rim-x)),
+    linear-gradient(to left, #000, transparent var(--rim-x)),
+    linear-gradient(to bottom, #000, transparent var(--rim-y)),
+    linear-gradient(to top, #000, transparent var(--rim-y));
   mask:
-    linear-gradient(to right, #000, transparent min(95px, 11%)),
-    linear-gradient(to left, #000, transparent min(95px, 11%)),
-    linear-gradient(to bottom, #000, transparent 70px),
-    linear-gradient(to top, #000, transparent 70px);
+    linear-gradient(to right, #000, transparent var(--rim-x)),
+    linear-gradient(to left, #000, transparent var(--rim-x)),
+    linear-gradient(to bottom, #000, transparent var(--rim-y)),
+    linear-gradient(to top, #000, transparent var(--rim-y));
 }
 /* The colour source. Square and oversized so its corners still cover the
    section at every angle; a conic gradient's colour depends only on the
@@ -677,10 +679,12 @@ h1, h2, h3, h4 {
     var(--accent-alert) 300deg,
     var(--accent-alert) 360deg);
   transform: translate(-50%, -50%);
-  opacity: 0.85;
-  filter: blur(35px);
+  /* Low enough that the colour melts into the section background rather
+     than sitting on top of it as a band. */
+  opacity: 0.55;
+  filter: blur(30px);
   will-change: transform;
-  animation: siren-orbit 22s linear infinite;
+  animation: siren-orbit 12s linear infinite;
 }
 @keyframes siren-orbit {
   from { transform: translate(-50%, -50%) rotate(0deg); }
