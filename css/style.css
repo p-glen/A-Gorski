@@ -604,7 +604,9 @@ h1, h2, h3, h4 {
 /* ---------- Sprawa pilna (alert identity: distinct semantic purpose, not
    just another section color) ---------- */
 .sprawa-pilna-section {
-  --siren-blue: #3E5C82;
+  /* Sits close to --accent-alert in lightness; darker than this and the
+     blue half of the sweep disappears against the section background. */
+  --siren-blue: #4E77B0;
   position: relative;
   overflow: hidden;
   isolation: isolate;
@@ -613,7 +615,7 @@ h1, h2, h3, h4 {
   background-color: var(--background-deep);
 }
 :root[data-theme="light"] .sprawa-pilna-section {
-  --siren-blue: #4A6E9C;
+  --siren-blue: #5583C0;
 }
 /* Ambient "siren" glow: the red/blue blend orbits slowly around the
    section rather than pulsing in place.
@@ -639,19 +641,20 @@ h1, h2, h3, h4 {
      so the lit rim keeps the same thickness the whole way round and follows
      the section's straight edges -- an inner shadow, not a circle. The
      middle falls outside every band, so it stays clean. */
-  /* The side bands are capped as a share of the width as well: at 190px flat
-     they overlap on a phone and the middle never clears, putting the copy on
-     a pink wash. */
+  /* Kept deliberately shallow: the glow belongs to the perimeter, and the
+     moment it reaches into the column the copy sits on a wash. The side
+     bands are also capped as a share of the width, or on a phone the two
+     would meet in the middle. */
   -webkit-mask:
-    linear-gradient(to right, #000, transparent min(190px, 22%)),
-    linear-gradient(to left, #000, transparent min(190px, 22%)),
-    linear-gradient(to bottom, #000, transparent 130px),
-    linear-gradient(to top, #000, transparent 130px);
+    linear-gradient(to right, #000, transparent min(95px, 11%)),
+    linear-gradient(to left, #000, transparent min(95px, 11%)),
+    linear-gradient(to bottom, #000, transparent 70px),
+    linear-gradient(to top, #000, transparent 70px);
   mask:
-    linear-gradient(to right, #000, transparent min(190px, 22%)),
-    linear-gradient(to left, #000, transparent min(190px, 22%)),
-    linear-gradient(to bottom, #000, transparent 130px),
-    linear-gradient(to top, #000, transparent 130px);
+    linear-gradient(to right, #000, transparent min(95px, 11%)),
+    linear-gradient(to left, #000, transparent min(95px, 11%)),
+    linear-gradient(to bottom, #000, transparent 70px),
+    linear-gradient(to top, #000, transparent 70px);
 }
 /* The colour source. Square and oversized so its corners still cover the
    section at every angle; a conic gradient's colour depends only on the
@@ -663,16 +666,19 @@ h1, h2, h3, h4 {
   left: 50%;
   width: 150%;
   aspect-ratio: 1;
+  /* Blue holds a wide plateau rather than a single peak, so it reads as an
+     equal partner to the red instead of a passing tint. Start and end on
+     the same colour or the sweep shows a seam where it wraps. */
   background: conic-gradient(
     from 0deg,
     var(--accent-alert) 0deg,
-    var(--siren-blue) 150deg,
-    var(--accent-alert) 260deg,
-    var(--siren-blue) 330deg,
+    var(--siren-blue) 95deg,
+    var(--siren-blue) 200deg,
+    var(--accent-alert) 300deg,
     var(--accent-alert) 360deg);
   transform: translate(-50%, -50%);
-  opacity: 0.7;
-  filter: blur(40px);
+  opacity: 0.85;
+  filter: blur(35px);
   will-change: transform;
   animation: siren-orbit 22s linear infinite;
 }

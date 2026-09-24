@@ -137,9 +137,12 @@ niektóre wcześniejsze ustalenia poniżej:
       krawędź, sumowanych (wiele warstw maski domyślnie składa się przez
       `add`). Każda wygasza się do środka na stałym dystansie, więc
       rozświetlona obwódka ma równą grubość i trzyma się **prostych
-      krawędzi** sekcji. Boki mają cap `min(190px, 22%)` — na stałych
-      190px pasma nachodzą na siebie na telefonie i środek się nie
-      czyści (sprawdzone na 375px).
+      krawędzi** sekcji. Boki `min(95px, 11%)`, góra/dół `70px` — płytko
+      i to jest celowe: po porównaniu z referencją (obejrzaną na żywo)
+      pasmo tam sięga jakieś 5–8% szerokości, a środek jest praktycznie
+      czarny. Wcześniejsze `22%` na stronę podbarwiało prawie połowę
+      sekcji i kładło tekst na washu. Cap procentowy jest konieczny, bo
+      na stałych pikselach pasma nachodzą na siebie na telefonie.
     - `.siren-rim__spin` — `conic-gradient` (`--accent-alert` +
       `--siren-blue`), kwadratowy i przewymiarowany (`width: 150%;
       aspect-ratio: 1`), żeby narożniki pokrywały sekcję przy każdym
@@ -147,6 +150,10 @@ niektóre wcześniejsze ustalenia poniżej:
       `transform: rotate` przesuwa mieszankę dookoła obwódki i zostaje na
       GPU. Animowanie samego gradientu (kąt przez `@property`)
       przemalowywałoby rozmytą warstwę w każdej klatce — świadomie nie.
+      Niebieski dostaje **szerokie plateau** (95°–200°), a nie pojedynczy
+      punkt, i został rozjaśniony (`#4E77B0` dark / `#5583C0` light) —
+      przy poprzednim `#3E5C82` ginął na tle sekcji. Conic musi zaczynać
+      i kończyć tym samym kolorem, inaczej na zawinięciu widać szew.
     - Tempo: 22 s na pełny obrót, `linear` (zmierzone 16,4°/s) — wolniej
       niż referencja. Clip przez `overflow: hidden` na sekcji, statyczne
       przy `prefers-reduced-motion`.
