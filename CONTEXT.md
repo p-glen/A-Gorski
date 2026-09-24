@@ -30,8 +30,13 @@ zbudowany na wzór loveandmoney.com i GSAP "pinned panels with overscroll":
     scrolla dławionym przez `requestAnimationFrame`.
   - Bonus dla docelowego portu: bez GSAP całość jest znacznie łatwiejsza do
     przeniesienia na Webflow, gdzie Custom Code jest zablokowany planem.
-- **Pasek telefoniczny** (`.intro-floating-cta`) — czerwony pasek na całą
-  szerokość przy dolnej krawędzi. Łączy dwie rzeczy, o które prosił klient:
+- **Pasek telefoniczny** (`.intro-floating-cta`) — ⚠️ **ODSTAWIONY
+  (2026-09-24)**: znacznik w `index.html` jest zakomentowany, bo w tej
+  formie nie spełniał oczekiwań wizualnie. CSS i JS zostają nietknięte,
+  wszyscy konsumenci czytają zmienne z fallbackiem, więc bez znacznika
+  rezerwacja zwija się do zera sama (sprawdzone: `padding-bottom` = 0,
+  stopka sięga dokładnie dolnej krawędzi). Powrót = odkomentowanie bloku.
+  Opis zachowania poniżej zostaje na wypadek powrotu:
   - **Pojawia się na scroll**, dokładnie jak wcześniejsza „metka”: siedzi
     poza ekranem przez pierwsze 45% zakresu intro, wysuwa się między 45%
     a 80% (`--tab-reveal` liczone z `--intro-progress` w tym samym
