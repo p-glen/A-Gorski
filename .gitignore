@@ -1,0 +1,5 @@
+# Machine-local Claude Code permissions; contains absolute paths from one
+# machine and is not meant to be shared. .claude/launch.json is tracked.
+.claude/settings.local.json
+
+.DS_Store

@@ -1,0 +1,42 @@
+:root {
+  --background: #1C1A17;
+  --surface: #2A2620;
+  --background-deep: #17140F;
+  --text: #F3EFE6;
+  --text-secondary: #C9C1B2;
+  --text-muted: #8F8672;
+  --border: #3A352C;
+  --accent-brass: #B08D57;
+  --accent-brass-hover: #C9A227;
+  --accent-green: #3B5D45;
+  --accent-alert: #B5424C;
+
+  /* Fixed regardless of light/dark: the intro screen is a deliberate,
+     one-time high-impact moment, not part of the ambient theme. */
+  --intro-red: #EA0F0B;
+  --intro-black: #000000;
+  --intro-progress: 0;
+
+  --font-heading: 'Bodoni Moda', serif;
+  --font-body: 'IBM Plex Sans', sans-serif;
+
+  --size-hero-heading: 2.875rem;
+  --size-body: 1.125rem;
+
+  --space-section-y: 5rem;
+  --space-section-y-lg: 6.25rem;
+}
+
+:root[data-theme="light"] {
+  --background: #F3EFE6;
+  --surface: #EAE3D3;
+  --background-deep: #FBF9F3;
+  --text: #1C1A17;
+  --text-secondary: #5C5344;
+  --text-muted: #8F8672;
+  --border: #D9D0BE;
+  --accent-brass: #8C6D3F;
+  --accent-brass-hover: #6E5530;
+  --accent-green: #3B5D45;
+  --accent-alert: #9A3540;
+}

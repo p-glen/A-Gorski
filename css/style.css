@@ -1,0 +1,1042 @@
+/* ---------- Reset & base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background-color: var(--background);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+img { max-width: 100%; display: block; }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; margin: 0; padding: 0; }
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  margin: 0 0 1rem;
+  line-height: 1.2;
+}
+
+/* ---------- Intro / emergency screen ----------
+   A one-time, full-viewport "in your face" moment for someone who has just
+   been stopped or searched and is on their phone, not browsing. Sits before
+   <header> in the DOM (not fixed/overlaid) so it simply IS the first thing
+   on the page and scrolls away like normal content; --intro-progress (0-1,
+   set by js/main.js from scroll position, rAF-throttled) drives a continuous
+   red-to-page-background color crossfade and a content fade/lift, so the
+   transition reads as smooth scrubbing rather than a hard cut. The nav's own
+   Pomoc 24/7 button (always present, unhidden) only becomes visible once the
+   sticky header scrolls into view past this section, which is what creates
+   the "the button moved into the nav" illusion without any position math. */
+/* One viewport of scroll, and not a pixel more: this is the entire budget
+   for the intro sequence. The screen sticks to the top for the length of
+   the stage, so it appears to hold still while #page-content -- the very
+   next thing in normal flow -- scrolls up over it. */
+.intro-stage {
+  height: 100dvh;
+}
+/* Fixed rather than sticky on purpose: sticky only holds while its
+   container has leftover room, so holding for one viewport would need a
+   two-viewport container -- which is exactly the extra scroll distance
+   this layout exists to avoid. Fixed holds for free, and .intro-stage
+   above reserves the one viewport of scroll that drives the retreat. */
+.intro-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  padding: 0;
+  color: var(--intro-black);
+  background-color: var(--intro-red);
+  transform-origin: center center;
+}
+/* The retreat itself is driven by --intro-progress (js/main.js), and is
+   gated on data-intro so that with no JS, or with reduced motion, the
+   screen simply stays opaque and the nav stays put. */
+:root[data-intro="on"] .intro-screen {
+  opacity: calc(1 - var(--intro-progress));
+  transform: scale(calc(1 - var(--intro-progress) * 0.1));
+  will-change: transform, opacity;
+}
+/* Once fully retreated it is invisible but still a live, viewport-sized
+   fixed layer under the whole page; this drops it out of painting for the
+   rest of the visit (and comes back if you scroll up). */
+:root[data-intro-done] .intro-screen {
+  visibility: hidden;
+}
+.intro-screen__body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  padding: 6vw 4vw 5vw;
+}
+
+/* The rest of the site: a single opaque unit that sits right after the
+   one-viewport intro stage, so ordinary scrolling slides it up over the
+   retreating intro. Needs a real background of its own for that cover-up
+   to read as solid, and stays above the intro's layer. */
+#page-content {
+  position: relative;
+  z-index: 2;
+  background-color: var(--background);
+  /* The nav is always position: fixed now (see .site-nav) and reserves no
+     document-flow space of its own, so this stands in for it -- js/main.js
+     sets the real pixel value from the nav's measured height. */
+  padding-top: var(--nav-height, 0px);
+}
+
+/* Headline: single word element, its font-size computed in JS from the
+   widest of the three rotator words so it never changes size between
+   them -- only the word itself changes. Centered in the space above the
+   bottom block (flex: 1 on the wrap), which reads better on mobile than
+   pinning it to the very top. */
+.intro-screen__headline-wrap {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.intro-screen__rotator {
+  position: relative;
+  width: 100%;
+  font-family: 'Boldonse', var(--font-body);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: nowrap;
+}
+.intro-screen__rotator-word {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: inline-block;
+  /* Top/bottom insets sit well outside the box (not 0) on purpose: Boldonse's
+     glyphs (like a lot of display faces) render taller than a 1x line-height
+     box, and a clip-path with top/bottom at exactly the box edge turns that
+     normally-harmless overflow into a hard crop, shaving the tops and
+     bottoms off every letter. Only left/right control the typing reveal. */
+  clip-path: inset(-50% 100% -50% 0);
+}
+
+.intro-screen__bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
+  align-self: center;
+  text-align: center;
+}
+.intro-screen__subheader {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(1.75rem, 2.6vw + 1.1rem, 2.75rem);
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  text-transform: uppercase;
+  margin: 0;
+}
+.intro-screen__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.875rem;
+  background-color: var(--intro-black);
+  color: #fff;
+  padding: 1rem 1.75rem;
+  border-radius: 2px;
+  transition: transform 0.16s ease-out, background-color 0.2s ease;
+}
+.intro-screen__cta:hover { background-color: #1a1a1a; }
+.intro-screen__cta:active { transform: scale(0.97); }
+.intro-screen__cta-icon {
+  width: 1.375rem;
+  height: 1.375rem;
+  flex-shrink: 0;
+}
+.intro-screen__cta-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.25;
+}
+.intro-screen__cta-text strong {
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+.intro-screen__cta-text span {
+  font-size: 0.8125rem;
+  opacity: 0.75;
+}
+@media (prefers-reduced-motion: reduce) {
+  /* The GSAP pin/scale/slide-over transition is skipped entirely in JS for
+     these users (see js/main.js); this just covers the rotator's own
+     letter-by-letter reveal. */
+  .intro-screen__rotator-word { clip-path: none !important; opacity: 1; transition: opacity 0.3s ease; }
+}
+
+/* Persistent floating CTA: fixed to the bottom, docked off-screen until
+   --tab-reveal (set in js/main.js from --intro-progress, once the intro is
+   mostly scrolled past) rises from 0 to 1, then it stays visible for the
+   rest of the visit. Driven directly off scroll position, not a CSS
+   transition, so it tracks the finger/wheel 1:1 instead of trailing it. */
+.intro-floating-cta {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  z-index: 150;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  background-color: var(--intro-red);
+  color: var(--intro-black);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.9375rem;
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+  padding: 0.875rem 1.25rem;
+  border-radius: 14px 14px 0 0;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.3);
+  transform: translate(-50%, calc((1 - var(--tab-reveal, 0)) * 140%));
+  opacity: var(--tab-reveal, 0);
+}
+.intro-floating-cta:hover { background-color: var(--intro-black); color: #fff; }
+.intro-floating-cta__icon { width: 1.125rem; height: 1.125rem; flex-shrink: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .intro-floating-cta { transition: opacity 0.3s ease; }
+}
+
+/* Serif (Bodoni Moda) stays reserved for large display moments: the Hero H1,
+   section H2s, and the reason-band pull-quote. Small, repeated headings
+   inside cards/list items read poorly in a display serif at that size, so
+   they use the body sans instead (matches Apple HIG typography.md: minimize
+   typefaces per hierarchy level, avoid thin/decorative weights for small
+   text). */
+.specjalizacje-card h3,
+.knowledge-card h3,
+.reason-item h3 {
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+
+.container {
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.section-eyebrow {
+  display: inline-block;
+  font-size: 0.8125rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.section-heading {
+  font-size: 1.875rem;
+}
+
+.section-intro {
+  color: var(--text-secondary);
+  max-width: 640px;
+  margin: 0 auto 2.5rem;
+}
+
+.text-center { text-align: center; }
+
+.button-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--accent-brass);
+  color: var(--background-deep);
+  font-weight: 600;
+  padding: 0.875rem 1.75rem;
+  border-radius: 2px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.button-primary:hover { background-color: var(--accent-brass-hover); }
+
+/* Quiet-until-needed "emergency" affordance: no filled background (that stays
+   reserved for the primary action), signals its distinct purpose via an icon
+   and an availability dot, and only takes on color on hover/focus. */
+.button-alert {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  padding: 0.875rem 1.5rem;
+  border-radius: 2px;
+  white-space: nowrap;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+.button-alert:hover,
+.button-alert:focus-visible {
+  border-color: var(--accent-brass);
+  color: var(--accent-brass);
+  background-color: color-mix(in srgb, var(--accent-brass) 8%, transparent);
+}
+.button-alert__icon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+.button-alert__dot {
+  position: relative;
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 50%;
+  background-color: var(--accent-green);
+  flex-shrink: 0;
+}
+.button-alert__dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-color: var(--accent-green);
+  animation: dot-pulse 2s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+}
+@keyframes dot-pulse {
+  0% { transform: scale(1); opacity: 0.55; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .button-alert__dot::after { animation: none; }
+}
+
+/* ---------- Navbar ----------
+   Always `position: fixed` (not sticky) and living outside #page-content
+   on purpose: it's its own independently-animated layer that slides down
+   from above the viewport as the intro retreats (js/main.js), rather than
+   being nested inside the element GSAP transforms for that transition --
+   sticky positioning inside a transformed ancestor is undefined by the CSS
+   spec and was the real cause of an earlier flash/redundant-scroll bug. */
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: color-mix(in srgb, var(--background) 65%, transparent);
+  backdrop-filter: blur(28px) saturate(1.4);
+  -webkit-backdrop-filter: blur(28px) saturate(1.4);
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+}
+/* Slides down from above the viewport in step with the intro's retreat, on
+   its own layer -- never nested inside anything that gets transformed. */
+:root[data-intro="on"] .site-nav {
+  transform: translateY(calc((var(--intro-progress) - 1) * 100%));
+}
+@media (prefers-reduced-transparency: reduce) {
+  .site-nav {
+    background-color: var(--background);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+.site-nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.125rem 1.5rem;
+}
+.site-nav__logo {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.site-nav__links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.site-nav__links a {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+.site-nav__links a:hover { color: var(--accent-brass); }
+.site-nav__links a.site-nav__urgent { color: var(--accent-brass); }
+.site-nav__links a.site-nav__urgent:hover { color: var(--accent-brass-hover); }
+.site-nav__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.theme-toggle {
+  position: fixed;
+  left: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 200;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  background-color: color-mix(in srgb, var(--surface) 55%, transparent);
+  backdrop-filter: blur(20px) saturate(1.3);
+  -webkit-backdrop-filter: blur(20px) saturate(1.3);
+  color: var(--text);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.theme-toggle:hover {
+  border-color: var(--accent-brass);
+  transform: translateY(-2px);
+}
+@media (prefers-reduced-transparency: reduce) {
+  .theme-toggle {
+    background-color: var(--surface);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  padding: 6rem 0 5.5rem;
+  overflow: hidden;
+  isolation: isolate;
+}
+.hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+.hero__media::before {
+  content: "";
+  position: absolute;
+  inset: -24px;
+  background-image: url('https://picsum.photos/seed/kag-adwokat-biuro/1800/1400');
+  background-size: cover;
+  background-position: center;
+  filter: blur(22px) saturate(0.85);
+  transform: scale(1.03);
+}
+.hero__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--background) 58%, transparent) 0%, color-mix(in srgb, var(--background) 88%, transparent) 100%),
+    color-mix(in srgb, var(--accent-green) 10%, transparent);
+}
+.hero h1 {
+  font-size: clamp(2.75rem, 4vw + 1.25rem, 4.25rem);
+  max-width: 27ch;
+}
+.hero__lead {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  max-width: 46ch;
+  margin-bottom: 2.5rem;
+}
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.free-note {
+  margin-top: 1.125rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+/* ---------- Model Pracy / Reason to believe (green identity) ---------- */
+.reason-band {
+  padding: var(--space-section-y) 0;
+  background-color: var(--background-deep);
+}
+.reason-band__hook {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: clamp(1.5rem, 1.2vw + 1.15rem, 2.125rem);
+  line-height: 1.4;
+  max-width: 42ch;
+  color: var(--text);
+  margin: 0 0 3rem;
+  padding-bottom: 0.25rem;
+}
+.reason-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 2rem;
+  border-top: 1px solid var(--accent-green);
+}
+.reason-item {
+  position: relative;
+  padding: 1.75rem 1rem;
+}
+.reason-item:first-child { padding-left: 0; }
+.reason-item:last-child { padding-right: 0; }
+.reason-item:not(:first-child)::before {
+  content: "";
+  position: absolute;
+  left: -1rem;
+  top: 0;
+  bottom: 0;
+  border-left: 2px dotted var(--border);
+}
+.reason-item h3 {
+  font-size: 1.0625rem;
+  color: var(--accent-green);
+  margin-bottom: 0.5rem;
+}
+.reason-item p {
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  margin: 0;
+}
+
+/* ---------- Specjalizacje (brass identity) ---------- */
+.specjalizacje-section {
+  padding: var(--space-section-y) 0;
+}
+.specjalizacje-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+.specjalizacje-card {
+  border-top: 2px solid var(--accent-brass);
+  padding-top: 1.5rem;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.specjalizacje-card:hover {
+  border-top-color: var(--accent-brass-hover);
+  transform: translateY(-2px);
+}
+.specjalizacje-card h3 {
+  color: var(--accent-brass);
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+}
+.specjalizacje-card p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin: 0 0 1rem;
+}
+.specjalizacje-card ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+}
+.specjalizacje-card li {
+  position: relative;
+  padding-left: 1rem;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+.specjalizacje-card li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 6px;
+  height: 1px;
+  background-color: var(--accent-brass);
+}
+.specjalizacje-card .more-link {
+  display: inline-block;
+  color: var(--accent-brass);
+  font-size: 0.875rem;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.specjalizacje-card:hover .more-link {
+  border-color: var(--accent-brass);
+}
+
+/* ---------- Sprawa pilna (alert identity: distinct semantic purpose, not
+   just another section color) ---------- */
+.sprawa-pilna-section {
+  --siren-blue: #3E5C82;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding: var(--space-section-y) 0;
+  border-top: 2px solid var(--accent-alert);
+  background-color: var(--background-deep);
+}
+:root[data-theme="light"] .sprawa-pilna-section {
+  --siren-blue: #4A6E9C;
+}
+/* Ambient "siren" glow: the red/blue blend orbits slowly around the
+   section rather than pulsing in place.
+
+   ::before is a conic gradient -- its colour depends only on the angle
+   from its centre, so simply rotating the element makes the whole blend
+   travel around the edges. Rotation is a plain transform, which stays on
+   the GPU; animating the gradient itself (via an @property angle) would
+   repaint a heavily blurred layer every frame instead. The box is square
+   and oversized so its corners still cover the section at every angle,
+   and `overflow: hidden` on the section clips the excess.
+
+   ::after then lays the section's own background back over the middle as
+   a soft vignette, which is what turns the disc into a frame: colour only
+   near the edges, clean centre so the text keeps its contrast. */
+.siren-rim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  /* Four edge bands, one per side, unioned (multiple mask layers composite
+     with `add` by default). Each fades inward over a fixed pixel distance,
+     so the lit rim keeps the same thickness the whole way round and follows
+     the section's straight edges -- an inner shadow, not a circle. The
+     middle falls outside every band, so it stays clean. */
+  /* The side bands are capped as a share of the width as well: at 190px flat
+     they overlap on a phone and the middle never clears, putting the copy on
+     a pink wash. */
+  -webkit-mask:
+    linear-gradient(to right, #000, transparent min(190px, 22%)),
+    linear-gradient(to left, #000, transparent min(190px, 22%)),
+    linear-gradient(to bottom, #000, transparent 130px),
+    linear-gradient(to top, #000, transparent 130px);
+  mask:
+    linear-gradient(to right, #000, transparent min(190px, 22%)),
+    linear-gradient(to left, #000, transparent min(190px, 22%)),
+    linear-gradient(to bottom, #000, transparent 130px),
+    linear-gradient(to top, #000, transparent 130px);
+}
+/* The colour source. Square and oversized so its corners still cover the
+   section at every angle; a conic gradient's colour depends only on the
+   angle from its centre, so rotating it walks the red/blue blend around
+   the rim above -- as a plain transform, which stays on the GPU. */
+.siren-rim__spin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150%;
+  aspect-ratio: 1;
+  background: conic-gradient(
+    from 0deg,
+    var(--accent-alert) 0deg,
+    var(--siren-blue) 150deg,
+    var(--accent-alert) 260deg,
+    var(--siren-blue) 330deg,
+    var(--accent-alert) 360deg);
+  transform: translate(-50%, -50%);
+  opacity: 0.7;
+  filter: blur(40px);
+  will-change: transform;
+  animation: siren-orbit 22s linear infinite;
+}
+@keyframes siren-orbit {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .siren-rim__spin {
+    animation: none;
+    transform: translate(-50%, -50%);
+  }
+}
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.25rem;
+  margin-bottom: 3rem;
+}
+.step {
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+}
+.step__num {
+  display: block;
+  font-size: 0.8125rem;
+  letter-spacing: 0.12em;
+  color: var(--accent-alert);
+  margin-bottom: 0.75rem;
+}
+.step h3 {
+  font-size: 1.0625rem;
+  margin-bottom: 0.5rem;
+}
+.step p {
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  margin: 0;
+}
+.urgent-cta-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  padding: 1.375rem 1.625rem;
+  border: 1px solid var(--border);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.urgent-cta-link:hover {
+  border-color: var(--accent-alert);
+  background-color: color-mix(in srgb, var(--accent-alert) 6%, transparent);
+}
+.urgent-cta-link__title {
+  font-size: 1.0625rem;
+}
+.urgent-cta-link__go {
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-brass);
+  white-space: nowrap;
+}
+
+/* ---------- Adwokat (bio) ---------- */
+.bio-section {
+  padding: var(--space-section-y) 0;
+}
+.bio-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 3.5rem;
+  align-items: start;
+}
+.portrait {
+  aspect-ratio: 4 / 5;
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  background-image: linear-gradient(180deg, color-mix(in srgb, var(--background) 10%, transparent), color-mix(in srgb, var(--background) 55%, transparent)), url('https://picsum.photos/seed/kag-adwokat-portret/900/1125');
+  background-size: cover;
+  background-position: center;
+}
+.bio-intro {
+  font-family: var(--font-heading);
+  font-size: 1.1875rem;
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+}
+.bio-placeholder {
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 0.9375rem;
+  border: 1px dashed var(--border);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+}
+.credentials {
+  margin-top: 1.75rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.375rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 2.1;
+}
+.credentials b {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* ---------- Strefa Wiedzy (minimal, green divider) ---------- */
+.strefa-wiedzy-section {
+  padding: var(--space-section-y) 0;
+}
+.strefa-wiedzy-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+.knowledge-card {
+  display: block;
+  border-top: 1px solid var(--accent-green);
+  padding-top: 1.5rem;
+  transition: padding-left 0.2s ease;
+}
+.knowledge-card:hover { padding-left: 0.5rem; }
+.knowledge-card__date {
+  display: block;
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+.knowledge-card h3 {
+  font-size: 1.0625rem;
+  line-height: 1.4;
+  margin-bottom: 0.875rem;
+}
+.knowledge-card__tag {
+  display: inline-block;
+  font-size: 0.8125rem;
+  color: var(--accent-green);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+.knowledge-card:hover .knowledge-card__tag {
+  border-color: var(--accent-green);
+}
+
+/* ---------- Rezerwacja (high contrast CTA) ---------- */
+.rezerwacja-section {
+  padding: var(--space-section-y-lg) 0;
+  background-color: var(--background-deep);
+}
+.rezerwacja-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+.rezerwacja-content h2 {
+  font-size: var(--size-hero-heading);
+}
+.rezerwacja-content p {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+.calendesk-embed {
+  align-self: stretch;
+}
+.calendesk-frame {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  display: block;
+  border: none;
+  margin: 0;
+  height: 620px;
+}
+.rezerwacja-tel {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: clamp(1.625rem, 2vw + 1rem, 2.25rem);
+  color: var(--text);
+  margin: 0.25rem 0 0.75rem;
+  transition: color 0.2s ease;
+}
+.rezerwacja-tel:hover { color: var(--accent-brass); }
+.rezerwacja-signal {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+}
+.rezerwacja-address {
+  font-style: normal;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  font-size: 0.9375rem;
+  margin-bottom: 1.25rem;
+}
+.rezerwacja-hours {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+.rezerwacja-hours b { color: var(--text); font-weight: 600; }
+
+/* ---------- Contact form ---------- */
+.contact-form-section {
+  padding-top: var(--space-section-y);
+  border-top: 1px solid var(--border);
+  margin-top: var(--space-section-y-lg);
+}
+.contact-form-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 3rem;
+}
+.form-warning {
+  border-left: 2px solid var(--accent-alert);
+  padding: 0.875rem 0 0.875rem 1.25rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  background-color: color-mix(in srgb, var(--accent-alert) 6%, transparent);
+  margin-bottom: 1.5rem;
+}
+.form-warning b { color: var(--text); font-weight: 600; }
+.contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+.form-field { display: flex; flex-direction: column; gap: 0.5rem; }
+.form-field label {
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  background-color: var(--background);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 0.75rem 0.875rem;
+  border-radius: 2px;
+  transition: border-color 0.2s ease;
+}
+.form-field input:hover,
+.form-field textarea:hover,
+.form-field input:focus,
+.form-field textarea:focus {
+  border-color: var(--accent-brass);
+  outline: none;
+}
+.form-field textarea { resize: vertical; min-height: 5.5rem; }
+.form-consent {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.form-consent a { border-bottom: 1px solid var(--accent-brass); }
+
+/* ---------- Footer ---------- */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 3rem 0 1.5rem;
+  background-color: var(--background-deep);
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 2rem;
+  padding-bottom: 2rem;
+}
+.footer-grid h4 {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+}
+.footer-grid p, .footer-grid a {
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.8;
+}
+.footer-grid a:hover { color: var(--accent-brass); }
+.footer-assoc {
+  margin-top: 0.875rem;
+  padding-top: 0.875rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+.footer-assoc a {
+  color: var(--text);
+  border-bottom: 1px solid var(--accent-brass);
+}
+.footer-disclaimer {
+  max-width: 70ch;
+  margin-top: 1.5rem;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+.footer-bottom {
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 991px) {
+  .specjalizacje-grid,
+  .strefa-wiedzy-grid,
+  .steps-grid { grid-template-columns: repeat(2, 1fr); }
+  .reason-list { grid-template-columns: 1fr; }
+  .reason-item {
+    padding: 1.5rem 0;
+  }
+  .reason-item::before { display: none; }
+  .reason-item:not(:first-child) { border-top: 2px dotted var(--border); }
+  .reason-item:first-child { padding-top: 0; }
+  .rezerwacja-grid,
+  .bio-grid,
+  .contact-form-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 1099px) {
+  .site-nav__links { display: none; }
+  .nav-toggle { display: inline-flex; }
+  .button-alert--nav {
+    padding: 0.75rem;
+    gap: 0.375rem;
+  }
+  .button-alert--nav .button-alert__label { display: none; }
+}
+
+@media (max-width: 767px) {
+  .site-nav__actions .button-primary { display: none; }
+  .specjalizacje-grid,
+  .strefa-wiedzy-grid,
+  .steps-grid { grid-template-columns: 1fr; }
+  .hero { padding: 4rem 0 3rem; }
+  .hero h1 { font-size: 2.25rem; }
+  .site-nav__inner { padding: 1rem; }
+  .site-nav__logo { font-size: 1.0625rem; }
+  .site-nav__actions { gap: 0.5rem; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 0.5rem; }
+  .intro-floating-cta {
+    font-size: 0.75rem;
+    padding: 0.75rem 1rem;
+    gap: 0.5rem;
+    border-radius: 10px 10px 0 0;
+    white-space: nowrap;
+  }
+  .intro-floating-cta__icon { width: 1rem; height: 1rem; }
+}
+
+/* mobile nav open state */
+body.nav-open .site-nav__links {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--background);
+  border-bottom: 1px solid var(--border);
+  padding: 1.5rem;
+  gap: 1.25rem;
+}

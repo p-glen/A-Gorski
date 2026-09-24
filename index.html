@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="pl" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Adwokat Arkadiusz Górski, obrona w sprawach karnych i gospodarczych | Warszawa</title>
+  <meta name="description" content="Adwokat Arkadiusz Górski, Warszawa: obrona i reprezentacja pokrzywdzonych w sprawach karnych i karnych gospodarczych, criminal compliance, AML, kary administracyjne. Pierwsza rozmowa jest bezpłatna.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;1,400;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Boldonse&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css?v=7">
+  <link rel="stylesheet" href="css/style.css?v=7">
+</head>
+<body>
+
+  <!-- INTRO / EMERGENCY SCREEN
+       The stage is an empty block exactly one viewport tall: it is the whole
+       scroll budget for the intro. The screen itself is `position: fixed`,
+       so it holds still and costs no flow space, while #page-content -- the
+       next thing in normal flow -- rides up over it on plain scrolling. No
+       pin, no spacer, so there is no reserved distance to scroll twice. -->
+  <div class="intro-stage">
+  <section class="intro-screen" id="intro-screen">
+    <span class="sr-only">Zatrzymanie, przeszukanie, wezwanie na przesłuchanie: zanim cokolwiek powiesz,
+      zadzwoń.</span>
+    <div class="intro-screen__body">
+      <div class="intro-screen__headline-wrap">
+        <div class="intro-screen__rotator" aria-hidden="true">
+          <span class="intro-screen__rotator-word">Zatrzymanie</span>
+        </div>
+      </div>
+      <div class="intro-screen__bottom">
+        <p class="intro-screen__subheader" aria-hidden="true">Zanim cokolwiek powiesz.</p>
+        <a class="intro-screen__cta" href="tel:+48792892457">
+          <svg class="intro-screen__cta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8Z"/></svg>
+          <span class="intro-screen__cta-text">
+            <strong>Zadzwoń teraz</strong>
+            <span>792 892 457</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- Persistent floating CTA: docked below the viewport until the intro
+       has mostly scrolled by, then it slides up and stays for the rest of
+       the visit -- the "always one tap away" promise, now living at the
+       bottom instead of the top nav. -->
+  <a class="intro-floating-cta" href="tel:+48792892457" aria-label="Zanim cokolwiek powiesz, zadzwoń: 792 892 457">
+    <span>Zanim cokolwiek powiesz</span>
+    <svg class="intro-floating-cta__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8Z"/></svg>
+  </a>
+
+  <!-- Nav is its own layer: always `position: fixed`, on top of everything
+       (see its z-index), sliding down from above the viewport as the intro
+       retreats. Deliberately NOT inside #page-content, which rides up past
+       it during that stretch. -->
+  <header class="site-nav">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="#hero">Adw. Arkadiusz Górski</a>
+
+      <nav class="site-nav__links">
+        <a href="#specjalizacje">Specjalizacje</a>
+        <a href="#adwokat">Adwokat</a>
+        <a href="#publikacje">Publikacje</a>
+      </nav>
+
+      <div class="site-nav__actions">
+        <a class="button-primary" href="#rezerwacja">Umów konsultację</a>
+        <a class="button-alert button-alert--nav" href="pomoc-w-zatrzymaniach.html" aria-label="Pomoc 24/7">
+          <svg class="button-alert__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8Z"/></svg>
+          <span class="button-alert__label">Pomoc 24/7</span>
+          <span class="button-alert__dot" aria-hidden="true"></span>
+        </a>
+        <button class="nav-toggle" type="button" aria-label="Otwórz menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- The transition surface. It never leaves normal flow: sitting directly
+       after the one-viewport stage means plain scrolling carries it up over
+       the retreating intro, and there is no moment where anything is handed
+       back from fixed to static. Opaque background so the red screen never
+       shows through, and padded at the top to clear the fixed nav. -->
+  <div id="page-content">
+  <main>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <div class="hero__media" aria-hidden="true"></div>
+      <div class="container">
+        <span class="section-eyebrow">Kancelaria Adwokacka · Adwokat karnista</span>
+        <h1>Obrona i reprezentacja pokrzywdzonych w sprawach karnych.</h1>
+        <p class="hero__lead">Występuję po obu stronach postępowania: jako obrońca i jako pełnomocnik pokrzywdzonego. Przedsiębiorców reprezentuję w sprawach compliance i AML.</p>
+        <div class="hero__actions">
+          <a class="button-primary" href="#rezerwacja">Umów konsultację</a>
+          <a class="button-alert" href="pomoc-w-zatrzymaniach.html">
+            <svg class="button-alert__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8Z"/></svg>
+            <span class="button-alert__label">Pomoc 24/7</span>
+            <span class="button-alert__dot" aria-hidden="true"></span>
+          </a>
+        </div>
+        <p class="free-note">Pierwsza rozmowa jest bezpłatna. Służy ustaleniu, czy i w jaki sposób mogę Państwu pomóc.</p>
+      </div>
+    </section>
+
+    <!-- MODEL PRACY / REASON TO BELIEVE -->
+    <section class="reason-band" id="model-pracy" data-section="model-pracy">
+      <div class="container">
+        <p class="reason-band__hook">To, kto odbiera telefon w pierwszych godzinach, często decyduje
+          o dalszym przebiegu sprawy.</p>
+        <div class="reason-list">
+          <div class="reason-item">
+            <h3>Sprawę prowadzę osobiście</h3>
+            <p>Od pierwszej rozmowy do prawomocnego zakończenia. Akta czyta i rozprawy prowadzi ta sama osoba, która przyjęła sprawę.</p>
+          </div>
+          <div class="reason-item">
+            <h3>Kontakt bez pośredników</h3>
+            <p>Bezpośredni numer telefonu, bez sekretariatu jako filtra. W sprawach zatrzymań kontakt również poza godzinami pracy.</p>
+          </div>
+          <div class="reason-item">
+            <h3>Ograniczona liczba spraw</h3>
+            <p>Przyjmuję tyle spraw, ile pozwala na rzetelne przygotowanie każdej z nich. Jeśli nie mogę się podjąć sprawy, mówię o tym od razu.</p>
+          </div>
+          <div class="reason-item">
+            <h3>Jasne zasady rozliczeń</h3>
+            <p>Zakres i wynagrodzenie ustalamy pisemnie przed rozpoczęciem pracy. O kosztach informuję, zanim powstaną.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SPECJALIZACJE -->
+    <section class="specjalizacje-section" id="specjalizacje" data-section="specjalizacje">
+      <div class="container">
+        <div class="text-center">
+          <h2 class="section-heading">Sześć obszarów, w których prowadzę sprawy</h2>
+          <p class="section-intro">
+            Praktyka jest zawężona świadomie. Sprawy karne gospodarcze, postępowania sankcyjne i compliance
+            korzystają z tej samej wiedzy o tym, jak działają organy, a ten sam stan faktyczny bywa
+            zarazem podstawą roszczeń cywilnych.
+          </p>
+        </div>
+        <div class="specjalizacje-grid">
+          <article class="specjalizacje-card">
+            <h3>Prawo karne</h3>
+            <p>Obrona od pierwszego przesłuchania do postępowania wykonawczego.</p>
+            <ul>
+              <li>Postępowanie przygotowawcze i sądowe</li>
+              <li>Tymczasowe aresztowanie i środki zapobiegawcze</li>
+              <li>Apelacje, kasacje, wznowienia</li>
+              <li>Dozór elektroniczny, warunkowe zwolnienie</li>
+            </ul>
+            <a class="more-link" href="obszary-praktyki.html">Zobacz zakres →</a>
+          </article>
+          <article class="specjalizacje-card">
+            <h3>Prawo karne gospodarcze</h3>
+            <p>Sprawy, w których zarzut dotyczy decyzji podjętej w toku prowadzenia działalności.</p>
+            <ul>
+              <li>Przestępstwa przeciwko obrotowi gospodarczemu</li>
+              <li>Sprawy karnoskarbowe i wyłudzenia VAT</li>
+              <li>Działanie na szkodę spółki, nadużycie zaufania</li>
+              <li>Zabezpieczenia majątkowe i zajęcia</li>
+            </ul>
+            <a class="more-link" href="obszary-praktyki.html">Zobacz zakres →</a>
+          </article>
+          <article class="specjalizacje-card">
+            <h3>Criminal compliance</h3>
+            <p>Ograniczanie ryzyka karnego w organizacji, zanim pojawi się zawiadomienie.</p>
+            <ul>
+              <li>Analiza ryzyka karnego i procedury</li>
+              <li>Zgłoszenia sygnalistów</li>
+              <li>Wewnętrzne postępowania wyjaśniające</li>
+              <li>Odpowiedzialność podmiotów zbiorowych</li>
+            </ul>
+            <a class="more-link" href="obszary-praktyki.html">Zobacz zakres →</a>
+          </article>
+          <article class="specjalizacje-card">
+            <h3>AML</h3>
+            <p>Obowiązki instytucji obowiązanych i konsekwencje ich niedopełnienia.</p>
+            <ul>
+              <li>Ocena ryzyka, procedury, szkolenia</li>
+              <li>Kontrole GIIF i postępowania pokontrolne</li>
+              <li>Kary pieniężne za naruszenie obowiązków</li>
+              <li>Odpowiedzialność karna, art. 299 k.k.</li>
+            </ul>
+            <a class="more-link" href="obszary-praktyki.html">Zobacz zakres →</a>
+          </article>
+          <article class="specjalizacje-card">
+            <h3>Kary administracyjne</h3>
+            <p>Postępowania sankcyjne przed organami nadzoru i ich sądowa kontrola.</p>
+            <ul>
+              <li>UODO, UOKiK, KNF, GIIF, URE, UKE, PIP</li>
+              <li>Wymiar kary, odstąpienie, ulgi w wykonaniu</li>
+              <li>Skarga do WSA i wstrzymanie wykonania</li>
+              <li>Równoległe ryzyko karne</li>
+            </ul>
+            <a class="more-link" href="obszary-praktyki.html">Zobacz zakres →</a>
+          </article>
+          <article class="specjalizacje-card">
+            <h3>Zwalczanie nieuczciwej konkurencji</h3>
+            <p>Sprawy cywilne prowadzone samodzielnie albo równolegle do postępowania karnego.</p>
+            <ul>
+              <li>Naruszenie tajemnicy przedsiębiorstwa</li>
+              <li>Przejęcie klientów i pracowników</li>
+              <li>Naśladownictwo produktów i oznaczeń</li>
+              <li>Roszczenia zakazowe i odszkodowawcze</li>
+            </ul>
+            <a class="more-link" href="obszary-praktyki.html">Zobacz zakres →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SPRAWA PILNA -->
+    <section class="sprawa-pilna-section" id="sprawa-pilna" data-section="sprawa-pilna">
+      <!-- Ambient rim light. Two layers on purpose: the outer one carries a
+           mask shaped like the section's own rectangle, the inner one spins.
+           Keeping them apart is what makes the colour travel around a
+           straight-edged rim instead of painting a rotating circle. -->
+      <div class="siren-rim" aria-hidden="true"><span class="siren-rim__spin"></span></div>
+      <div class="container">
+        <div class="text-center">
+          <h2 class="section-heading">Zatrzymanie, przeszukanie, wezwanie na przesłuchanie</h2>
+          <p class="section-intro">
+            O przebiegu sprawy karnej często przesądza to, co wydarzy się jeszcze przed pierwszym
+            przesłuchaniem, zanim padnie jakiekolwiek oświadczenie. W takich sytuacjach proszę o telefon
+            bez względu na porę. Poniżej opisuję, co dzieje się po tej rozmowie.
+          </p>
+        </div>
+        <div class="steps-grid">
+          <div class="step">
+            <span class="step__num">01</span>
+            <h3>Ustalenie sytuacji procesowej</h3>
+            <p>Ustalam, w jakiej roli występuje osoba zainteresowana: świadka, podejrzanego czy podmiotu
+              kontrolowanego, jakie czynności już przeprowadzono i jakie terminy biegną.</p>
+          </div>
+          <div class="step">
+            <span class="step__num">02</span>
+            <h3>Zabezpieczenie pozycji procesowej</h3>
+            <p>Upoważnienie do obrony, zgłoszenie udziału w czynnościach, wniosek o dostęp do akt,
+              uzgodnienie stanowiska przed przesłuchaniem.</p>
+          </div>
+          <div class="step">
+            <span class="step__num">03</span>
+            <h3>Udział w czynnościach</h3>
+            <p>Obecność przy przesłuchaniu, przeszukaniu lub czynnościach kontrolnych. Reakcja na wnioski
+              o zastosowanie środków zapobiegawczych, w tym tymczasowego aresztowania.</p>
+          </div>
+        </div>
+        <a class="urgent-cta-link" href="pomoc-w-zatrzymaniach.html">
+          <span class="urgent-cta-link__title">Co robić w pierwszych godzinach i czego nie robić</span>
+          <span class="urgent-cta-link__go">Czytaj →</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ADWOKAT -->
+    <section class="bio-section" id="adwokat" data-section="adwokat">
+      <div class="container">
+        <span class="section-eyebrow">Adwokat</span>
+        <div class="bio-grid">
+          <div class="portrait" role="img" aria-label="Portret adwokata Arkadiusza Górskiego (do dostarczenia)"></div>
+          <div>
+            <p class="bio-intro">Arkadiusz Górski, adwokat wpisany na listę Okręgowej Izby Adwokackiej
+              w Warszawie.</p>
+            <p class="bio-placeholder">[Tu: 2-3 zdania o drodze zawodowej, wykształceniu i doświadczeniu
+              procesowym, ewentualnie o wcześniejszej pracy w organach ścigania, kontroli lub dziale
+              compliance. Treść do uzupełnienia przez Adwokata.]</p>
+            <p class="bio-placeholder">[Tu: akapit o podejściu do prowadzenia spraw i o tym, dlaczego
+              praktyka została zawężona do wskazanych obszarów.]</p>
+            <div class="credentials">
+              Izba: <b>Okręgowa Izba Adwokacka w Warszawie</b><br>
+              Numer wpisu: <b>ADW/WAW/8947</b><br>
+              Języki: <b>[do uzupełnienia]</b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PUBLIKACJE -->
+    <section class="strefa-wiedzy-section" id="publikacje" data-section="publikacje">
+      <div class="container">
+        <div class="text-center">
+          <h2 class="section-heading">Komentarze i analizy</h2>
+          <p class="section-intro">Wybrane teksty o praktyce karnej, compliance i postępowaniach sankcyjnych.</p>
+        </div>
+        <div class="strefa-wiedzy-grid">
+          <a class="knowledge-card" href="blog.html">
+            <time class="knowledge-card__date" datetime="2026-07-14">14 lipca 2026</time>
+            <h3>Kara pieniężna organu nadzoru a równoległe postępowanie karne: jak układać kolejność działań</h3>
+            <span class="knowledge-card__tag">Kary administracyjne</span>
+          </a>
+          <a class="knowledge-card" href="blog.html">
+            <time class="knowledge-card__date" datetime="2026-06-02">2 czerwca 2026</time>
+            <h3>Wewnętrzne postępowanie wyjaśniające a ryzyko utraty tajemnicy: granice ochrony dokumentów</h3>
+            <span class="knowledge-card__tag">Criminal compliance</span>
+          </a>
+          <a class="knowledge-card" href="blog.html">
+            <time class="knowledge-card__date" datetime="2026-04-21">21 kwietnia 2026</time>
+            <h3>Kontrola GIIF w instytucji obowiązanej: przebieg i najczęstsze nieprawidłowości</h3>
+            <span class="knowledge-card__tag">AML</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- REZERWACJA -->
+    <section class="rezerwacja-section" id="rezerwacja" data-section="rezerwacja">
+      <div class="container">
+        <div class="rezerwacja-grid">
+          <div class="rezerwacja-content">
+            <span class="section-eyebrow">Rezerwacja</span>
+            <h2>Umów bezpłatną konsultację wstępną</h2>
+            <p>Wybierz dogodny termin online, bez płatności z góry. Służy ustaleniu, czy i w jaki sposób mogę
+              Państwu pomóc.</p>
+            <a class="rezerwacja-tel" href="tel:+48792892457">792 892 457</a>
+            <p class="rezerwacja-signal">Kontakt również przez Signal, pod tym samym numerem, dla osób,
+              którym zależy na dodatkowej ochronie korespondencji.</p>
+            <address class="rezerwacja-address">
+              Kancelaria Adwokacka Arkadiusz Górski<br>
+              ul. Mokotowska 57 lok. 4<br>
+              00-542 Warszawa
+            </address>
+            <p class="rezerwacja-hours"><b>Poniedziałek-piątek, 9:00-18:00.</b><br>W sprawach zatrzymań
+              i przeszukań kontakt również poza godzinami pracy.</p>
+          </div>
+
+          <!-- Calendesk frame begin -->
+          <div class="calendesk-embed">
+            <iframe class="calendesk-frame" src="https://yjggztzhsz.calendesk.net/?cdWidget=1" scrolling="no" title="Adwokat Arkadiusz Górski" frameborder="0"></iframe>
+          </div>
+        </div>
+        <script>
+        window.addEventListener("message", function (e) {
+          var d = e.data;
+          if (!d || (d.type !== "calendesk-resize" && d.type !== "calendesk-scroll")) return;
+          var frames = document.querySelectorAll(".calendesk-frame");
+          for (var i = 0; i < frames.length; i++) {
+            var f = frames[i];
+            if (f.contentWindow !== e.source) continue;
+            if (d.type === "calendesk-resize" && typeof d.height === "number") { f.style.height = d.height + "px"; }
+            if (d.type === "calendesk-scroll" && typeof d.top === "number") {
+              var r = f.getBoundingClientRect();
+              var margin = parseFloat(getComputedStyle(f).scrollMarginTop) || 0;
+              window.scrollTo(0, Math.max(0, window.pageYOffset + r.top + d.top - margin));
+              if (margin) continue;
+              var el = document.elementFromPoint(Math.min(Math.max(r.left, 0) + f.offsetWidth / 2, window.innerWidth - 1), 1), cover = 0;
+              while (el && el !== f && el !== document.body) {
+                var p = getComputedStyle(el).position;
+                if (p === "fixed" || p === "sticky") cover = Math.max(cover, el.getBoundingClientRect().bottom);
+                el = el.parentElement;
+              }
+              if (cover > 0) window.scrollBy(0, -cover);
+            }
+          }
+        });
+        </script>
+        <!-- Calendesk frame end -->
+
+        <div class="contact-form-section">
+          <div class="contact-form-grid">
+            <div>
+              <h3>Formularz kontaktowy</h3>
+              <p class="section-intro" style="margin:0.75rem 0 0">Wolą Państwo napisać zamiast zadzwonić?
+                Oddzwonię, żeby ustalić termin rozmowy.</p>
+            </div>
+            <form class="contact-form" action="#" method="post">
+              <div class="form-warning">
+                <b>Proszę nie opisywać tutaj szczegółów sprawy.</b> Formularz i poczta elektroniczna nie są
+                kanałem poufnym. Do rozmowy o sprawie służy telefon lub spotkanie w kancelarii.
+              </div>
+              <div class="form-field">
+                <label for="imie">Imię lub inicjały</label>
+                <input id="imie" name="imie" type="text" autocomplete="given-name" required>
+              </div>
+              <div class="form-field">
+                <label for="kontakt">Telefon lub e-mail do kontaktu</label>
+                <input id="kontakt" name="kontakt" type="text" required>
+              </div>
+              <div class="form-field">
+                <label for="temat">Czego dotyczy sprawa, jedno zdanie</label>
+                <textarea id="temat" name="temat" rows="3" maxlength="300"></textarea>
+              </div>
+              <p class="form-consent">Wysyłając wiadomość, przekazują Państwo dane wyłącznie w celu kontaktu
+                zwrotnego. Zasady przetwarzania opisano w <a href="polityka-prywatnosci.html">polityce
+                prywatności</a>. Treść wiadomości nie jest zapisywana w bazie danych serwisu.</p>
+              <button class="button-primary" type="submit">Proszę o kontakt</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4>Kancelaria</h4>
+          <p>
+            Kancelaria Adwokacka Arkadiusz Górski<br>
+            ul. Mokotowska 57 lok. 4, 00-542 Warszawa<br>
+            <a href="tel:+48792892457">792 892 457</a><br>
+            NIP [do uzupełnienia]
+          </p>
+          <div class="footer-assoc">
+            Współpracuję z kancelarią <a href="https://www.gplf.pl" target="_blank" rel="noopener">GPLF ↗</a>,
+            specjalizującą się w prawie nieruchomości, z siedzibą pod tym samym adresem.
+          </div>
+        </div>
+        <div>
+          <h4>Pomoc prawna</h4>
+          <p>
+            <a href="#specjalizacje">Specjalizacje</a><br>
+            <a href="#adwokat">Adwokat</a><br>
+            <a href="obszary-praktyki.html">Obszary praktyki</a><br>
+            <a href="#publikacje">Publikacje</a>
+          </p>
+        </div>
+        <div>
+          <h4>Kontakt</h4>
+          <p>
+            <a href="#rezerwacja">Formularz kontaktowy</a><br>
+            <a href="pomoc-w-zatrzymaniach.html">Pomoc 24/7</a>
+          </p>
+        </div>
+      </div>
+
+      <p class="footer-disclaimer">Adwokat Arkadiusz Górski, wpisany na listę adwokatów Okręgowej Izby
+        Adwokackiej w Warszawie pod numerem ADW/WAW/8947. Treści zamieszczone w serwisie mają charakter
+        informacyjny i nie stanowią porady prawnej w sprawie indywidualnej.</p>
+
+      <div class="footer-bottom">
+        <span>© 2026 Kancelaria Adwokacka Arkadiusz Górski</span>
+        <span>Serwis nie korzysta z narzędzi analitycznych podmiotów trzecich.</span>
+      </div>
+    </div>
+  </footer>
+  </div>
+
+  <button class="theme-toggle" type="button" aria-label="Przełącz motyw jasny/ciemny">☾</button>
+
+  <script src="js/main.js?v=7"></script>
+</body>
+</html>
