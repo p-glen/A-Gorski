@@ -760,10 +760,10 @@ h1, h2, h3, h4 {
 .portrait {
   aspect-ratio: 4 / 5;
   border: 1px solid var(--border);
-  background-color: var(--surface);
-  background-image: linear-gradient(180deg, color-mix(in srgb, var(--background) 10%, transparent), color-mix(in srgb, var(--background) 55%, transparent)), url('https://picsum.photos/seed/kag-adwokat-portret/900/1125');
-  background-size: cover;
-  background-position: center;
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+  display: block;
 }
 .bio-intro {
   font-family: var(--font-heading);
