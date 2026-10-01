@@ -1,0 +1,70 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>audit</title>
+<body style="margin:0">
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var w = parseInt(q.get('w'), 10) || 1440;
+  var theme = q.get('theme') || 'dark';
+  var f = document.createElement('iframe');
+  f.style.cssText = 'width:' + w + 'px;height:900px;border:0';
+  f.src = '../index.html';
+  document.body.appendChild(f);
+  f.onload = function () {
+    var win = f.contentWindow;
+    var d = f.contentDocument;
+    // body has `transition: color`, so measuring right after a theme switch
+    // reads a half-faded colour; freeze transitions first.
+    var freeze = d.createElement('style');
+    freeze.textContent = '*,*::before,*::after{transition:none!important;animation:none!important}';
+    d.head.appendChild(freeze);
+    d.documentElement.setAttribute('data-theme', theme);
+    win.document.fonts.ready.then(function () {
+      setTimeout(function () {
+        function style(el) {
+          var cs = win.getComputedStyle(el);
+          return {
+            font: cs.fontFamily.split(',')[0].replace(/["']/g, '').trim(),
+            size: cs.fontSize,
+            weight: cs.fontWeight,
+            color: cs.color
+          };
+        }
+        function skip(el) {
+          // .scene__card is an iOS-style contact card (caps org line, big name),
+          // a deliberate exception to the type scale.
+          return el.closest('.ds-panel, .scene__card, .site-tools');
+        }
+        var out = { width: w, theme: theme, bodyColor: win.getComputedStyle(d.body).color, headings: {}, textSizes: {}, upper: [] };
+        ['h1', 'h2', 'h3', 'h4'].forEach(function (tag) {
+          var seen = {};
+          d.querySelectorAll(tag).forEach(function (el) {
+            if (skip(el)) return;
+            var s = style(el);
+            seen[s.font + '|' + s.size + '|' + s.weight + '|' + s.color] = (el.textContent || '').trim().slice(0, 30);
+          });
+          out.headings[tag] = seen;
+        });
+        d.querySelectorAll('p, li, address, label, time').forEach(function (el) {
+          if (skip(el)) return;
+          var s = win.getComputedStyle(el).fontSize;
+          (out.textSizes[s] = out.textSizes[s] || []).push((el.textContent || '').trim().slice(0, 24));
+        });
+        d.querySelectorAll('body *').forEach(function (el) {
+          if (skip(el)) return;
+          if (el.closest('.button-primary, .button-alert, button')) return;
+          var cs = win.getComputedStyle(el);
+          if (cs.textTransform === 'uppercase' && (el.textContent || '').trim()) {
+            out.upper.push((el.className || el.tagName) + ': ' + (el.textContent || '').trim().slice(0, 24));
+          }
+        });
+        var pre = document.createElement('pre');
+        pre.id = 'AUDIT';
+        pre.textContent = JSON.stringify(out);
+        document.body.appendChild(pre);
+      }, 400);
+    });
+  };
+})();
+</script>

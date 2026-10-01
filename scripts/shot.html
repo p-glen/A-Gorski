@@ -1,0 +1,80 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>shot</title>
+<body style="margin:0;background:#888">
+<script>
+/* Screenshot helper: headless Chrome will not go below ~500px window width,
+   so a "390px" screenshot is really a crop of a 500px layout. Rendering the
+   page in an iframe of the exact width gives true mobile layout.
+   ?w=390&h=844&y=0&theme=dark */
+(function () {
+  var q = new URLSearchParams(location.search);
+  var w = parseInt(q.get('w'), 10) || 390;
+  var h = parseInt(q.get('h'), 10) || 844;
+  var y = parseInt(q.get('y'), 10) || 0;
+  var theme = q.get('theme') || 'dark';
+  var f = document.createElement('iframe');
+  f.style.cssText = 'display:block;border:0;width:' + w + 'px;height:' + h + 'px';
+  f.src = '../index.html';
+  document.body.appendChild(f);
+  f.onload = function () {
+    var d = f.contentDocument;
+    var freeze = d.createElement('style');
+    freeze.textContent = '*,*::before,*::after{transition:none!important}';
+    d.head.appendChild(freeze);
+    d.documentElement.setAttribute('data-theme', theme);
+    // Lazy images do not reliably start loading after an instant scroll in a
+    // headless iframe; load them up front so the shot shows what a visitor sees.
+    var lazy = Array.prototype.slice.call(d.querySelectorAll('img[loading="lazy"]'));
+    lazy.forEach(function (img) { img.loading = 'eager'; });
+    f.contentWindow.document.fonts.ready.then(function () {
+      return Promise.all(lazy.map(function (img) { return img.decode().catch(function () {}); }));
+    }).then(function () {
+      // html has scroll-behavior: smooth; jump, don't animate, or the shot
+      // lands mid-scroll.
+      var sel = q.get('sel');            // e.g. ?sel=%23adwokat&dy=-80
+      var dy = parseInt(q.get('dy'), 10) || 0;
+      var top = y;
+      if (sel) {
+        var el = d.querySelector(sel);
+        if (el) top = el.getBoundingClientRect().top + f.contentWindow.scrollY + dy;
+      }
+      f.contentWindow.scrollTo({ top: top, left: 0, behavior: 'instant' });
+      // ?at=<ms>: freeze every CSS animation at that time, so a flash can be
+      // photographed on purpose.
+      // ?lights=rest            both lights off (what the pauses look like)
+      // ?lights=red:x,y,s,o;blue:x,y,s,o   pin a light on the perimeter:
+      //   x,y = position as a fraction of the section, s = reach (1 = 280px
+      //   deep), o = opacity. Overrides the running siren engine.
+      var lights = q.get('lights');
+      if (lights) {
+        var secEl = d.querySelector('.sprawa-pilna-section');
+        var SW = secEl.clientWidth, SH = secEl.clientHeight;
+        var css = '.siren-rim__light{opacity:0!important}';
+        if (lights !== 'rest') {
+          lights.split(';').forEach(function (spec) {
+            var m = spec.split(':'), v = m[1].split(',').map(parseFloat);
+            var stretch = isNaN(v[4]) ? 1.7 : v[4];
+            var horizontal = v[1] <= 0.001 || v[1] >= 0.999;
+            css += '.siren-rim__light--' + m[0] + '{opacity:' + v[3] + '!important;transform:translate3d(' +
+              (v[0] * SW - 280) + 'px,' + (v[1] * SH - 280) + 'px,0) scale(' +
+              (horizontal ? v[2] * stretch : v[2]) + ',' + (horizontal ? v[2] : v[2] * stretch) + ')!important}';
+          });
+        }
+        var st = d.createElement('style');
+        st.textContent = css;
+        d.head.appendChild(st);
+      }
+      var at = q.get('at');
+      if (at !== null) {
+        // Wait one beat: the section's IntersectionObserver flips
+        // animation-play-state when it scrolls into view, which would
+        // resume anything paused before it fired.
+        setTimeout(function () {
+          d.getAnimations().forEach(function (a) { a.pause(); a.currentTime = parseFloat(at); });
+        }, 500);
+      }
+    });
+  };
+})();
+</script>

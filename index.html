@@ -7,61 +7,16 @@
   <meta name="description" content="Adwokat Arkadiusz Górski, Warszawa: obrona i reprezentacja pokrzywdzonych w sprawach karnych i karnych gospodarczych, criminal compliance, AML, kary administracyjne. Pierwsza rozmowa jest bezpłatna.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;1,400;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Boldonse&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/tokens.css?v=14">
-  <link rel="stylesheet" href="css/style.css?v=14">
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;1,400;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css?v=29">
+  <link rel="stylesheet" href="css/style.css?v=29">
 </head>
 <body>
 
-  <!-- INTRO / EMERGENCY SCREEN
-       The stage is an empty block exactly one viewport tall: it is the whole
-       scroll budget for the intro. The screen itself is `position: fixed`,
-       so it holds still and costs no flow space, while #page-content -- the
-       next thing in normal flow -- rides up over it on plain scrolling. No
-       pin, no spacer, so there is no reserved distance to scroll twice. -->
-  <div class="intro-stage">
-  <section class="intro-screen" id="intro-screen">
-    <span class="sr-only">Zatrzymanie, przeszukanie, wezwanie na przesłuchanie: zanim cokolwiek powiesz,
-      zadzwoń.</span>
-    <div class="intro-screen__body">
-      <div class="intro-screen__headline-wrap">
-        <div class="intro-screen__rotator" aria-hidden="true">
-          <span class="intro-screen__rotator-word">Zatrzymanie</span>
-        </div>
-      </div>
-      <div class="intro-screen__bottom">
-        <p class="intro-screen__subheader" aria-hidden="true">Zanim cokolwiek powiesz.</p>
-        <a class="intro-screen__cta" href="tel:+48792892457">
-          <svg class="intro-screen__cta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8Z"/></svg>
-          <span class="intro-screen__cta-text">
-            <strong>Zadzwoń teraz</strong>
-            <span>792 892 457</span>
-          </span>
-        </a>
-      </div>
-    </div>
-  </section>
-  </div>
-
-  <!-- PARKED, not dropped: the persistent call bar that slid up from the
-       bottom edge once the intro had mostly scrolled by. Held back because
-       it did not earn its keep visually, not because it misbehaved. Its CSS
-       (.intro-floating-cta) and the JS that feeds it (--tab-reveal,
-       --cta-bar-height) are deliberately left in place, and every consumer
-       reads those through a fallback, so with this markup gone the reserved
-       strip collapses to zero on its own. Uncommenting the block below is
-       all it takes to bring the bar back.
-
-  <a class="intro-floating-cta" href="tel:+48792892457" aria-label="Zanim cokolwiek powiesz, zadzwoń: 792 892 457">
-    <span>Zanim cokolwiek powiesz</span>
-    <svg class="intro-floating-cta__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8Z"/></svg>
-  </a>
-  -->
-
   <!-- Nav is its own layer: always `position: fixed`, on top of everything
-       (see its z-index), sliding down from above the viewport as the intro
-       retreats. Deliberately NOT inside #page-content, which rides up past
-       it during that stretch. -->
+       (see its z-index). While the contact-card scene plays it stays above
+       the viewport and slides down as the hero appears (js/main.js sets
+       --p on it). -->
   <header class="site-nav">
     <div class="site-nav__inner">
       <a class="site-nav__logo" href="#hero">Adw. Arkadiusz Górski</a>
@@ -74,7 +29,7 @@
 
       <div class="site-nav__actions">
         <a class="button-primary" href="#rezerwacja">Umów konsultację</a>
-        <a class="button-alert button-alert--nav" href="pomoc-w-zatrzymaniach.html" aria-label="Pomoc 24/7">
+        <a class="button-alert button-alert--nav" href="tel:+48792892457" aria-label="Pomoc 24/7">
           <svg class="button-alert__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8Z"/></svg>
           <span class="button-alert__label">Pomoc 24/7</span>
           <span class="button-alert__dot" aria-hidden="true"></span>
@@ -84,38 +39,73 @@
     </div>
   </header>
 
-  <!-- The transition surface. It never leaves normal flow: sitting directly
-       after the one-viewport stage means plain scrolling carries it up over
-       the retreating intro, and there is no moment where anything is handed
-       back from fixed to static. Opaque background so the red screen never
-       shows through, and padded at the top to clear the fixed nav. -->
+  <!-- Everything below the fold lives in one opaque, in-flow wrapper. -->
   <div id="page-content">
   <main>
 
-    <!-- HERO -->
-    <section class="hero" id="hero">
-      <div class="hero__media" aria-hidden="true"></div>
-      <div class="container">
-        <span class="section-eyebrow">Kancelaria Adwokacka · Adwokat karnista</span>
-        <h1>Obrona i reprezentacja pokrzywdzonych w sprawach karnych.</h1>
-        <p class="hero__lead">Występuję po obu stronach postępowania: jako obrońca i jako pełnomocnik pokrzywdzonego. Przedsiębiorców reprezentuję w sprawach compliance i AML.</p>
-        <div class="hero__actions">
-          <a class="button-primary" href="#rezerwacja">Umów konsultację</a>
-          <a class="button-alert" href="pomoc-w-zatrzymaniach.html">
-            <svg class="button-alert__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8Z"/></svg>
-            <span class="button-alert__label">Pomoc 24/7</span>
-            <span class="button-alert__dot" aria-hidden="true"></span>
-          </a>
+    <!-- SCENE: a contact card that opens into the hero.
+         One sticky stage; js/main.js publishes the scroll progress as --p
+         and all choreography is CSS (see "Scene" in style.css). Without JS,
+         or with reduced motion, it is simply two stacked blocks. -->
+    <section class="scene" id="hero" aria-label="Adwokat Arkadiusz Górski">
+      <div class="scene__stage">
+        <div class="scene__ambient" aria-hidden="true"></div>
+        <div class="scene__photo" aria-hidden="true">
+          <img src="img/arkadiusz-gorski-portret.webp" alt="" width="896" height="1200" fetchpriority="high" decoding="async">
         </div>
-        <p class="free-note">Pierwsza rozmowa jest bezpłatna. Służy ustaleniu, czy i w jaki sposób mogę Państwu pomóc.</p>
+        <div class="scene__scrim" aria-hidden="true"></div>
+
+        <div class="scene__card">
+          <div class="scene__avatar-wrap">
+            <img class="scene__avatar" src="img/arkadiusz-gorski-portret.webp" alt="Portret adwokata Arkadiusza Górskiego" width="896" height="1200">
+          </div>
+          <p class="scene__org">Adwokat karny &bull; Warszawa</p>
+          <p class="scene__status"><span class="scene__pill">24/7</span> w sprawach zatrzymań i przeszukań</p>
+          <p class="scene__name">Arkadiusz Górski</p>
+          <div class="scene__actions">
+            <a class="scene__action scene__action--glass" href="sms:+48792892457">
+              <span class="scene__disc"><svg class="scene__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24ZM84,140a12,12,0,1,1,12-12A12,12,0,0,1,84,140Zm44,0a12,12,0,1,1,12-12A12,12,0,0,1,128,140Zm44,0a12,12,0,1,1,12-12A12,12,0,0,1,172,140Z"/></svg></span>
+              <span class="scene__label">Wiadomość</span>
+            </a>
+            <a class="scene__action scene__action--call" href="tel:+48792892457" aria-label="Zadzwoń: 792 892 457">
+              <span class="scene__disc"><svg class="scene__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M231.88,175.08A56.26,56.26,0,0,1,176,224C96.6,224,32,159.4,32,80A56.26,56.26,0,0,1,80.92,24.12a16,16,0,0,1,16.62,9.52l21.12,47.15,0,.12A16,16,0,0,1,117.39,96c-.18.27-.37.52-.57.77L96,121.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,231.88,175.08Z"/></svg></span>
+              <span class="scene__label">Zadzwoń</span>
+            </a>
+            <a class="scene__action scene__action--glass" href="#rezerwacja">
+              <span class="scene__disc"><svg class="scene__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32Zm0,48H48V48H72v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24Z"/></svg></span>
+              <span class="scene__label">Umów</span>
+            </a>
+            <a class="scene__action scene__action--glass" href="#formularz">
+              <span class="scene__disc"><svg class="scene__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48Zm-8,144H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></svg></span>
+              <span class="scene__label">Napisz</span>
+            </a>
+          </div>
+          <p class="scene__line">Zatrzymanie? Przeszukanie? Wezwanie? <strong>Zanim cokolwiek powiesz.</strong></p>
+        </div>
+
+        <div class="scene__hero">
+          <div class="container">
+            <h1>Adwokat karny w Warszawie. Obrona i reprezentacja pokrzywdzonych.</h1>
+            <p class="hero__lead">Występuję po obu stronach postępowania: jako obrońca i jako pełnomocnik pokrzywdzonego. Przedsiębiorców reprezentuję w sprawach compliance i AML.</p>
+            <div class="hero__actions">
+              <a class="button-primary" href="#rezerwacja">Umów konsultację</a>
+              <a class="button-alert" href="tel:+48792892457">
+                <svg class="button-alert__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8Z"/></svg>
+                <span class="button-alert__label">Pomoc 24/7</span>
+                <span class="button-alert__dot" aria-hidden="true"></span>
+              </a>
+            </div>
+            <p class="free-note">Pierwsza rozmowa jest bezpłatna. Służy ustaleniu, czy i w jaki sposób mogę Państwu pomóc.</p>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- MODEL PRACY / REASON TO BELIEVE -->
     <section class="reason-band" id="model-pracy" data-section="model-pracy">
       <div class="container">
-        <p class="reason-band__hook">To, kto odbiera telefon w pierwszych godzinach, często decyduje
-          o dalszym przebiegu sprawy.</p>
+        <h2 class="reason-band__hook">To, kto odbiera telefon w pierwszych godzinach, często decyduje
+          o dalszym przebiegu sprawy.</h2>
         <div class="reason-list">
           <div class="reason-item">
             <div class="reason-item__header">
@@ -149,7 +139,7 @@
     <section class="specjalizacje-section" id="specjalizacje" data-section="specjalizacje">
       <div class="container">
         <div class="text-center">
-          <h2 class="section-heading">Sześć obszarów, w których prowadzę sprawy</h2>
+          <h2>Sześć obszarów, w których prowadzę sprawy</h2>
           <p class="section-intro">
             Praktyka jest zawężona świadomie. Sprawy karne gospodarcze, postępowania sankcyjne i compliance
             korzystają z tej samej wiedzy o tym, jak działają organy, a ten sam stan faktyczny bywa
@@ -158,70 +148,106 @@
         </div>
         <div class="specjalizacje-grid">
           <article class="specjalizacje-card">
+            <div class="specjalizacje-card__media" role="img" aria-label="Miejsce na zdjęcie: Prawo karne">
+              <span class="specjalizacje-card__num">01</span>
+              <span class="specjalizacje-card__ph">Zdjęcie 01</span>
+            </div>
             <h3>Prawo karne</h3>
             <p>Obrona od pierwszego przesłuchania do postępowania wykonawczego.</p>
-            <ul>
-              <li>Postępowanie przygotowawcze i sądowe</li>
-              <li>Tymczasowe aresztowanie i środki zapobiegawcze</li>
-              <li>Apelacje, kasacje, wznowienia</li>
-              <li>Dozór elektroniczny, warunkowe zwolnienie</li>
-            </ul>
-            <a class="more-link" href="obszary-praktyki.html">Zobacz zakres →</a>
+            <details class="specjalizacje-card__more">
+              <summary>Zakres</summary>
+              <ul>
+                <li>Postępowanie przygotowawcze i sądowe</li>
+                <li>Tymczasowe aresztowanie i środki zapobiegawcze</li>
+                <li>Apelacje, kasacje, wznowienia</li>
+                <li>Dozór elektroniczny, warunkowe zwolnienie</li>
+              </ul>
+            </details>
           </article>
           <article class="specjalizacje-card">
+            <div class="specjalizacje-card__media" role="img" aria-label="Miejsce na zdjęcie: Prawo karne gospodarcze">
+              <span class="specjalizacje-card__num">02</span>
+              <span class="specjalizacje-card__ph">Zdjęcie 02</span>
+            </div>
             <h3>Prawo karne gospodarcze</h3>
             <p>Sprawy, w których zarzut dotyczy decyzji podjętej w toku prowadzenia działalności.</p>
-            <ul>
-              <li>Przestępstwa przeciwko obrotowi gospodarczemu</li>
-              <li>Sprawy karnoskarbowe i wyłudzenia VAT</li>
-              <li>Działanie na szkodę spółki, nadużycie zaufania</li>
-              <li>Zabezpieczenia majątkowe i zajęcia</li>
-            </ul>
-            <a class="more-link" href="obszary-praktyki.html">Zobacz zakres →</a>
+            <details class="specjalizacje-card__more">
+              <summary>Zakres</summary>
+              <ul>
+                <li>Przestępstwa przeciwko obrotowi gospodarczemu</li>
+                <li>Sprawy karnoskarbowe i wyłudzenia VAT</li>
+                <li>Działanie na szkodę spółki, nadużycie zaufania</li>
+                <li>Zabezpieczenia majątkowe i zajęcia</li>
+              </ul>
+            </details>
           </article>
           <article class="specjalizacje-card">
+            <div class="specjalizacje-card__media" role="img" aria-label="Miejsce na zdjęcie: Criminal compliance">
+              <span class="specjalizacje-card__num">03</span>
+              <span class="specjalizacje-card__ph">Zdjęcie 03</span>
+            </div>
             <h3>Criminal compliance</h3>
             <p>Ograniczanie ryzyka karnego w organizacji, zanim pojawi się zawiadomienie.</p>
-            <ul>
-              <li>Analiza ryzyka karnego i procedury</li>
-              <li>Zgłoszenia sygnalistów</li>
-              <li>Wewnętrzne postępowania wyjaśniające</li>
-              <li>Odpowiedzialność podmiotów zbiorowych</li>
-            </ul>
-            <a class="more-link" href="obszary-praktyki.html">Zobacz zakres →</a>
+            <details class="specjalizacje-card__more">
+              <summary>Zakres</summary>
+              <ul>
+                <li>Analiza ryzyka karnego i procedury</li>
+                <li>Zgłoszenia sygnalistów</li>
+                <li>Wewnętrzne postępowania wyjaśniające</li>
+                <li>Odpowiedzialność podmiotów zbiorowych</li>
+              </ul>
+            </details>
           </article>
           <article class="specjalizacje-card">
+            <div class="specjalizacje-card__media" role="img" aria-label="Miejsce na zdjęcie: AML">
+              <span class="specjalizacje-card__num">04</span>
+              <span class="specjalizacje-card__ph">Zdjęcie 04</span>
+            </div>
             <h3>AML</h3>
             <p>Obowiązki instytucji obowiązanych i konsekwencje ich niedopełnienia.</p>
-            <ul>
-              <li>Ocena ryzyka, procedury, szkolenia</li>
-              <li>Kontrole GIIF i postępowania pokontrolne</li>
-              <li>Kary pieniężne za naruszenie obowiązków</li>
-              <li>Odpowiedzialność karna, art. 299 k.k.</li>
-            </ul>
-            <a class="more-link" href="obszary-praktyki.html">Zobacz zakres →</a>
+            <details class="specjalizacje-card__more">
+              <summary>Zakres</summary>
+              <ul>
+                <li>Ocena ryzyka, procedury, szkolenia</li>
+                <li>Kontrole GIIF i postępowania pokontrolne</li>
+                <li>Kary pieniężne za naruszenie obowiązków</li>
+                <li>Odpowiedzialność karna, art. 299 k.k.</li>
+              </ul>
+            </details>
           </article>
           <article class="specjalizacje-card">
+            <div class="specjalizacje-card__media" role="img" aria-label="Miejsce na zdjęcie: Kary administracyjne">
+              <span class="specjalizacje-card__num">05</span>
+              <span class="specjalizacje-card__ph">Zdjęcie 05</span>
+            </div>
             <h3>Kary administracyjne</h3>
             <p>Postępowania sankcyjne przed organami nadzoru i ich sądowa kontrola.</p>
-            <ul>
-              <li>UODO, UOKiK, KNF, GIIF, URE, UKE, PIP</li>
-              <li>Wymiar kary, odstąpienie, ulgi w wykonaniu</li>
-              <li>Skarga do WSA i wstrzymanie wykonania</li>
-              <li>Równoległe ryzyko karne</li>
-            </ul>
-            <a class="more-link" href="obszary-praktyki.html">Zobacz zakres →</a>
+            <details class="specjalizacje-card__more">
+              <summary>Zakres</summary>
+              <ul>
+                <li>UODO, UOKiK, KNF, GIIF, URE, UKE, PIP</li>
+                <li>Wymiar kary, odstąpienie, ulgi w wykonaniu</li>
+                <li>Skarga do WSA i wstrzymanie wykonania</li>
+                <li>Równoległe ryzyko karne</li>
+              </ul>
+            </details>
           </article>
           <article class="specjalizacje-card">
+            <div class="specjalizacje-card__media" role="img" aria-label="Miejsce na zdjęcie: Zwalczanie nieuczciwej konkurencji">
+              <span class="specjalizacje-card__num">06</span>
+              <span class="specjalizacje-card__ph">Zdjęcie 06</span>
+            </div>
             <h3>Zwalczanie nieuczciwej konkurencji</h3>
             <p>Sprawy cywilne prowadzone samodzielnie albo równolegle do postępowania karnego.</p>
-            <ul>
-              <li>Naruszenie tajemnicy przedsiębiorstwa</li>
-              <li>Przejęcie klientów i pracowników</li>
-              <li>Naśladownictwo produktów i oznaczeń</li>
-              <li>Roszczenia zakazowe i odszkodowawcze</li>
-            </ul>
-            <a class="more-link" href="obszary-praktyki.html">Zobacz zakres →</a>
+            <details class="specjalizacje-card__more">
+              <summary>Zakres</summary>
+              <ul>
+                <li>Naruszenie tajemnicy przedsiębiorstwa</li>
+                <li>Przejęcie klientów i pracowników</li>
+                <li>Naśladownictwo produktów i oznaczeń</li>
+                <li>Roszczenia zakazowe i odszkodowawcze</li>
+              </ul>
+            </details>
           </article>
         </div>
       </div>
@@ -229,14 +255,15 @@
 
     <!-- SPRAWA PILNA -->
     <section class="sprawa-pilna-section" id="sprawa-pilna" data-section="sprawa-pilna">
-      <!-- Ambient rim light. Two layers on purpose: the outer one carries a
-           mask shaped like the section's own rectangle, the inner one spins.
-           Keeping them apart is what makes the colour travel around a
-           straight-edged rim instead of painting a rotating circle. -->
-      <div class="siren-rim" aria-hidden="true"><span class="siren-rim__spin"></span></div>
+      <!-- Police-light glow along the rim: two lights that take turns
+           (see "Sprawa pilna" in style.css). Decorative only. -->
+      <div class="siren-rim" aria-hidden="true">
+        <span class="siren-rim__light siren-rim__light--red"></span>
+        <span class="siren-rim__light siren-rim__light--blue"></span>
+      </div>
       <div class="container">
         <div class="text-center">
-          <h2 class="section-heading">Zatrzymanie, przeszukanie, wezwanie na przesłuchanie</h2>
+          <h2>Zatrzymanie, przeszukanie, wezwanie na przesłuchanie</h2>
           <p class="section-intro">
             O przebiegu sprawy karnej często przesądza to, co wydarzy się jeszcze przed pierwszym
             przesłuchaniem, zanim padnie jakiekolwiek oświadczenie. W takich sytuacjach proszę o telefon
@@ -273,22 +300,41 @@
     <!-- ADWOKAT -->
     <section class="bio-section" id="adwokat" data-section="adwokat">
       <div class="container">
-        <span class="section-eyebrow">Adwokat</span>
         <div class="bio-grid">
-          <img src="img/arkadiusz-gorski-portret.webp" alt="Portret adwokata Arkadiusza Górskiego" class="portrait" />
-          <div>
-            <p class="bio-intro">Arkadiusz Górski, adwokat wpisany na listę Okręgowej Izby Adwokackiej
-              w Warszawie.</p>
-            <p class="bio-placeholder">[Tu: 2-3 zdania o drodze zawodowej, wykształceniu i doświadczeniu
-              procesowym, ewentualnie o wcześniejszej pracy w organach ścigania, kontroli lub dziale
-              compliance. Treść do uzupełnienia przez Adwokata.]</p>
-            <p class="bio-placeholder">[Tu: akapit o podejściu do prowadzenia spraw i o tym, dlaczego
-              praktyka została zawężona do wskazanych obszarów.]</p>
-            <div class="credentials">
-              Izba: <b>Okręgowa Izba Adwokacka w Warszawie</b><br>
-              Numer wpisu: <b>ADW/WAW/8947</b><br>
-              Języki: <b>[do uzupełnienia]</b>
-            </div>
+          <img src="img/arkadiusz-gorski-fotel.webp" alt="Adwokat Arkadiusz Górski w fotelu, portret" class="portrait" width="896" height="1200" loading="lazy" decoding="async">
+          <div class="bio-content">
+            <h2>Gdy zadzwonisz, odbiorę ja.</h2>
+            <p class="bio-intro">Jestem Arkadiusz Górski, adwokat z Warszawy. W sprawach karnych działam po obu
+              stronach: jako obrońca i jako pełnomocnik pokrzywdzonego. Firmom pomagam tam, gdzie prawo karne
+              spotyka się z nadzorem: w compliance, AML i karach administracyjnych.</p>
+            <ul class="bio-rules">
+              <li><strong>Bez sekretariatu.</strong> <span>Numer, który tu widzisz, jest moim numerem.</span></li>
+              <li><strong>Bez owijania.</strong> <span>Jeśli nie mogę się podjąć sprawy, powiem to od razu.</span></li>
+              <li><strong>Bez niespodzianek.</strong> <span>Zakres i wynagrodzenie ustalamy pisemnie, zanim zacznę pracę.</span></li>
+            </ul>
+            <dl class="credentials">
+              <div>
+                <dt>Obszary praktyki</dt>
+                <dd>Prawo karne i karne gospodarcze, criminal compliance, AML, kary administracyjne, zwalczanie nieuczciwej konkurencji</dd>
+              </div>
+              <div>
+                <dt>Izba</dt>
+                <dd>Okręgowa Izba Adwokacka w Warszawie</dd>
+              </div>
+              <div>
+                <dt>Numer wpisu</dt>
+                <dd>ADW/WAW/8947</dd>
+              </div>
+              <div>
+                <dt>Wykształcenie i doświadczenie</dt>
+                <dd class="bio-todo">[do uzupełnienia przez Adwokata]</dd>
+              </div>
+              <div>
+                <dt>Języki</dt>
+                <dd class="bio-todo">[do uzupełnienia]</dd>
+              </div>
+            </dl>
+            <a class="button-primary" href="#rezerwacja">Umów konsultację</a>
           </div>
         </div>
       </div>
@@ -298,7 +344,7 @@
     <section class="strefa-wiedzy-section" id="publikacje" data-section="publikacje">
       <div class="container">
         <div class="text-center">
-          <h2 class="section-heading">Komentarze i analizy</h2>
+          <h2>Komentarze i analizy</h2>
           <p class="section-intro">Wybrane teksty o praktyce karnej, compliance i postępowaniach sankcyjnych.</p>
         </div>
         <div class="strefa-wiedzy-grid">
@@ -326,7 +372,6 @@
       <div class="container">
         <div class="rezerwacja-grid">
           <div class="rezerwacja-content">
-            <span class="section-eyebrow">Rezerwacja</span>
             <h2>Umów bezpłatną konsultację wstępną</h2>
             <p>Wybierz dogodny termin online, bez płatności z góry. Służy ustaleniu, czy i w jaki sposób mogę
               Państwu pomóc.</p>
@@ -374,7 +419,7 @@
         </script>
         <!-- Calendesk frame end -->
 
-        <div class="contact-form-section">
+        <div class="contact-form-section" id="formularz">
           <div class="contact-form-grid">
             <div>
               <h3>Formularz kontaktowy</h3>
@@ -439,7 +484,7 @@
           <h4>Kontakt</h4>
           <p>
             <a href="#rezerwacja">Formularz kontaktowy</a><br>
-            <a href="pomoc-w-zatrzymaniach.html">Pomoc 24/7</a>
+            <a href="tel:+48792892457">Pomoc 24/7</a>
           </p>
         </div>
       </div>
@@ -456,8 +501,29 @@
   </footer>
   </div>
 
-  <button class="theme-toggle" type="button" aria-label="Przełącz motyw jasny/ciemny">☾</button>
+  <div class="site-tools">
+    <button class="ds-toggle" type="button" aria-controls="design-system" aria-expanded="false">Design System</button>
+    <button class="theme-toggle" type="button" aria-label="Przełącz motyw jasny/ciemny">☾</button>
+  </div>
 
-  <script src="js/main.js?v=13"></script>
+  <aside id="design-system" class="ds-panel" hidden>
+    <header class="ds-panel__header">
+      <div>
+        <p class="ds-panel__kicker">Tokeny strony</p>
+        <h2 class="ds-panel__title">Design System</h2>
+      </div>
+      <button class="ds-panel__close" type="button" aria-label="Zamknij design system">×</button>
+    </header>
+    <p class="ds-panel__lede">Edytujesz zmienne z <code>tokens.css</code>. Zmiany widać od razu na stronie i zostają w tej przeglądarce, osobno dla motywu jasnego i ciemnego.</p>
+    <div class="ds-panel__fields" data-ds-fields></div>
+    <footer class="ds-panel__footer">
+      <button class="ds-panel__reset" type="button">Przywróć domyślne</button>
+      <button class="ds-panel__export" type="button">Kopiuj CSS</button>
+    </footer>
+  </aside>
+
+  <script src="js/main.js?v=29"></script>
+  <script src="js/siren.js?v=29"></script>
+  <script src="js/design-system.js?v=29"></script>
 </body>
 </html>

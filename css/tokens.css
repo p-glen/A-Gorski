@@ -4,27 +4,38 @@
   --background-deep: #17140F;
   --text: #F3EFE6;
   --text-secondary: #C9C1B2;
-  --text-muted: #8F8672;
+  --text-muted: #A39A86;
   --border: #3A352C;
   --accent-brass: #B08D57;
   --accent-brass-hover: #C9A227;
-  --accent-green: #3B5D45;
   --accent-alert: #B5424C;
 
-  /* Fixed regardless of light/dark: the intro screen is a deliberate,
-     one-time high-impact moment, not part of the ambient theme. */
-  --intro-red: #EA0F0B;
-  --intro-black: #000000;
-  --intro-progress: 0;
+  /* The one place green is used: the call button on the contact card.
+     Same in both themes; its glyph is white (3:1 checked in
+     scripts/check-contrast.mjs). */
+  --call-green: #1F9D55;
+
+  /* Frosted-glass buttons on the contact card (web approximation of a
+     translucent material; solid fallback under reduced transparency). */
+  --glass-bg: rgb(255 255 255 / 0.14);
+  --glass-border: rgb(255 255 255 / 0.24);
+  --glass-ink: #FFFFFF;
 
   --font-heading: 'Bodoni Moda', serif;
   --font-body: 'IBM Plex Sans', sans-serif;
 
-  --size-hero-heading: 2.875rem;
-  --size-body: 1.125rem;
+  /* Type scale. Bodoni Moda for H1/H2 only, IBM Plex Sans below. */
+  --size-h1: 2.25rem;
+  --size-h2: 1.75rem;
+  --size-h3: 1.125rem;
+  --size-h4: 1rem;
+  --size-lead: 1.125rem;
+  --size-body: 1rem;
+  --size-small: 0.875rem;
 
-  --space-section-y: 5rem;
-  --space-section-y-lg: 6.25rem;
+  /* Section rhythm: tight on a phone, generous on a desktop. */
+  --space-section-y: 4rem;
+  --space-section-y-lg: 5rem;
 }
 
 :root[data-theme="light"] {
@@ -33,10 +44,29 @@
   --background-deep: #FBF9F3;
   --text: #1C1A17;
   --text-secondary: #5C5344;
-  --text-muted: #8F8672;
+  --text-muted: #675E4C;
+  --glass-bg: rgb(28 26 23 / 0.08);
+  --glass-border: rgb(28 26 23 / 0.18);
+  --glass-ink: #1C1A17;
   --border: #D9D0BE;
-  --accent-brass: #8C6D3F;
-  --accent-brass-hover: #6E5530;
-  --accent-green: #3B5D45;
+  --accent-brass: #75592F;
+  --accent-brass-hover: #5E4727;
   --accent-alert: #9A3540;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --size-h1: 3rem;
+    --size-h2: 2.125rem;
+    --space-section-y: 5rem;
+    --space-section-y-lg: 6.25rem;
+  }
+}
+@media (min-width: 1100px) {
+  :root {
+    --size-h1: 4rem;
+    --size-h2: 2.5rem;
+    --space-section-y: 7rem;
+    --space-section-y-lg: 8.5rem;
+  }
 }

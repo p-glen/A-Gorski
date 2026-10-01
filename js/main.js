@@ -29,150 +29,120 @@
     });
   });
 
-  var introScreen = document.querySelector('.intro-screen');
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // The call bar is fixed to the bottom edge and must not cover anything, so
-  // its measured height is published as --cta-bar-height; the intro screen,
-  // #page-content and the theme toggle all subtract it (see style.css). It is
-  // measured rather than hardcoded because the label wraps at narrow widths.
-  var callBar = document.querySelector('.intro-floating-cta');
-  if (callBar) {
-    var setCallBarHeight = function () {
-      root.style.setProperty('--cta-bar-height', callBar.offsetHeight + 'px');
-    };
-    setCallBarHeight();
-    window.addEventListener('resize', setCallBarHeight);
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(setCallBarHeight);
-    }
-  }
-  if (introScreen && !reduceMotion) {
-    // Opts the intro retreat and the nav slide-in into their scroll-linked
-    // CSS (see style.css). Without it -- no JS, or reduced motion -- the
-    // intro stays opaque and the nav stays visible, which is a fine page.
-    root.setAttribute('data-intro', 'on');
-  }
-  var introStage = document.querySelector('.intro-stage');
-  if (introScreen) {
-    var ticking = false;
-    var introDone = false;
-    var updateIntroProgress = function () {
-      // The stage, not the screen, defines the scroll budget: the screen is
-      // position: fixed and reserves no space of its own.
-      var introHeight = (introStage && introStage.offsetHeight) || window.innerHeight || 1;
-      var progress = Math.min(Math.max(window.scrollY / introHeight, 0), 1);
-      root.style.setProperty('--intro-progress', progress.toFixed(3));
-      var done = progress >= 1;
-      if (done !== introDone) {
-        introDone = done;
-        if (done) root.setAttribute('data-intro-done', '');
-        else root.removeAttribute('data-intro-done');
+  // Contact card -> hero scene (see "Scene" in style.css). Scroll position
+  // becomes one number, --p (0..1), published on the scene and the nav; all
+  // choreography is CSS derived from it. The only other work is measuring
+  // the crop geometry when the layout changes. With reduced motion (or no
+  // JS) this never runs, data-scene is never set, and the section stays a
+  // plain, stacked page.
+  var scene = document.querySelector('.scene');
+  if (scene && !reduceMotion) initScene(scene);
+
+  function initScene(scene) {
+    var stage = scene.querySelector('.scene__stage');
+    var avatar = scene.querySelector('.scene__avatar-wrap');
+    var card = scene.querySelector('.scene__card');
+    var hero = scene.querySelector('.scene__hero');
+    var nav = document.querySelector('.site-nav');
+    var wide = window.matchMedia('(min-width: 900px)');
+
+    // Source image (img/arkadiusz-gorski-portret.webp) and the square window
+    // of it shown in the circle. Must match .scene__avatar in style.css.
+    var IMG_W = 896, IMG_H = 1200;
+    var CROP = { x: 450, y: 285, half: 150 };
+
+    // Opt in first: the sticky layout changes the geometry we measure.
+    root.setAttribute('data-scene', 'on');
+
+    var travel = 1;
+    function measure() {
+      var s = stage.getBoundingClientRect();
+      var a = avatar.getBoundingClientRect();
+      var W = s.width, H = s.height;
+      var r = a.width / 2;
+      var cx = a.left - s.left + r;
+      var cy = a.top - s.top + r;
+      travel = H;
+
+      // Where the full photo sits in the stage: mirrors the object-fit /
+      // object-position rules on .scene__photo img.
+      var sc, x0, y0;
+      if (wide.matches) {
+        sc = Math.min(W / IMG_W, H / IMG_H);
+        x0 = W - IMG_W * sc;
+        y0 = (H - IMG_H * sc) / 2;
+      } else {
+        sc = Math.max(W / IMG_W, H / IMG_H);
+        x0 = (W - IMG_W * sc) / 2;
+        y0 = (H - IMG_H * sc) * 0.1;
       }
-      // The call bar rises over the back half of the intro's own scroll
-      // range, then holds. --intro-progress clamps at 1 once you are past
-      // the intro, so this stays at 1 for the rest of the visit.
-      var tabReveal = Math.min(Math.max((progress - 0.45) / 0.35, 0), 1);
-      root.style.setProperty('--tab-reveal', tabReveal.toFixed(3));
+      // Crop centre in stage px; zoom that makes the crop window fill the circle.
+      var ox = x0 + CROP.x * sc;
+      var oy = y0 + CROP.y * sc;
+      var z = (r / CROP.half) / sc;
+
+      var set = function (k, v) { scene.style.setProperty(k, v); };
+      set('--top0', (cy - r) + 'px');
+      set('--bottom0', (H - cy - r) + 'px');
+      set('--left0', (cx - r) + 'px');
+      set('--right0', (W - cx - r) + 'px');
+      set('--r0', r + 'px');
+      set('--ox', ox + 'px');
+      set('--oy', oy + 'px');
+      set('--tx', (cx - ox) + 'px');
+      set('--ty', (cy - oy) + 'px');
+      set('--z', z.toFixed(4));
+      scene.setAttribute('data-ready', '');
+      update();
+    }
+
+    // Off-screen controls must not take keyboard focus; the H1 stays in the
+    // accessibility tree throughout.
+    var state = null;
+    function setFocusable(root_, on) {
+      root_.querySelectorAll('a, button').forEach(function (el) {
+        if (on) el.removeAttribute('tabindex');
+        else el.setAttribute('tabindex', '-1');
+      });
+    }
+    function setState(next) {
+      if (state === next) return;
+      state = next;
+      scene.setAttribute('data-state', next);
+      setFocusable(card, next === 'card');
+      setFocusable(hero, next === 'hero');
+      card.setAttribute('aria-hidden', next === 'card' ? 'false' : 'true');
+    }
+
+    var ticking = false;
+    function update() {
       ticking = false;
-    };
+      var p = Math.min(Math.max(-scene.getBoundingClientRect().top / travel, 0), 1);
+      var v = p.toFixed(4);
+      scene.style.setProperty('--p', v);
+      if (nav) nav.style.setProperty('--p', v);
+      setState(p < 0.5 ? 'card' : 'hero');
+    }
     window.addEventListener('scroll', function () {
       if (!ticking) {
-        window.requestAnimationFrame(updateIntroProgress);
         ticking = true;
+        window.requestAnimationFrame(update);
       }
     }, { passive: true });
-    updateIntroProgress();
-  }
 
-  // Rotator headline: a single word element. Its font-size is computed from
-  // the widest of the three words so it never changes size between them --
-  // only the word itself changes, via a left-to-right "typed in" clip-path
-  // reveal (steps() timing so it lands per-letter, not a smooth wipe), then
-  // a quick blur+fade dissolve before the next word types in.
-  var rotator = document.querySelector('.intro-screen__rotator');
-  var wordEl = rotator && rotator.querySelector('.intro-screen__rotator-word');
-  if (rotator && wordEl) {
-    var ROTATOR_WORDS = ['Zatrzymanie', 'Przeszukanie', 'Wezwanie'];
-    var TARGET_FRACTION = 0.88; // leave a margin so it reads as centered, not edge-to-edge
-    var PROBE_SIZE = 100;
-    var probe = document.createElement('span');
-    probe.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;top:-9999px;left:-9999px;';
-    document.body.appendChild(probe);
-
-    var fitRotatorFont = function () {
-      var cs = getComputedStyle(rotator);
-      probe.style.fontFamily = cs.fontFamily;
-      probe.style.fontWeight = cs.fontWeight;
-      probe.style.letterSpacing = cs.letterSpacing;
-      probe.style.textTransform = cs.textTransform;
-      probe.style.fontSize = PROBE_SIZE + 'px';
-      var maxWidth = 0;
-      ROTATOR_WORDS.forEach(function (w) {
-        probe.textContent = w;
-        maxWidth = Math.max(maxWidth, probe.getBoundingClientRect().width);
-      });
-      var targetWidth = rotator.parentElement.clientWidth * TARGET_FRACTION;
-      var fontSize = PROBE_SIZE * (targetWidth / maxWidth);
-      rotator.style.fontSize = fontSize + 'px';
-      var lineHeightPx = parseFloat(cs.lineHeight) || fontSize;
-      rotator.style.height = lineHeightPx + 'px';
-    };
-
-    fitRotatorFont();
-    var resizeTimer;
-    window.addEventListener('resize', function () {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(fitRotatorFont, 150);
-    });
-
-    if (ROTATOR_WORDS.length > 1) {
-      var index = 0;
-      var HOLD_MS = 2400;
-      var MS_PER_CHAR = 70;
-      var MIN_TYPE_MS = 260;
-      var ERASE_MS = 300;
-      var activeAnim = null; // WAAPI fill:'forwards' overrides inline styles
-                              // until canceled, so only one may be alive
-                              // at a time or the older one wins visually.
-
-      var typeWord = function (word) {
-        wordEl.textContent = word;
-        var duration = Math.max(word.length * MS_PER_CHAR, MIN_TYPE_MS);
-        if (activeAnim) activeAnim.cancel();
-        activeAnim = wordEl.animate(
-          [{ clipPath: 'inset(-50% 100% -50% 0)' }, { clipPath: 'inset(-50% 0% -50% 0)' }],
-          { duration: duration, easing: 'steps(' + word.length + ', end)', fill: 'forwards' }
-        );
-      };
-
-      var advance = function () {
-        if (reduceMotion) {
-          index = (index + 1) % ROTATOR_WORDS.length;
-          wordEl.textContent = ROTATOR_WORDS[index];
-          return;
-        }
-        if (activeAnim) activeAnim.cancel();
-        activeAnim = wordEl.animate(
-          [{ opacity: 1 }, { opacity: 0 }],
-          { duration: ERASE_MS, easing: 'ease-in', fill: 'forwards' }
-        );
-        activeAnim.onfinish = function () {
-          activeAnim.cancel();
-          activeAnim = null;
-          index = (index + 1) % ROTATOR_WORDS.length;
-          typeWord(ROTATOR_WORDS[index]);
-        };
-      };
-
-      if (reduceMotion) {
-        wordEl.textContent = ROTATOR_WORDS[0];
-      } else {
-        wordEl.style.opacity = '1';
-        typeWord(ROTATOR_WORDS[0]);
-      }
-      setInterval(advance, HOLD_MS);
+    // Layout changes: window resize, mobile address bar (svh), web fonts
+    // arriving and reflowing the card.
+    if (window.ResizeObserver) {
+      var ro = new ResizeObserver(measure);
+      ro.observe(stage);
+      ro.observe(card);
+    } else {
+      window.addEventListener('resize', measure);
     }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+    measure();
   }
 
   var siteNav = document.querySelector('.site-nav');
