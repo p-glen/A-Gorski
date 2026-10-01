@@ -8,11 +8,21 @@
     return root.getAttribute('data-theme') || 'dark';
   }
 
+  // The button names the mode it will switch to.
+  function syncThemeToggle() {
+    if (themeToggle) {
+      themeToggle.setAttribute('aria-label',
+        currentTheme() === 'dark' ? 'Włącz jasny motyw' : 'Włącz ciemny motyw');
+    }
+  }
+  syncThemeToggle();
+
   if (themeToggle) {
     themeToggle.addEventListener('click', function () {
       var next = currentTheme() === 'dark' ? 'light' : 'dark';
       root.setAttribute('data-theme', next);
       localStorage.setItem('kag-theme', next);
+      syncThemeToggle();
     });
   }
 

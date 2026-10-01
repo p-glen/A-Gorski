@@ -8,6 +8,17 @@
   var resetBtn = panel && panel.querySelector('.ds-panel__reset');
   var exportBtn = panel && panel.querySelector('.ds-panel__export');
 
+  // An author-only tool: visitors never see it. It exists only when the URL
+  // carries ?design-system (other query strings, like cache-busters, do not
+  // count), and its saved overrides are not applied otherwise either.
+  var tools = document.querySelector('.site-tools');
+  if (!/[?&]design-system(=|&|$)/.test(location.search)) {
+    if (panel) panel.remove();
+    if (tools) tools.remove();
+    return;
+  }
+  if (tools) tools.hidden = false;
+
   var THEME_COLORS = [
     { key: '--background', label: 'Tło' },
     { key: '--surface', label: 'Powierzchnia' },
