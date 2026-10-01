@@ -65,6 +65,12 @@
         st.textContent = css;
         d.head.appendChild(st);
       }
+      // ?tx=<px>: scroll the carousel track horizontally (instantly).
+      var tx = q.get('tx');
+      if (tx !== null) {
+        var trackEl = d.querySelector('[data-carousel-track]');
+        if (trackEl) { trackEl.style.scrollBehavior = 'auto'; trackEl.scrollLeft = parseFloat(tx); }
+      }
       var at = q.get('at');
       if (at !== null) {
         // Wait one beat: the section's IntersectionObserver flips

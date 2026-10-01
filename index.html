@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;1,400;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/tokens.css?v=29">
-  <link rel="stylesheet" href="css/style.css?v=29">
+  <link rel="stylesheet" href="css/tokens.css?v=32">
+  <link rel="stylesheet" href="css/style.css?v=32">
 </head>
 <body>
 
@@ -146,109 +146,105 @@
             zarazem podstawą roszczeń cywilnych.
           </p>
         </div>
-        <div class="specjalizacje-grid">
-          <article class="specjalizacje-card">
-            <div class="specjalizacje-card__media" role="img" aria-label="Miejsce na zdjęcie: Prawo karne">
-              <span class="specjalizacje-card__num">01</span>
-              <span class="specjalizacje-card__ph">Zdjęcie 01</span>
+      </div>
+
+      <!-- Carousel: native scroll-snap, so touch, trackpad and keyboard just
+           work; js/carousel.js only wires the arrows and dots. Photos go in
+           as the first child of .specjalizacje-card__media (see style.css). -->
+      <div class="carousel" data-carousel role="group" aria-roledescription="karuzela" aria-label="Obszary praktyki">
+        <div class="carousel__track" data-carousel-track tabindex="0" aria-label="Obszary praktyki, przewijana lista">
+          <article class="specjalizacje-card" role="group" aria-roledescription="slajd" aria-label="1 z 6">
+            <div class="specjalizacje-card__media">
+              <img src="img/obszar-prawo-karne.webp" alt="" width="896" height="1200" loading="lazy" decoding="async" style="object-position: 50% 44%">
             </div>
             <h3>Prawo karne</h3>
             <p>Obrona od pierwszego przesłuchania do postępowania wykonawczego.</p>
-            <details class="specjalizacje-card__more">
-              <summary>Zakres</summary>
-              <ul>
+            <ul class="specjalizacje-card__scope">
                 <li>Postępowanie przygotowawcze i sądowe</li>
                 <li>Tymczasowe aresztowanie i środki zapobiegawcze</li>
                 <li>Apelacje, kasacje, wznowienia</li>
                 <li>Dozór elektroniczny, warunkowe zwolnienie</li>
-              </ul>
-            </details>
+            </ul>
           </article>
-          <article class="specjalizacje-card">
-            <div class="specjalizacje-card__media" role="img" aria-label="Miejsce na zdjęcie: Prawo karne gospodarcze">
-              <span class="specjalizacje-card__num">02</span>
-              <span class="specjalizacje-card__ph">Zdjęcie 02</span>
+          <article class="specjalizacje-card" role="group" aria-roledescription="slajd" aria-label="2 z 6">
+            <div class="specjalizacje-card__media">
+              <img src="img/obszar-karne-gospodarcze.webp" alt="" width="896" height="1200" loading="lazy" decoding="async" style="object-position: 50% 68%">
             </div>
             <h3>Prawo karne gospodarcze</h3>
             <p>Sprawy, w których zarzut dotyczy decyzji podjętej w toku prowadzenia działalności.</p>
-            <details class="specjalizacje-card__more">
-              <summary>Zakres</summary>
-              <ul>
+            <ul class="specjalizacje-card__scope">
                 <li>Przestępstwa przeciwko obrotowi gospodarczemu</li>
                 <li>Sprawy karnoskarbowe i wyłudzenia VAT</li>
                 <li>Działanie na szkodę spółki, nadużycie zaufania</li>
                 <li>Zabezpieczenia majątkowe i zajęcia</li>
-              </ul>
-            </details>
+            </ul>
           </article>
-          <article class="specjalizacje-card">
-            <div class="specjalizacje-card__media" role="img" aria-label="Miejsce na zdjęcie: Criminal compliance">
-              <span class="specjalizacje-card__num">03</span>
-              <span class="specjalizacje-card__ph">Zdjęcie 03</span>
+          <article class="specjalizacje-card" role="group" aria-roledescription="slajd" aria-label="3 z 6">
+            <div class="specjalizacje-card__media">
+              <img src="img/obszar-criminal-compliance.webp" alt="" width="896" height="1200" loading="lazy" decoding="async" style="object-position: 50% 72%">
             </div>
             <h3>Criminal compliance</h3>
             <p>Ograniczanie ryzyka karnego w organizacji, zanim pojawi się zawiadomienie.</p>
-            <details class="specjalizacje-card__more">
-              <summary>Zakres</summary>
-              <ul>
+            <ul class="specjalizacje-card__scope">
                 <li>Analiza ryzyka karnego i procedury</li>
                 <li>Zgłoszenia sygnalistów</li>
                 <li>Wewnętrzne postępowania wyjaśniające</li>
                 <li>Odpowiedzialność podmiotów zbiorowych</li>
-              </ul>
-            </details>
+            </ul>
           </article>
-          <article class="specjalizacje-card">
-            <div class="specjalizacje-card__media" role="img" aria-label="Miejsce na zdjęcie: AML">
-              <span class="specjalizacje-card__num">04</span>
-              <span class="specjalizacje-card__ph">Zdjęcie 04</span>
+          <article class="specjalizacje-card" role="group" aria-roledescription="slajd" aria-label="4 z 6">
+            <div class="specjalizacje-card__media">
+              <img src="img/obszar-aml.webp" alt="" width="896" height="1200" loading="lazy" decoding="async" style="object-position: 50% 55%">
             </div>
             <h3>AML</h3>
             <p>Obowiązki instytucji obowiązanych i konsekwencje ich niedopełnienia.</p>
-            <details class="specjalizacje-card__more">
-              <summary>Zakres</summary>
-              <ul>
+            <ul class="specjalizacje-card__scope">
                 <li>Ocena ryzyka, procedury, szkolenia</li>
                 <li>Kontrole GIIF i postępowania pokontrolne</li>
                 <li>Kary pieniężne za naruszenie obowiązków</li>
                 <li>Odpowiedzialność karna, art. 299 k.k.</li>
-              </ul>
-            </details>
+            </ul>
           </article>
-          <article class="specjalizacje-card">
-            <div class="specjalizacje-card__media" role="img" aria-label="Miejsce na zdjęcie: Kary administracyjne">
-              <span class="specjalizacje-card__num">05</span>
-              <span class="specjalizacje-card__ph">Zdjęcie 05</span>
+          <article class="specjalizacje-card" role="group" aria-roledescription="slajd" aria-label="5 z 6">
+            <div class="specjalizacje-card__media">
+              <img src="img/obszar-kary-administracyjne.webp" alt="" width="896" height="1200" loading="lazy" decoding="async" style="object-position: 50% 64%">
             </div>
             <h3>Kary administracyjne</h3>
             <p>Postępowania sankcyjne przed organami nadzoru i ich sądowa kontrola.</p>
-            <details class="specjalizacje-card__more">
-              <summary>Zakres</summary>
-              <ul>
+            <ul class="specjalizacje-card__scope">
                 <li>UODO, UOKiK, KNF, GIIF, URE, UKE, PIP</li>
                 <li>Wymiar kary, odstąpienie, ulgi w wykonaniu</li>
                 <li>Skarga do WSA i wstrzymanie wykonania</li>
                 <li>Równoległe ryzyko karne</li>
-              </ul>
-            </details>
+            </ul>
           </article>
-          <article class="specjalizacje-card">
-            <div class="specjalizacje-card__media" role="img" aria-label="Miejsce na zdjęcie: Zwalczanie nieuczciwej konkurencji">
-              <span class="specjalizacje-card__num">06</span>
-              <span class="specjalizacje-card__ph">Zdjęcie 06</span>
+          <article class="specjalizacje-card" role="group" aria-roledescription="slajd" aria-label="6 z 6">
+            <div class="specjalizacje-card__media">
+              <img src="img/obszar-nieuczciwa-konkurencja.webp" alt="" width="896" height="1200" loading="lazy" decoding="async" style="object-position: 50% 55%">
             </div>
             <h3>Zwalczanie nieuczciwej konkurencji</h3>
             <p>Sprawy cywilne prowadzone samodzielnie albo równolegle do postępowania karnego.</p>
-            <details class="specjalizacje-card__more">
-              <summary>Zakres</summary>
-              <ul>
+            <ul class="specjalizacje-card__scope">
                 <li>Naruszenie tajemnicy przedsiębiorstwa</li>
                 <li>Przejęcie klientów i pracowników</li>
                 <li>Naśladownictwo produktów i oznaczeń</li>
                 <li>Roszczenia zakazowe i odszkodowawcze</li>
-              </ul>
-            </details>
+            </ul>
           </article>
+        </div>
+        <div class="container carousel__controls">
+          <div class="carousel__dots">
+          <button class="carousel__dot" type="button" data-carousel-dot aria-label="Przejdź do obszaru 1"></button>
+          <button class="carousel__dot" type="button" data-carousel-dot aria-label="Przejdź do obszaru 2"></button>
+          <button class="carousel__dot" type="button" data-carousel-dot aria-label="Przejdź do obszaru 3"></button>
+          <button class="carousel__dot" type="button" data-carousel-dot aria-label="Przejdź do obszaru 4"></button>
+          <button class="carousel__dot" type="button" data-carousel-dot aria-label="Przejdź do obszaru 5"></button>
+          <button class="carousel__dot" type="button" data-carousel-dot aria-label="Przejdź do obszaru 6"></button>
+          </div>
+          <div class="carousel__arrows">
+            <button class="carousel__arrow" type="button" data-carousel-prev aria-label="Poprzedni obszar"><svg class="carousel__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M168.49,199.51a12,12,0,0,1-17,17l-80-80a12,12,0,0,1,0-17l80-80a12,12,0,0,1,17,17L97,128Z"/></svg></button>
+            <button class="carousel__arrow" type="button" data-carousel-next aria-label="Następny obszar"><svg class="carousel__icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg></button>
+          </div>
         </div>
       </div>
     </section>
@@ -522,8 +518,9 @@
     </footer>
   </aside>
 
-  <script src="js/main.js?v=29"></script>
-  <script src="js/siren.js?v=29"></script>
-  <script src="js/design-system.js?v=29"></script>
+  <script src="js/main.js?v=32"></script>
+  <script src="js/siren.js?v=32"></script>
+  <script src="js/carousel.js?v=32"></script>
+  <script src="js/design-system.js?v=32"></script>
 </body>
 </html>
