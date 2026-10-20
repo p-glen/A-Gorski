@@ -541,11 +541,17 @@ h4 { font-size: var(--size-h4); }
   padding: 1.125rem 1.5rem;
 }
 .site-nav__logo {
-  font-family: var(--font-heading);
-  font-size: 1.25rem;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
+  display: block;
+  flex-shrink: 0;
 }
+.site-nav__logo-img {
+  display: block;
+  height: 40px;
+  width: auto;
+}
+.site-nav__logo-img--light { display: none; }
+:root[data-theme="light"] .site-nav__logo-img--dark { display: none; }
+:root[data-theme="light"] .site-nav__logo-img--light { display: block; }
 .site-nav__links {
   display: flex;
   align-items: center;
@@ -1473,7 +1479,7 @@ h4 { font-size: var(--size-h4); }
   .strefa-wiedzy-grid,
   .steps-grid { grid-template-columns: 1fr; }
   .site-nav__inner { padding: 1rem; }
-  .site-nav__logo { font-size: 1.0625rem; }
+  .site-nav__logo-img { height: 32px; }
   .site-nav__actions { gap: 0.5rem; }
   .footer-grid { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; gap: 0.5rem; }
