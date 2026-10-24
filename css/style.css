@@ -898,13 +898,24 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   padding: var(--space-section-y) 0;
   background-color: var(--background-deep);
 }
-.reason-band__hook {
-  line-height: 1.2;
-  max-width: 40ch;
-  margin: 0 0 4rem;
+/* The claim gets its own band: centred, at least 40% of the viewport, so it
+   reads as the page's thesis and not as a heading squeezed above a list. */
+.claim {
+  display: grid;
+  align-items: center;
+  min-height: 40vh;
+  padding: var(--space-section-y-lg) 0;
+  text-align: center;
+}
+.claim__text {
+  max-width: 32ch;
+  margin: 0 auto;
   font-family: var(--font-display);
-  font-weight: 500;
+  font-size: clamp(2rem, 5vw, 3.75rem);
+  font-weight: 600;
+  line-height: 1.1;
   letter-spacing: 0;
+  text-wrap: balance;
 }
 .reason-list {
   display: flex;
