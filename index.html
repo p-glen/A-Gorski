@@ -9,9 +9,9 @@
   <link rel="preload" href="fonts/inter-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/inter-tight-500-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/roboto-serif-condensed-600-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/fonts.css?v=90">
-  <link rel="stylesheet" href="css/tokens.css?v=90">
-  <link rel="stylesheet" href="css/style.css?v=90">
+  <link rel="stylesheet" href="css/fonts.css?v=93">
+  <link rel="stylesheet" href="css/tokens.css?v=93">
+  <link rel="stylesheet" href="css/style.css?v=93">
 </head>
 <body>
 
@@ -27,11 +27,11 @@
       </a>
 
       <nav class="site-nav__links">
-        <a href="praktyki/" data-nav="praktyki">Specjalizacje</a>
-        <a href="blog/" data-nav="blog">Analizy</a>
-        <a href="zatrzymanie-jak-przygotowac-sie-na-sytuacje-kryzysowa/" data-nav="zatrzymanie">Zatrzymanie</a>
-        <a href="o-mnie/" data-nav="o-mnie" class="site-nav__group-start">O mnie</a>
-        <a href="kontakt/" data-nav="kontakt">Kontakt</a>
+        <span class="site-nav__item"><a href="#specjalizacje" data-nav="specjalizacje">Specjalizacje</a><a class="site-nav__detail" href="praktyki/" data-nav-detail="praktyki" aria-label="Specjalizacje: pełna strona"><svg class="site-nav__detail-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg></a></span>
+        <span class="site-nav__item"><a href="#sprawa-pilna" data-nav="sprawa-pilna">Zatrzymanie</a><a class="site-nav__detail" href="zatrzymanie-jak-przygotowac-sie-na-sytuacje-kryzysowa/" data-nav-detail="zatrzymanie" aria-label="Zatrzymanie: pełna strona"><svg class="site-nav__detail-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg></a></span>
+        <span class="site-nav__item"><a href="#o-mnie" data-nav="o-mnie">O mnie</a></span>
+        <span class="site-nav__item"><a href="#publikacje" data-nav="publikacje">Analizy</a><a class="site-nav__detail" href="blog/" data-nav-detail="blog" aria-label="Analizy: pełna strona"><svg class="site-nav__detail-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg></a></span>
+        <span class="site-nav__item"><a href="#rezerwacja" data-nav="rezerwacja">Kontakt</a></span>
         <button class="theme-toggle theme-toggle--menu" type="button" aria-label="Włącz jasny motyw"><svg class="theme-toggle__sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" /><path d="M12 2v2" /><path d="M12 20v2" /><path d="m4.93 4.93 1.41 1.41" /><path d="m17.66 17.66 1.41 1.41" /><path d="M2 12h2" /><path d="M20 12h2" /><path d="m6.34 17.66-1.41 1.41" /><path d="m19.07 4.93-1.41 1.41" /></svg><svg class="theme-toggle__moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" /></svg><span class="theme-toggle__label">Zmień motyw</span></button>
       </nav>
 
@@ -77,11 +77,11 @@
               <span class="scene__disc"><svg class="scene__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></svg></span>
               <span class="scene__label">Zadzwoń</span>
             </a>
-            <a class="scene__action scene__action--glass" href="kontakt/">
+            <a class="scene__action scene__action--glass" href="#rezerwacja">
               <span class="scene__disc"><svg class="scene__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 2v3" /><path d="M16 2v3" /><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18" /></svg></span>
               <span class="scene__label">Umów</span>
             </a>
-            <a class="scene__action scene__action--glass" href="kontakt/#formularz">
+            <a class="scene__action scene__action--glass" href="#formularz">
               <span class="scene__disc"><svg class="scene__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /><rect x="2" y="4" width="20" height="16" rx="2" /></svg></span>
               <span class="scene__label">Napisz</span>
             </a>
@@ -102,7 +102,7 @@
             <h1><span>Podpisuję się</span> <span>pod każdą sprawą.</span></h1>
             <p class="hero__lead"><span>Bronię podejrzanych i reprezentuję pokrzywdzonych.</span> <span>Sprawy karne gospodarcze, compliance, AML.</span></p>
             <div class="hero__cta">
-              <a class="button-primary" href="kontakt/">Umów konsultację</a>
+              <a class="button-primary" href="#rezerwacja">Umów konsultację</a>
               <p class="free-note">Pierwsza rozmowa jest bezpłatna.</p>
             </div>
           </div>
@@ -230,6 +230,7 @@
             <button class="carousel__arrow" type="button" data-carousel-prev aria-label="Poprzedni obszar"><svg class="carousel__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6" /></svg></button>
             <button class="carousel__arrow" type="button" data-carousel-next aria-label="Następny obszar"><svg class="carousel__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6" /></svg></button>
           </div>
+          <div class="section-more"><a class="button-alert" href="praktyki/">Wszystkie specjalizacje<svg class="button-alert__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a></div>
         </div>
       </div>
     </section>
@@ -273,15 +274,88 @@
       </div>
     </section>
 
-    <!-- O MNIE (zapowiedź; pełna strona: o-mnie/) -->
-    <section class="bio-section bio-section--teaser" id="o-mnie" data-section="o-mnie">
+    <!-- O MNIE -->
+<section class="bio-section" id="o-mnie" data-section="o-mnie">
       <div class="container">
         <div class="bio-grid">
           <img src="img/arkadiusz-gorski-fotel.webp" alt="Adwokat Arkadiusz Górski w fotelu, portret" class="portrait" width="896" height="1200" loading="lazy" decoding="async">
           <div class="bio-content">
+            <div class="bio-panel">
             <h2 class="heading-condensed">Gdy zadzwonisz, odbiorę ja.</h2>
-            <p class="bio-intro">Jestem adwokatem specjalizującym się przede wszystkim w prawie karnym gospodarczym. Występuję jako obrońca podejrzanych i oskarżonych, ale także jako pełnomocnik pokrzywdzonych, w szczególności spółek.</p>
-            <a class="button-alert" href="o-mnie/">Więcej o mnie</a>
+            <dl class="credentials credentials--prose">
+              <div>
+                <dt>Specjalizacja</dt>
+                <dd>Jestem adwokatem specjalizującym się przede wszystkim w prawie karnym gospodarczym. Występuję jako obrońca podejrzanych i oskarżonych, ale także jako pełnomocnik pokrzywdzonych, w szczególności spółek.</dd>
+              </div>
+              <div>
+                <dt>Compliance</dt>
+                <dd>Mam doświadczenie w sprawach z rynku kapitałowego i w compliance. Tworzę i weryfikuję wewnętrzne procedury firm w obszarze przeciwdziałania praniu pieniędzy (AML), przeciwdziałania korupcji, obsługi zgłoszeń sygnalistów oraz systemów kontroli wewnętrznej, uwzględniając standardy <a class="tech" href="https://www.iso.org/standard/75080.html" target="_blank" rel="noopener">ISO 37301</a> i <span class="tech">DPSN</span>.</dd>
+              </div>
+              <div>
+                <dt>Dydaktyka</dt>
+                <dd>Prowadziłem zajęcia z przestępstw gospodarczych i AML na studiach podyplomowych <a href="https://www.uj.edu.pl" target="_blank" rel="noopener">Uniwersytetu Jagiellońskiego</a>.</dd>
+              </div>
+              <div>
+                <dt>Publikacje</dt>
+                <dd>Jestem współautorem komentarza do ustawy o przeciwdziałaniu praniu pieniędzy oraz finansowaniu terroryzmu (C.H. Beck, wydania z 2021 i 2024 r.), a moje teksty ukazywały się m.in. w <cite class="pub">Parkiecie</cite>, <cite class="pub">Monitorze Prawniczym</cite>, <cite class="pub">Przeglądzie Sądowym</cite>, <cite class="pub">Czasopiśmie Prawa Karnego i Nauk Penalnych</cite> oraz <cite class="pub">Doradcy Restrukturyzacyjnym</cite>.</dd>
+              </div>
+            </dl>
+            </div>
+
+            <div class="bio-panel">
+            <h3 class="bio-group">Wybrane sprawy</h3>
+            <p class="bio-group__desc">Sprawy, w których występuję jako obrońca, pełnomocnik lub doradca.</p>
+            <dl class="credentials credentials--prose">
+              <div>
+                <dt>Obrona gospodarcza</dt>
+                <dd>Oszustwo, przywłaszczenie, wyłudzenie VAT i działanie na szkodę spółki.</dd>
+              </div>
+              <div>
+                <dt>Pokrzywdzeni</dt>
+                <dd>Reprezentacja spółek w sprawach o działanie na szkodę spółki.</dd>
+              </div>
+              <div>
+                <dt>Rynek kapitałowy</dt>
+                <dd>Obrona przy zarzutach manipulacji instrumentami finansowymi, oferowania ich bez zezwolenia i wykorzystania informacji poufnej.</dd>
+              </div>
+              <div>
+                <dt>KNF</dt>
+                <dd>Reprezentacja emitentów i firm inwestycyjnych w sprawach o administracyjne kary pieniężne.</dd>
+              </div>
+              <div>
+                <dt>Compliance i AML</dt>
+                <dd>Projektowanie regulacji wewnętrznych (whistleblowing, anti-bribery, kontrola wewnętrzna), także w świetle wymogów DPSN 2021.</dd>
+              </div>
+            </dl>
+            </div>
+
+            <div class="bio-panel">
+            <h3 class="bio-group">Dane zawodowe</h3>
+            <p class="bio-group__desc">Wpis na listę adwokatów, doświadczenie i wykształcenie.</p>
+            <dl class="credentials">
+              <div>
+                <dt>Izba</dt>
+                <dd>Okręgowa Izba Adwokacka w Warszawie</dd>
+              </div>
+              <div>
+                <dt>Numer wpisu</dt>
+                <dd>ADW/WAW/8947</dd>
+              </div>
+              <div>
+                <dt>Doświadczenie zawodowe</dt>
+                <dd><ul class="timeline"><li><span>2022–2026</span><span>JDP Drapała Chomiuk &amp; Partners</span></li><li><span>2017–2022</span><span>Królikowski Marczuk Dyl adwokaci i radcowie prawni sp.p.</span></li><li><span>2016–2017</span><span>Kancelaria Prezydenta RP</span></li></ul></dd>
+              </div>
+              <div>
+                <dt>Edukacja</dt>
+                <dd><ul class="timeline"><li><span>2020–2021</span><span>Akademia Leona Koźmińskiego, Studia podyplomowe: Analityk Compliance i AML</span></li><li><span>2017–2019</span><span>Okręgowa Izba Adwokacka w Warszawie, aplikacja adwokacka</span></li><li><span>2011–2016</span><span>Uniwersytet Warszawski, Wydział Prawa i Administracji</span></li></ul></dd>
+              </div>
+              <div>
+                <dt>Języki</dt>
+                <dd>Angielski</dd>
+              </div>
+            </dl>
+            <a class="button-alert" href="#rezerwacja">Umów konsultację</a>
+            </div>
           </div>
         </div>
       </div>
@@ -298,28 +372,107 @@
           <!-- BLOG-CARDS:start -->
           <a class="knowledge-card" href="blog/prezes-odpowiada-karnie-za-podatki-spolki-nawet-jesli-ich-nie-wyliczal/">
             <h3>Prezes odpowiada karnie za podatki spółki, nawet jeśli ich nie wyliczał</h3>
-            <span class="knowledge-card__tag">Karne gospodarcze i skarbowe</span>
+            <div class="knowledge-card__meta">
+              <span class="knowledge-card__tag">Karne gospodarcze i skarbowe</span>
+              <span class="knowledge-card__time">2 min</span>
+            </div>
           </a>
           <a class="knowledge-card" href="blog/nie-jestes-bankiem-a-i-tak-dotyczy-cie-aml-sprawdz-zanim-przyjdzie/">
             <h3>Nie jesteś bankiem, a i tak dotyczy Cię AML? Sprawdź, zanim przyjdzie kontrola</h3>
-            <span class="knowledge-card__tag">AML</span>
+            <div class="knowledge-card__meta">
+              <span class="knowledge-card__tag">AML</span>
+              <span class="knowledge-card__time">2 min</span>
+            </div>
           </a>
           <a class="knowledge-card" href="blog/czynny-zal-podatnika-co-daje-kiedy-dziala-a-kiedy-jest-za-pozno/">
             <h3>Czynny żal podatnika. Co daje, kiedy działa, a kiedy jest za późno?</h3>
-            <span class="knowledge-card__tag">Karne gospodarcze i skarbowe</span>
+            <div class="knowledge-card__meta">
+              <span class="knowledge-card__tag">Karne gospodarcze i skarbowe</span>
+              <span class="knowledge-card__time">2 min</span>
+            </div>
           </a>
           <!-- BLOG-CARDS:end -->
         </div>
-        <p class="strefa-wiedzy-more"><a href="blog/">Wszystkie wpisy <span aria-hidden="true">→</span></a></p>
+        <div class="section-more"><a class="button-alert" href="blog/">Wszystkie wpisy<svg class="button-alert__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a></div>
       </div>
     </section>
 
-    <!-- KONTAKT (zamknięcie ścieżki; pełna strona: kontakt/) -->
-    <section class="final-cta" id="umow-rozmowe" data-section="kontakt">
+    <!-- REZERWACJA -->
+<section class="rezerwacja-section" id="rezerwacja" data-section="rezerwacja">
       <div class="container">
-        <h2 class="heading-condensed">Umów bezpłatną pierwszą rozmowę</h2>
-        <p>Wybierz termin online albo zadzwoń. Bez płatności z góry.</p>
-        <a class="button-primary" href="kontakt/">Umów konsultację</a>
+        <div class="rezerwacja-grid">
+          <div class="rezerwacja-content">
+            <h2 class="heading-condensed">Umów bezpłatną pierwszą rozmowę</h2>
+            <p>Wybierz dogodny termin online, bez płatności z góry. Służy ustaleniu, czy i w jaki sposób mogę Ci pomóc.</p>
+            <a class="rezerwacja-tel" href="tel:+48792892457">792 892 457</a>
+            <p class="rezerwacja-signal">Możesz też napisać przez Signal, na ten sam numer. Rozmowa jest wtedy szyfrowana.</p>
+            <address class="rezerwacja-address">
+              Kancelaria Adwokacka Arkadiusz Górski<br>
+              ul. Mokotowska 57 lok. 4<br>
+              00-542 Warszawa
+            </address>
+            <p class="rezerwacja-hours"><b>Poniedziałek-piątek, 9:00-18:00.</b><br>W sprawach zatrzymań i przeszukań dostępny całą dobę.</p>
+          </div>
+
+          <div class="contact-switch" id="formularz" data-contact-switch>
+            <div class="contact-switch__tabs" role="tablist" aria-label="Sposób kontaktu">
+              <button class="contact-switch__tab" type="button" role="tab" id="tab-umow" data-tab="umow" aria-controls="panel-umow" aria-selected="true" tabindex="0">Umów wizytę</button>
+              <button class="contact-switch__tab" type="button" role="tab" id="tab-anon" data-tab="anon" aria-controls="panel-anon" aria-selected="false" tabindex="-1">Anonimowa wiadomość</button>
+            </div>
+
+            <div class="contact-switch__panel" id="panel-umow" role="tabpanel" aria-labelledby="tab-umow">
+              <!-- Calendesk frame begin -->
+              <div class="calendesk-embed">
+                <iframe class="calendesk-frame" src="https://yjggztzhsz.calendesk.net/?cdWidget=1" scrolling="no" title="Adwokat Arkadiusz Górski" frameborder="0"></iframe>
+              </div>
+              <!-- Calendesk frame end -->
+            </div>
+
+            <div class="contact-switch__panel" id="panel-anon" role="tabpanel" aria-labelledby="tab-anon" hidden>
+              <p class="contact-switch__intro">Napisz bez podawania imienia. Zostaw kontakt tylko wtedy, gdy chcesz odpowiedzi.</p>
+              <form class="contact-form" action="#" method="post">
+                <div class="form-warning">
+                  <b>Nie opisuj tu szczegółów sprawy.</b> Formularz nie jest poufny. O sprawie rozmawiamy przez telefon, Signal lub w kancelarii.
+                </div>
+                <div class="form-field">
+                  <label for="temat">Czego dotyczy kontakt? Jednym zdaniem, bez szczegółów.</label>
+                  <textarea id="temat" name="temat" rows="4" maxlength="300" required></textarea>
+                </div>
+                <div class="form-field">
+                  <label for="kontakt">Telefon lub e-mail, jeśli chcesz odpowiedzi (opcjonalnie)</label>
+                  <input id="kontakt" name="kontakt" type="text" autocomplete="off">
+                </div>
+                <p class="form-consent">Wysyłając wiadomość, przekazujesz dane wyłącznie w celu odpowiedzi. Zasady przetwarzania opisano w <a href="polityka-prywatnosci/">polityce prywatności</a>. Treść wiadomości nie jest zapisywana w bazie danych serwisu.</p>
+                <button class="button-primary" type="submit">Wyślij anonimowo</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <script>
+        window.addEventListener("message", function (e) {
+          var d = e.data;
+          if (!d || (d.type !== "calendesk-resize" && d.type !== "calendesk-scroll")) return;
+          var frames = document.querySelectorAll(".calendesk-frame");
+          for (var i = 0; i < frames.length; i++) {
+            var f = frames[i];
+            if (f.contentWindow !== e.source) continue;
+            if (d.type === "calendesk-resize" && typeof d.height === "number") { f.style.height = d.height + "px"; }
+            if (d.type === "calendesk-scroll" && typeof d.top === "number") {
+              var r = f.getBoundingClientRect();
+              var margin = parseFloat(getComputedStyle(f).scrollMarginTop) || 0;
+              window.scrollTo(0, Math.max(0, window.pageYOffset + r.top + d.top - margin));
+              if (margin) continue;
+              var el = document.elementFromPoint(Math.min(Math.max(r.left, 0) + f.offsetWidth / 2, window.innerWidth - 1), 1), cover = 0;
+              while (el && el !== f && el !== document.body) {
+                var p = getComputedStyle(el).position;
+                if (p === "fixed" || p === "sticky") cover = Math.max(cover, el.getBoundingClientRect().bottom);
+                el = el.parentElement;
+              }
+              if (cover > 0) window.scrollBy(0, -cover);
+            }
+          }
+        });
+        </script>
       </div>
     </section>
 
@@ -344,7 +497,7 @@
           <h4>Strona</h4>
           <p>
             <a href="praktyki/">Specjalizacje</a><br>
-            <a href="o-mnie/">O mnie</a><br>
+            <a href="#o-mnie">O mnie</a><br>
             <a href="blog/">Analizy</a><br>
             <a href="zatrzymanie-jak-przygotowac-sie-na-sytuacje-kryzysowa/">Zatrzymanie: poradnik</a>
           </p>
@@ -352,7 +505,7 @@
         <div>
           <h4>Kontakt</h4>
           <p>
-            <a href="kontakt/">Umów rozmowę</a><br>
+            <a href="#rezerwacja">Umów rozmowę</a><br>
             <a href="tel:+48792892457">Pomoc 24/7</a><br>
             <a href="polityka-prywatnosci/">Polityka prywatności</a>
           </p>
@@ -393,9 +546,10 @@
     </footer>
   </aside>
 
-  <script src="js/main.js?v=34"></script>
+  <script src="js/main.js?v=92"></script>
   <script src="js/siren.js?v=34"></script>
   <script src="js/carousel.js?v=34"></script>
+  <script src="js/contact-switch.js?v=90"></script>
   <script src="js/design-system.js?v=60"></script>
 </body>
 </html>

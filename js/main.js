@@ -25,6 +25,30 @@
     });
   });
 
+  // Scrollspy: the nav tab of the section in view gets aria-current="location"
+  // (shown as the underline). Only on the landing page, where tabs are anchors.
+  var spyLinks = document.querySelectorAll('.site-nav__links a[href^="#"]');
+  if (spyLinks.length && 'IntersectionObserver' in window) {
+    var spyMap = {};
+    spyLinks.forEach(function (a) { spyMap[a.getAttribute('href').slice(1)] = a; });
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var link = spyMap[entry.target.id];
+        if (!link) return;
+        if (entry.isIntersecting) {
+          spyLinks.forEach(function (a) { a.removeAttribute('aria-current'); });
+          link.setAttribute('aria-current', 'location');
+        } else if (link.getAttribute('aria-current') === 'location') {
+          link.removeAttribute('aria-current');
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    Object.keys(spyMap).forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) spy.observe(el);
+    });
+  }
+
   var navToggle = document.querySelector('.nav-toggle');
   if (navToggle) {
     navToggle.addEventListener('click', function () {

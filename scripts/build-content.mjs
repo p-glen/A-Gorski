@@ -87,16 +87,16 @@ function relink(html, root) {
     /^(https?:|tel:|mailto:|sms:|\/\/)/.test(v) ? m : `${attr}="${root}${v}"`);
 }
 
-// Which nav tab is current for a page directory (Start = the landing page).
+// Which detail page a directory belongs to (the nav arrow for it gets aria-current).
 function navKey(dir) {
-  if (!dir) return 'start';
+  if (!dir) return '';
   const first = dir.split('/')[0];
-  return first === guide.slug ? 'zatrzymanie' : ['praktyki', 'blog', 'o-mnie', 'kontakt'].includes(first) ? first : '';
+  return first === guide.slug ? 'zatrzymanie' : ['praktyki', 'blog'].includes(first) ? first : '';
 }
 function navFor(dir, root) {
   const key = navKey(dir);
-  const html = NAV.replace(/ aria-current="page"/g, '')
-    .replace(new RegExp(`(<a [^>]*data-nav="${key}")`), '$1 aria-current="page"');
+  const html = NAV.replace(/ aria-current="[^"]*"/g, '')
+    .replace(new RegExp(`(<a [^>]*data-nav-detail="${key}")`), '$1 aria-current="page"');
   return relink(html, root);
 }
 const THEME_SCRIPT = '<script>try{var t=localStorage.getItem("kag-theme");if(!t&&matchMedia("(prefers-color-scheme: light)").matches)t="light";if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>';
@@ -140,7 +140,7 @@ function ctaBlock(root) {
     <h2 id="cta-title" class="cta-block__title">Porozmawiajmy o twojej sprawie</h2>
     <p class="cta-block__text">Pierwsza rozmowa jest bezpłatna, bez płatności z góry.</p>
     <div class="cta-block__actions">
-      <a class="button-primary" href="${root}kontakt/">Umów konsultację</a>
+      <a class="button-primary" href="${root}#rezerwacja">Umów konsultację</a>
       <a class="cta-block__phone" href="${PHONE_HREF}">${PHONE}</a>
     </div>
     <p class="cta-block__note">W sprawach zatrzymań i przeszukań dostępny całą dobę.</p>
@@ -345,18 +345,6 @@ ${ctaBlock(root)}
   emit(guide.slug, page({ root, dir: guide.slug, title: guide.metaTitle, description: guide.metaDescription, bodyClass: 'page page--guide', main, scripts: ['js/blog.js'], jsonld }));
 }
 
-// ---------- hand-written pages (content/pages/*.html) ----------
-// Each file starts with a <!--meta {json} --> comment (slug, title, description,
-// bodyClass, scripts) followed by the page's <section> markup.
-for (const file of fs.readdirSync(path.join(ROOT, 'content', 'pages')).filter((f) => f.endsWith('.html'))) {
-  const raw = read(`content/pages/${file}`);
-  const m = raw.match(/^<!--meta\s*([\s\S]*?)\s*-->\s*/);
-  const meta = JSON.parse(m[1]);
-  const root = '../';
-  emit(meta.slug, page({ root, dir: meta.slug, title: meta.title, description: meta.description,
-    bodyClass: meta.bodyClass, main: relink(raw.slice(m[0].length), root), scripts: meta.scripts || [] }));
-}
-
 // ---------- privacy (draft, not indexed) ----------
 {
   const root = '../';
@@ -375,10 +363,12 @@ ${renderBlocks(blocksOf(privacy.body))}
 // ---------- landing: refresh the three blog cards ----------
 {
   const top = posts.slice(0, 3);
-  const cards = top.map((p) => `          <a class="knowledge-card" href="blog/${p.slug}/">${p.date ? `
-            <time class="knowledge-card__date" datetime="${p.date}">${fmtDate(p.date)}</time>` : ''}
+  const cards = top.map((p) => `          <a class="knowledge-card" href="blog/${p.slug}/">
             <h3>${inline(p.title)}</h3>
-            <span class="knowledge-card__tag">${esc(catShort(p.category))}</span>
+            <div class="knowledge-card__meta">
+              <span class="knowledge-card__tag">${esc(catShort(p.category))}</span>
+              ${p.date ? `<time class="knowledge-card__time" datetime="${p.date}">${fmtDate(p.date)}</time>` : `<span class="knowledge-card__time">${p.min} min</span>`}
+            </div>
           </a>`).join('\n');
   const re = /(<!-- BLOG-CARDS:start -->)[\s\S]*?(<!-- BLOG-CARDS:end -->)/;
   if (!re.test(landing)) throw new Error('index.html: BLOG-CARDS markers missing');

@@ -539,6 +539,7 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
 }
 .button-alert--nav {
   padding: 0.5rem 1rem;
+  font-size: 0.875rem;
   border: 0;
   border-radius: 999px;
   background: color-mix(in srgb, var(--text) 10%, transparent);
@@ -634,20 +635,36 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   align-items: center;
   gap: 1.5rem;
 }
-/* Two groups: the content tabs, then the person (About, Contact). */
-.site-nav__links a.site-nav__group-start { margin-left: 1rem; }
 .site-nav__links a {
-  font-size: 1rem;
+  font-size: 0.875rem;
   color: var(--text-secondary);
   white-space: nowrap;
   transition: color 0.2s ease;
   font-weight: 500;
   line-height: var(--lh-ui);
 }
-.site-nav__links a { position: relative; }
 .site-nav__links a:hover { color: var(--accent-brass-text); }
-.site-nav__links a[aria-current="page"] { color: var(--text); }
-.site-nav__links a[aria-current="page"]::after {
+/* Each tab scrolls to its section on the landing page; where a full page
+   exists, a small arrow next to the label opens it. The underline marks the
+   section in view (landing) or the page you are on (detail pages). */
+.site-nav__item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.125rem;
+}
+.site-nav__detail {
+  display: inline-flex;
+  padding: 0.375rem;
+  color: var(--text-muted);
+  transition: color 0.2s ease, transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.site-nav__detail-icon { width: 0.875rem; height: 0.875rem; }
+@media (hover: hover) and (pointer: fine) {
+  .site-nav__detail:hover { color: var(--accent-brass-text); transform: translate(1px, -1px); }
+}
+.site-nav__item:has(a[aria-current]) > a:first-child { color: var(--text); }
+.site-nav__item:has(a[aria-current])::after {
   content: "";
   position: absolute;
   left: 0;
@@ -1096,17 +1113,6 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
 }
 .specjalizacje-card__link:hover,
 .specjalizacje-card__link:focus-visible { color: var(--accent-brass-text); }
-.strefa-wiedzy-more {
-  margin: 2.5rem 0 0;
-  text-align: center;
-}
-.strefa-wiedzy-more a {
-  color: var(--text);
-  font-weight: 500;
-  border-bottom: 1px solid var(--accent-brass);
-  padding-bottom: 0.125rem;
-}
-.strefa-wiedzy-more a:hover { color: var(--accent-brass-text); }
 
 /* Controls: dots left, arrows right, both aligned with the page container. */
 .carousel__controls {
@@ -1307,7 +1313,7 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
 }
 .bio-grid {
   display: grid;
-  grid-template-columns: minmax(0, 19rem) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 22rem) minmax(0, 1fr);
   gap: clamp(2rem, 5vw, 4.5rem);
   align-items: start;
 }
@@ -1320,10 +1326,14 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   border: 1px solid var(--border);
 }
 @media (min-width: 992px) {
-  /* The text column is taller than the photo: keep the photo beside it. */
+  /* The text column is taller than the photo: the photo stays beside it,
+     tall enough to fill the side of the viewport. */
   .portrait {
     position: sticky;
     top: calc(var(--nav-height, 5rem) + 1.5rem);
+    aspect-ratio: 1 / 2;
+    max-height: calc(100svh - var(--nav-height, 5rem) - 3rem);
+    object-position: 50% 22%;
   }
 }
 .bio-content h1,
@@ -1364,18 +1374,27 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   .bio-panel .credentials { margin-bottom: 0; }
   .bio-panel .button-alert { align-self: flex-start; }
 }
-@media (min-width: 992px) and (prefers-reduced-motion: no-preference) {
+/* Content eases in from the bottom edge of the viewport and out at the top,
+   with a light blur, driven by each element's own scroll position. Plain
+   visible content is the default where view timelines are unsupported. */
+@media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
-    .bio-panel > * {
-      animation: bio-in linear both;
+    .bio-content h1,
+    .bio-content h2,
+    .bio-group,
+    .bio-group__desc,
+    .credentials > div,
+    .bio-content .button-alert {
+      animation: edge-fade linear both;
       animation-timeline: view();
-      animation-range: entry 5% entry 45%;
     }
   }
 }
-@keyframes bio-in {
-  from { opacity: 0; transform: translateY(1.5rem); }
-  to { opacity: 1; transform: none; }
+@keyframes edge-fade {
+  0% { opacity: 0; filter: blur(8px); transform: translateY(1.25rem); }
+  18% { opacity: 1; filter: blur(0); transform: none; }
+  82% { opacity: 1; filter: blur(0); transform: none; }
+  100% { opacity: 0; filter: blur(8px); transform: translateY(-1.25rem); }
 }
 .credentials {
   display: grid;
@@ -1452,20 +1471,6 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   font-style: italic;
 }
 
-/* Closing band on the landing: one action, leading to the contact page. */
-.final-cta {
-  padding: var(--space-section-y-lg) 0;
-  background-color: var(--background-deep);
-  text-align: center;
-}
-.final-cta h2 { margin-bottom: 1rem; }
-.final-cta p {
-  margin: 0 auto 2rem;
-  color: var(--text-secondary);
-}
-.bio-section--teaser .portrait { position: static; }
-.bio-section--teaser .bio-intro { margin-bottom: 1.5rem; }
-
 /* ---------- Strefa Wiedzy (minimal) ---------- */
 .strefa-wiedzy-section {
   padding: var(--space-section-y) 0;
@@ -1475,16 +1480,28 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
 }
+/* Footer row of each card: category left, date (or reading time) right. */
 .knowledge-card {
-  display: block;
+  display: flex;
+  flex-direction: column;
   border-top: 1px solid var(--border);
   padding-top: 1.5rem;
 }
-.knowledge-card__date {
-  display: block;
-  font-size: var(--size-small);
-  color: var(--text-muted);
-  margin-bottom: 0.75rem;
+.knowledge-card__meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 1.25rem;
+}
+.knowledge-card__time {
+  font-family: var(--font-mono);
+  font-size: var(--size-note);
+  letter-spacing: var(--ls-note);
+  line-height: var(--lh-note);
+  color: var(--text-secondary);
+  white-space: nowrap;
 }
 .knowledge-card h3 {
   line-height: var(--lh-h3);
@@ -1508,10 +1525,6 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
 }
 
 /* ---------- Rezerwacja (high contrast CTA) ---------- */
-.rezerwacja-content h1 {
-  font-size: var(--size-h2);
-  letter-spacing: 0;
-}
 .rezerwacja-section {
   padding: var(--space-section-y-lg) 0;
   background-color: var(--background-deep);
@@ -1731,9 +1744,8 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   .site-nav__links { display: none; }
   .nav-toggle { display: inline-flex; }
   .site-nav__actions .theme-toggle { display: none; }
-  .site-nav__links a.site-nav__group-start { margin-left: 0; }
   /* The underline belongs to the bar; in the opened menu the current page is just brighter. */
-  .site-nav__links a[aria-current="page"]::after { display: none; }
+  .site-nav__item::after { display: none; }
 }
 
 @media (max-width: 767px) {
@@ -1806,4 +1818,11 @@ body.nav-open .site-nav__links {
       animation-range: entry 0% entry 45%;
     }
   }
+}
+
+/* Anchored sections stop below the fixed nav. */
+[data-section] { scroll-margin-top: var(--nav-height, 5rem); }
+.section-more {
+  margin-top: 2.5rem;
+  text-align: center;
 }
