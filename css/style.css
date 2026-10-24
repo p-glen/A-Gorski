@@ -1006,22 +1006,21 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   letter-spacing: var(--ls-note);
   line-height: 1.8;
 }
-/* Principles as horizontal rows: number | icon + title | text | footnote. */
+/* Principles as horizontal rows: number | icon + title | text. */
 .principles {
   display: grid;
   border-bottom: 1px solid var(--border);
 }
 .principle {
   display: grid;
-  grid-template-columns: 3rem minmax(0, 22rem) minmax(0, 1fr) 7.5rem;
+  grid-template-columns: 3rem minmax(0, 22rem) minmax(0, 1fr);
   gap: 0 2rem;
   align-items: start;
   padding: 2.25rem 0;
   border-top: 1px solid var(--border);
 }
 .principle__top { display: contents; }
-.principle__num,
-.principle__note {
+.principle__num {
   padding-top: 0.375rem;
   font-family: var(--font-mono);
   font-size: var(--size-note);
@@ -1056,7 +1055,6 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   line-height: 1.6;
   text-wrap: pretty;
 }
-.principle__note { grid-column: 4; grid-row: 1; text-align: right; }
 
 /* ---------- Specjalizacje: carousel ----------
    Native horizontal scroll-snap (touch, trackpad and keyboard just work); the
@@ -1815,9 +1813,8 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   .strefa-wiedzy-grid,
   .steps-grid { grid-template-columns: repeat(2, 1fr); }
   .reason-head { grid-template-columns: 1fr; margin-bottom: 3.5rem; }
-  .principle { grid-template-columns: minmax(0, 1fr) auto; gap: 1rem 2rem; }
+  .principle { grid-template-columns: minmax(0, 1fr); gap: 1rem 2rem; }
   .principle__num { grid-column: 1; grid-row: 1; }
-  .principle__note { grid-column: 2; grid-row: 1; }
   .principle h3 { grid-column: 1 / -1; grid-row: 2; }
   .principle p { grid-column: 1 / -1; grid-row: 3; max-width: 60ch; padding-top: 0; }
   .rezerwacja-grid,
