@@ -84,6 +84,7 @@ Klient zgodził się na poprawki literowe, stylistyczne oraz zmianę „my” na
 | C30 | „O mnie”: zdjęcie i ruch | Zdjęcie od lewej krawędzi strony do kolumny tekstu, na wysokość ekranu pod nawigacją, przyklejone podczas przewijania; zdjęcie zaczyna się równo z górą sekcji i zostaje przypięte do końca; tekst zaczyna się 30% ekranu niżej i kończy 30% przed końcem sekcji; elementy sekcji wyłaniają się przez zmianę przezroczystości (bez rozmycia) od dołu i zanikają u góry. Karty analiz na stronie głównej: tytuł, na dole kategoria po lewej i czas czytania (ikona zegara i liczba minut) po prawej; bez daty | do klienta |
 | C31 | Wysokość sekcji | Sekcje „Zatrzymanie, przeszukanie…” i „Komentarze i analizy” mają minimum 72% wysokości ekranu, treść wyśrodkowana pionowo, jak sekcja z hasłem | do klienta |
 | C32 | Strona główna: analizy | Pokazuje sześć pierwszych wpisów (3 × 2), tytuły 22 px wypełniają szerokość karty | do klienta |
+| C33 | „Zatrzymanie…”: wyróżnienia | Zakreślone markerem frazy: „jaka jest sygnatura sprawy”, „Funkcjonariusze nie znajdą ci obrońcy”, „Po zatrzymaniu usłyszysz zarzuty”. Link do poradnika jako kapsuła z okrągłym przyciskiem pod kartami | do klienta |
 
 ## E. Typografia i kolory: odstępstwa od specyfikacji
 
