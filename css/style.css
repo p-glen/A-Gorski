@@ -693,7 +693,7 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
 
 /* Theme switch, in the main navigation: a quiet round button that shows the
    mode you would switch to (sun while dark, moon while light). */
-/* Theme toggle: the icon of the mode it switches to, no frame. On small
+/* Theme toggle: the icon of the mode it switches to, in a round frame. On small
    screens it moves into the menu (see .theme-toggle--menu). */
 .theme-toggle {
   display: inline-flex;
@@ -702,8 +702,8 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   flex-shrink: 0;
   width: 2.75rem;
   height: 2.75rem;
-  border: 0;
-  border-radius: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
   background: transparent;
   color: var(--text);
   cursor: pointer;
@@ -721,7 +721,7 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
 @media (hover: hover) and (pointer: fine) {
   .theme-toggle:hover { background-color: var(--surface); }
 }
-.theme-toggle--menu { display: none; }
+.theme-toggle--menu { display: none; border: 0; border-radius: 0; }
 .theme-toggle:focus-visible,
 .ds-panel__close:focus-visible,
 .ds-panel__reset:focus-visible,
