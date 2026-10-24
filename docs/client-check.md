@@ -84,6 +84,22 @@ Specyfikację (fonty, skala, kolory, szerokość i odstępy) wdrożono w prototy
 | E6 | „Case Studies", „cytat w kartach Model Pracy" | Nie dotyczy | Tych elementów nie ma w obecnym prototypie (rozwiązania z poprzedniej wersji Webflow) |
 | E7 | Nazwy tokenów | `--font-heading` (nie `--font-display`), `--size-*`, `--text`, `--text-secondary` | Zachowano obecne nazwy; przy porcie do Webflow zmapować na zmienne z opisu |
 
+## F. Typografia wg MIT Brand Guide (gałąź `typografia-mit`): odstępstwa
+
+Zastępuje punkty E1, E3, E4 i E7. Kolory (E5) bez zmian. Zasada: tekst powyżej 20 px to Inter Tight, 20 px i mniej to Inter, Roboto Serif tylko jako akcent.
+
+| ID | Punkt specyfikacji | Co zrobiliśmy | Powód |
+|---|---|---|---|
+| F1 | Tożsamość: Bodoni Moda usunięty | Cały serif Bodoni zniknął, kroje to Inter Tight, Inter i Roboto Serif | Wymóg specyfikacji; to zmiana charakteru marki (z eleganckiego serifa na neutralny grotesk). **Do akceptacji klienta** |
+| F2 | Interlinia H1/H2 0,95-1,0 | H1 i H2: 1,05 | Polskie znaki diakrytyczne (ą, ę, ś, ź, ż, ó) nachodziły na wiersz wyżej przy 0,95. Do zmiany jednym tokenem `--lh-h1/--lh-h2` |
+| F3 | H3 interlinia 1,1 | 1,2 | Jak wyżej, tytuły kart bywają dwuwierszowe |
+| F4 | Etykiety wersalikami 13 px | Wersaliki tylko w kategoriach wpisów, etykietach kart wiedzy, tytule spisu treści i danych w „Doświadczeniu". Podpisy na karcie kontaktowej zostają zdaniowe (14 px) | Czytelność pod stresem; ustalony wcześniej wygląd karty |
+| F5 | Lead w Roboto Serif 20 px | Lead hero, wstępy sekcji, wstęp w „O mnie" i wstępy podstron. Hasło „To, kto odbiera telefon…" (kursywa) w Roboto Serif kursywa w skali H2 | Hasło jest cytatem, więc serif akcentowy; odstępstwo od „serif tylko 20 px" |
+| F6 | Akapity maks. 65ch | Opisy w „Modelu pracy" i stopka dostały `max-width: 65ch` | Wcześniej do 110ch na szerokim ekranie |
+| F7 | Karta tekstu 1 rem/1,4 | Opisy kart praktyk, kroków i zajawki wpisów 1 rem; reszta treści 1,0625 rem/1,55 (artykuły 1,6) | Zgodnie ze specyfikacją |
+| F8 | Nazwy tokenów | Dodano `--font-display`, `--font-body`, `--font-serif`; `--font-heading` usunięty. Zmienne skali (`--size-*`, `--lh-*`, `--ls-*`) zostały | Zgodnie ze specyfikacją |
+| F9 | Ikona menu (☰) 24 px | Zostaje w Inter | To ikona, nie tekst |
+
 ## D. Otwarte (nie blokują prototypu)
 
 | ID | Co | Uwagi |
