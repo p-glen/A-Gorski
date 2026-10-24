@@ -31,6 +31,7 @@ Klient zgodził się na poprawki literowe, stylistyczne oraz zmianę „my” na
 | A19 | Opisy praktyk, wpisy | listy z przecinkami na końcu punktów | listy bez końcowych przecinków, punkty od wielkiej litery | Ujednolicenie typografii list |
 | A20 | Opisy praktyk | „Doświadczenie: reprezentacja…” (mała litera) | osobny nagłówek „Doświadczenie” i akapit od wielkiej litery | Struktura strony |
 | A21 | Poradnik o zatrzymaniu | numerowane punkty bez wyróżnienia | pierwsze zdanie każdego punktu pogrubione jako tytuł | Skanowalność, spis treści |
+| A22 | Wpisy na blogu (4 wpisy, 9 miejsc) | spacja po pogrubieniu przed przecinkiem, kropką lub dwukropkiem („**…** , a nie”) | spacja usunięta | Błąd składni z konwersji dokumentu |
 
 ## B. Weryfikacja faktów prawnych
 
@@ -84,21 +85,27 @@ Specyfikację (fonty, skala, kolory, szerokość i odstępy) wdrożono w prototy
 | E6 | „Case Studies", „cytat w kartach Model Pracy" | Nie dotyczy | Tych elementów nie ma w obecnym prototypie (rozwiązania z poprzedniej wersji Webflow) |
 | E7 | Nazwy tokenów | `--font-heading` (nie `--font-display`), `--size-*`, `--text`, `--text-secondary` | Zachowano obecne nazwy; przy porcie do Webflow zmapować na zmienne z opisu |
 
-## F. Typografia wg MIT Brand Guide (gałąź `typografia-mit`): odstępstwa
+## F. Typografia wg MIT Brand Guide, wersja 2 (gałąź `typografia-mit`): odstępstwa
 
-Zastępuje punkty E1, E3, E4 i E7. Kolory (E5) bez zmian. Zasada: tekst powyżej 20 px to Inter Tight, 20 px i mniej to Inter, Roboto Serif tylko jako akcent.
+Zastępuje punkty E1, E3, E4 i E7 oraz wcześniejszą wersję sekcji F. Kolory (E5) bez zmian. Zasada: tekst powyżej 20 px to Inter Tight, 20 px i mniej to Inter. Wyjątki: H1 i `.heading-condensed` (Roboto Serif Condensed 600), standfirst wpisu (Roboto Serif 400), przypisy (Roboto Mono 400).
 
 | ID | Punkt specyfikacji | Co zrobiliśmy | Powód |
 |---|---|---|---|
-| F1 | Tożsamość: Bodoni Moda usunięty | Cały serif Bodoni zniknął, kroje to Inter Tight, Inter i Roboto Serif | Wymóg specyfikacji; to zmiana charakteru marki (z eleganckiego serifa na neutralny grotesk). **Do akceptacji klienta** |
-| F2 | Interlinia H1/H2 0,95-1,0 | H1 i H2: 1,05 | Polskie znaki diakrytyczne (ą, ę, ś, ź, ż, ó) nachodziły na wiersz wyżej przy 0,95. Do zmiany jednym tokenem `--lh-h1/--lh-h2` |
-| F3 | H3 interlinia 1,1 | 1,2 | Jak wyżej, tytuły kart bywają dwuwierszowe |
-| F4 | Etykiety wersalikami 13 px | Wersaliki tylko w kategoriach wpisów, etykietach kart wiedzy, tytule spisu treści i danych w „Doświadczeniu". Podpisy na karcie kontaktowej zostają zdaniowe (14 px) | Czytelność pod stresem; ustalony wcześniej wygląd karty |
-| F5 | Lead w Roboto Serif 20 px | Lead hero, wstępy sekcji, wstęp w „O mnie" i wstępy podstron. Hasło „To, kto odbiera telefon…" (kursywa) w Roboto Serif kursywa w skali H2 | Hasło jest cytatem, więc serif akcentowy; odstępstwo od „serif tylko 20 px" |
-| F6 | Akapity maks. 65ch | Opisy w „Modelu pracy" i stopka dostały `max-width: 65ch` | Wcześniej do 110ch na szerokim ekranie |
-| F7 | Karta tekstu 1 rem/1,4 | Opisy kart praktyk, kroków i zajawki wpisów 1 rem; reszta treści 1,0625 rem/1,55 (artykuły 1,6) | Zgodnie ze specyfikacją |
-| F8 | Nazwy tokenów | Dodano `--font-display`, `--font-body`, `--font-serif`; `--font-heading` usunięty. Zmienne skali (`--size-*`, `--lh-*`, `--ls-*`) zostały | Zgodnie ze specyfikacją |
-| F9 | Ikona menu (☰) 24 px | Zostaje w Inter | To ikona, nie tekst |
+| F1 | Tożsamość: Bodoni Moda usunięty | Cała strona na Inter Tight, Inter, Roboto Serif (Condensed), Roboto Mono | Wymóg specyfikacji; zmiana charakteru marki. **Do akceptacji klienta** |
+| F2 | Roboto Serif Condensed SemiBold | Pobrany z Google Fonts jako instancja wdth 75, wght 600, opsz 14 (pliki statyczne woff2, Latin i Latin Extended), wgrany jako własna rodzina „Roboto Serif Condensed". Wygląda ok. 7-8% węziej niż zwykły Roboto Serif | Tak działa oś szerokości w tym foncie; to nie błąd. Przy porcie do Webflow wgrać `fonts/roboto-serif-condensed-600-*.woff2` jako custom font (rodzina „Roboto Serif Condensed", waga 600, normal) |
+| F3 | Skala H1 `clamp(2.75rem,6vw,4.5rem)` | Hero H1 w pełnej skali (44-72 px). Tytuł wpisu, praktyki i poradnika w `clamp(2rem,4.5vw,3rem)` | Tytuły wpisów mają do 80 znaków; w 72 px dałyby 5-6 linii |
+| F4 | Dwa wybrane H2 w serifie condensed | „Gdy zadzwonisz, odbiorę ja." (O mnie) i „Umów bezpłatną pierwszą rozmowę" (rezerwacja) | Wybór własny: początek i koniec ścieżki. Do zmiany klasą `.heading-condensed` |
+| F5 | Cytat w body italic | Hasło „To, kto odbiera telefon…" w Inter Tight 500, bez kursywy | Tekst większy niż 20 px ma być w kroju display; Inter Tight nie ma wczytanej kursywy (nie fałszujemy jej) |
+| F6 | Standfirst wpisu = serif 400 | Pierwszy akapit wpisu, bo pole `excerpt` powtarza jego pierwsze zdanie | Brak osobnego wstępu w tekstach klienta. Poradnik i praktyki mają wstęp w Inter, nie w serifie |
+| F7 | Linia meta nad tytułem wpisu | Autor, czas czytania i data (gdy będzie) w Roboto Mono nad tytułem; breadcrumb zostaje nad nią | Zgodnie ze specyfikacją |
+| F8 | Przypisy w mono: eyebrow, numeracja 01, notka o poufności | Mono dostały: kategorie wpisów, etykiety kart wiedzy, tytuł spisu treści, dane w „Doświadczeniu", numery kroków i praktyk, meta wpisu, drobny tekst w stopce | Eyebrowów, numeracji sekcji i case studies w prototypie nie ma i nie dodawaliśmy ich |
+| F9 | Przypisy kolor `--text-secondary` | Wszystkie przypisy w `--text-secondary` (kategoria nie jest już w mosiądzu) | Zgodnie ze specyfikacją |
+| F10 | Kolor etykiety „Przewiń" | `--text` zamiast `--text-muted` | Na zdjęciu w jasnym motywie miała ok. 2,8:1 |
+| F11 | Interlinia H1/H2 1,05, H3 1,15 | Zgodnie ze specyfikacją | |
+| F12 | Letter-spacing | Wszystkie ujemne usunięte: H1 +0.005em, H2 i H3 0, przypisy +0.04em. Nie sprawdzono par typu rn, tt, fi poza zdaniem testowym; stykających się liter nie zauważono | |
+| F13 | Fonty z Google (RODO) | Self-hosting: `fonts/*.woff2` + `css/fonts.css` (generowane `scripts/fetch-fonts.mjs`, licencje OFL). Strona nie łączy się z Google Fonts. Polityka prywatności poprawiona (zdanie o Google Fonts usunięte), **do akceptacji adwokata** | RODO, serwery w UE |
+| F14 | Custom Code zablokowany w Webflow | Nie dotyczy prototypu (kod); przy porcie fonty wgrać jako custom fonts, a zmienne z `css/tokens.css` odwzorować jako Variables | |
+| F15 | Ikona menu (☰) 24 px | Zostaje w Inter | To ikona, nie tekst |
 
 ## D. Otwarte (nie blokują prototypu)
 

@@ -16,17 +16,17 @@ updated:
 
 Kodeks karny skarbowy przewiduje, że jako sprawca odpowiada również ten, kto zajmuje się sprawami gospodarczymi, w szczególności finansowymi, osoby prawnej – na podstawie przepisu, decyzji, umowy lub faktycznego wykonywania (art. 9 § 3 k.k.s.). W praktyce oznacza to, że:
 
-- **zarzut karnoskarbowy usłyszy osoba fizyczna** , a nie spółka – najczęściej członek zarządu
+- **zarzut karnoskarbowy usłyszy osoba fizyczna**, a nie spółka – najczęściej członek zarządu
 - **powierzenie rozliczeń biuru rachunkowemu nie zwalnia** automatycznie z odpowiedzialności
 - **postępowanie karne skarbowe toczy się niezależnie** od postępowania podatkowego
-- **skutki są osobiste i niekiedy dotkliwe** : grzywna, obowiązek zapłaty uszczuplonego podatku, a nawet kara pozbawienia wolności i wpis do Krajowego Rejestru Karnego
+- **skutki są osobiste i niekiedy dotkliwe**: grzywna, obowiązek zapłaty uszczuplonego podatku, a nawet kara pozbawienia wolności i wpis do Krajowego Rejestru Karnego
 
 ## Odpowiedzialność majątkiem za zaległości spółki
 
 Niezależnie od odpowiedzialności karnej, członkowie zarządu spółki z o.o. i spółki akcyjnej odpowiadają całym swoim majątkiem za zaległości podatkowe spółki, jeżeli egzekucja z jej majątku okaże się bezskuteczna, a oni sami nie wykażą okoliczności zwalniających (art. 116 Ordynacji podatkowej). Orzecznictwo jest tu surowe:
 
-- NSA (III FSK 978/22): **wewnętrzny podział obowiązków nie ma znaczenia** , a osoba, która zgodziła się być w zarządzie „figurantem”, w pełni ponosi ryzyko.
-- NSA (III FSK 44/23): **faktyczne pełnienie funkcji** , nawet po formalnej rezygnacji również prowadzi do odpowiedzialności.
+- NSA (III FSK 978/22): **wewnętrzny podział obowiązków nie ma znaczenia**, a osoba, która zgodziła się być w zarządzie „figurantem”, w pełni ponosi ryzyko.
+- NSA (III FSK 44/23): **faktyczne pełnienie funkcji**, nawet po formalnej rezygnacji również prowadzi do odpowiedzialności.
 
 ## Jak ograniczyć ryzyko?
 

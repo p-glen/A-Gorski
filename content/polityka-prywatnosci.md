@@ -28,7 +28,7 @@ Dane mogą być przetwarzane przez dostawców usług, z których korzysta serwis
 
 ## Czcionki i pliki cookies
 
-Strona ładuje czcionki z serwerów Google Fonts, co może wiązać się z przekazaniem adresu IP do Google. Serwis nie używa narzędzi analitycznych stron trzecich. [do potwierdzenia: lista plików cookies i pamięci przeglądarki, np. zapamiętanie motywu jasnego lub ciemnego]
+Czcionki są hostowane na serwerze serwisu i nie są pobierane z zewnętrznych usług (nie dochodzi do przekazania adresu IP do Google). Serwis nie używa narzędzi analitycznych stron trzecich. [do potwierdzenia: lista plików cookies i pamięci przeglądarki, np. zapamiętanie motywu jasnego lub ciemnego]
 
 ## Prawa osób, których dane dotyczą
 

@@ -34,7 +34,7 @@ Sam dokument nie wystarczy. Skuteczny system antykorupcyjny obejmuje też:
 
 - **weryfikację kontrahentów (KYC)** – szczególnie przy dużych kontraktach, z udziałem więcej niż jednej osoby w wyborze partnera
 - **klauzule antykorupcyjne w umowach**
-- **szkolenia z realnymi scenariuszami** , a nie tylko odczytanie regulaminu
+- **szkolenia z realnymi scenariuszami**, a nie tylko odczytanie regulaminu
 - **„tone from the top”** – przykład idący od zarządu
 
 ## Sygnaliści

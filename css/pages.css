@@ -22,7 +22,7 @@
   margin: 0;
   color: var(--text-secondary);
   font-size: var(--size-lead);
-  font-family: var(--font-serif);
+  font-family: var(--font-body);
   font-weight: 400;
   line-height: var(--lh-lead);
 }
@@ -66,12 +66,13 @@
 }
 .post-card__cat {
   margin: 0 0 0.5rem;
-  color: var(--accent-brass-text);
-  font-size: var(--size-label);
-  font-weight: 500;
+  color: var(--text-secondary);
+  font-size: var(--size-note);
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: var(--ls-label);
-  line-height: var(--lh-ui);
+  letter-spacing: var(--ls-note);
+  line-height: var(--lh-note);
+  font-family: var(--font-mono);
 }
 .post-card__title {
   margin: 0 0 0.75rem;
@@ -97,7 +98,14 @@
   font-size: var(--size-card);
   line-height: var(--lh-card);
 }
-.post-card__meta { margin: 0; color: var(--text-muted); font-size: var(--size-small); }
+.post-card__meta { margin: 0; color: var(--text-muted); font-size: var(--size-small);
+  font-family: var(--font-mono);
+  font-size: var(--size-note);
+  font-weight: 400;
+  line-height: var(--lh-note);
+  letter-spacing: var(--ls-note);
+  color: var(--text-secondary);
+}
 .post-card__link:hover .post-card__title,
 .post-card__link:focus-visible .post-card__title { color: var(--accent-brass-text); }
 .post-card__cover {
@@ -130,21 +138,26 @@
 .breadcrumb a:hover { color: var(--text); border-bottom-color: var(--accent-brass); }
 .article__title {
   margin: 0 0 1.25rem;
-  font-size: var(--size-h2);
-  line-height: var(--lh-h2);
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  line-height: var(--lh-h1);
   text-wrap: balance;
-  letter-spacing: var(--ls-h2);
+  letter-spacing: var(--ls-h1);
   font-weight: 600;
 }
 .article__meta {
   display: flex;
   flex-wrap: wrap;
   gap: 0.25rem 1rem;
-  margin: 0 0 2.5rem;
-  color: var(--text-muted);
-  font-size: var(--size-small);
+  margin: 0 0 1rem;
+  color: var(--text-secondary);
+  font-size: var(--size-note);
+  font-family: var(--font-mono);
+  font-weight: 400;
+  line-height: var(--lh-note);
+  letter-spacing: var(--ls-note);
 }
 .article--practice .article__title { margin-bottom: 2rem; }
+.article--post .lead { font-family: var(--font-serif); font-weight: 400; }
 
 /* Reading text: 17px / 1.65, never wider than 65 characters. Section heads
    inside an article are H3-scale body-font headings (the display face is
@@ -181,7 +194,7 @@
   color: var(--text-secondary);
   font-size: var(--size-lead);
   line-height: var(--lh-lead);
-  font-family: var(--font-serif);
+  font-family: var(--font-body);
   font-weight: 400;
 }
 .article__legal {
@@ -213,12 +226,14 @@
   gap: 0.25rem;
   padding: 1.25rem 0;
 }
-.related__cat { color: var(--accent-brass-text); font-size: var(--size-small); font-weight: 600;
-  font-size: var(--size-label);
-  font-weight: 500;
+.related__cat {
+  font-family: var(--font-mono);
+  font-size: var(--size-note);
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: var(--ls-label);
-  line-height: var(--lh-ui);
+  letter-spacing: var(--ls-note);
+  line-height: var(--lh-note);
+  color: var(--text-secondary);
 }
 .related__name {
   font-size: var(--size-h4);
@@ -306,13 +321,13 @@
 }
 .toc__title {
   margin: 0 0 0.75rem;
-  color: var(--text-muted);
-  font-family: var(--font-body);
-  font-size: var(--size-label);
-  font-weight: 500;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--size-note);
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: var(--ls-label);
-  line-height: var(--lh-ui);
+  letter-spacing: var(--ls-note);
+  line-height: var(--lh-note);
 }
 .toc__list {
   display: grid;
@@ -337,12 +352,12 @@
   scroll-margin-top: calc(var(--nav-height, 72px) + 1rem);
 }
 .practice__n {
-  color: var(--accent-brass-text);
-  font-size: var(--size-h3);
-  font-weight: 500;
-  line-height: 1.3;
-  font-family: var(--font-display);
-  letter-spacing: var(--ls-h3);
+  color: var(--text-secondary);
+  font-size: var(--size-note);
+  font-weight: 400;
+  line-height: 1.75;
+  font-family: var(--font-mono);
+  letter-spacing: var(--ls-note);
 }
 .practice__title {
   margin: 0 0 0.5rem;

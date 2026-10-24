@@ -37,6 +37,8 @@
   var TYPE_TOKENS = [
     { key: '--font-display', label: 'Font nagłówków', kind: 'font' },
     { key: '--font-body', label: 'Font treści', kind: 'font' },
+    { key: '--font-serif-condensed', label: 'Font H1', kind: 'font' },
+    { key: '--font-mono', label: 'Font przypisów', kind: 'font' },
     { key: '--size-h1', label: 'H1 (rem)', kind: 'rem' },
     { key: '--size-h2', label: 'H2 (rem)', kind: 'rem' },
     { key: '--size-h3', label: 'H3 (rem)', kind: 'rem' },
@@ -52,6 +54,8 @@
     "'Inter Tight', Arial, sans-serif",
     "'Inter', Arial, sans-serif",
     "'Roboto Serif', Georgia, serif",
+    "'Roboto Serif Condensed', 'Roboto Serif', Georgia, serif",
+    "'Roboto Mono', ui-monospace, monospace",
     "system-ui, sans-serif"
   ];
   var MANAGED = THEME_COLORS.concat(SHARED_COLORS, TYPE_TOKENS, SPACE_TOKENS).map(function (t) {

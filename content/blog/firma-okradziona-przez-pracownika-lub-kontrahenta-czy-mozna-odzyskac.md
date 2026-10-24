@@ -34,11 +34,11 @@ Pokrzywdzony może też sprzeciwić się wydaniu wyroku bez rozprawy, jeśli uzg
 
 ## Jak odzyskać pieniądze?
 
-Do zamknięcia przewodu sądowego na rozprawie głównej pokrzywdzony może złożyć **wniosek o zobowiązanie sprawcy do naprawienia szkody** . Sąd karny rozstrzyga o nim, stosując przepisy prawa cywilnego. Gdy ustalenie dokładnej kwoty szkody jest znacznie utrudnione, sąd może orzec nawiązkę. Wyrok karny w tym zakresie można egzekwować bez osobnego procesu cywilnego.
+Do zamknięcia przewodu sądowego na rozprawie głównej pokrzywdzony może złożyć **wniosek o zobowiązanie sprawcy do naprawienia szkody**. Sąd karny rozstrzyga o nim, stosując przepisy prawa cywilnego. Gdy ustalenie dokładnej kwoty szkody jest znacznie utrudnione, sąd może orzec nawiązkę. Wyrok karny w tym zakresie można egzekwować bez osobnego procesu cywilnego.
 
 ## Co, jeśli prokurator umorzy sprawę?
 
-Jeżeli prokurator dwukrotnie umorzy postępowanie lub odmówi jego wszczęcia, a pokrzywdzony zaskarżył pierwsze takie postanowienie, może w ciągu miesiąca wnieść do sądu **subsydiarny akt oskarżenia** . Musi go sporządzić i podpisać adwokat lub radca prawny.
+Jeżeli prokurator dwukrotnie umorzy postępowanie lub odmówi jego wszczęcia, a pokrzywdzony zaskarżył pierwsze takie postanowienie, może w ciągu miesiąca wnieść do sądu **subsydiarny akt oskarżenia**. Musi go sporządzić i podpisać adwokat lub radca prawny.
 
 ## Najważniejsze wskazówki
 
