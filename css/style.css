@@ -1281,15 +1281,15 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   margin: 0;
   line-height: 1.6;
 }
-/* Highlighter: the phrase that matters, marked like with a pen (not bold).
-   Brass tint in both themes; the marked text goes to full ink. */
+/* Highlighter: the phrase that matters, marked like with a red pen (not bold).
+   Same red tint in both themes; the marked text goes to full ink. */
 .marker {
   background-color: transparent; /* the browser's default <mark> is yellow */
   padding: 0.05em 0.3em;
   margin: 0 -0.1em;
   border-radius: 3px;
   color: var(--text);
-  background-image: linear-gradient(transparent 6%, color-mix(in srgb, var(--accent-brass) 62%, transparent) 6% 94%, transparent 94%);
+  background-image: linear-gradient(transparent 6%, color-mix(in srgb, var(--accent-alert) 58%, transparent) 6% 94%, transparent 94%);
   background-repeat: no-repeat;
   background-size: 100% 100%;
   -webkit-box-decoration-break: clone;
@@ -1308,7 +1308,7 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
 @keyframes marker-sweep {
   to { background-size: 100% 100%; }
 }
-/* Guide link: a quiet pill with a round action, after the three steps. */
+/* Guide link: a quiet square bar with a square action, after the three steps. */
 .guide-cta {
   display: flex;
   justify-content: center;
@@ -1319,7 +1319,7 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   gap: 1.5rem;
   max-width: 100%;
   padding: 0.5rem 0.5rem 0.5rem 1.75rem;
-  border-radius: 999px;
+  border-radius: 0;
   background: color-mix(in srgb, var(--text) 9%, transparent);
   color: var(--text);
   font-size: 1rem;
@@ -1334,7 +1334,7 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   flex-shrink: 0;
   width: 2.5rem;
   height: 2.5rem;
-  border-radius: 50%;
+  border-radius: 0;
   background: var(--accent-brass);
   color: var(--background-deep);
   transition: background-color 0.2s ease, transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
