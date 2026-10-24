@@ -1281,24 +1281,23 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   margin: 0;
   line-height: 1.6;
 }
-/* Highlighter: the phrase that matters, marked like with a red pen (not bold).
-   Same red tint in both themes; the marked text goes to full ink. */
+/* Key phrases: plain text with a thick red line under it (not bold, not a
+   background). The line is 3:1 or better against the page in both themes. */
 .marker {
   background-color: transparent; /* the browser's default <mark> is yellow */
-  padding: 0.05em 0.3em;
-  margin: 0 -0.1em;
-  border-radius: 3px;
-  color: var(--text);
-  background-image: linear-gradient(transparent 6%, color-mix(in srgb, var(--accent-alert) 58%, transparent) 6% 94%, transparent 94%);
+  color: inherit;
+  background-image: linear-gradient(var(--marker), var(--marker));
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background-position: 0 100%;
+  background-size: 100% 0.2em;
+  padding-bottom: 0.08em;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
     .marker {
-      background-size: 0% 100%;
+      background-size: 0% 0.2em;
       animation: marker-sweep linear both;
       animation-timeline: view();
       animation-range: entry 35% cover 45%;
@@ -1306,45 +1305,14 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   }
 }
 @keyframes marker-sweep {
-  to { background-size: 100% 100%; }
+  to { background-size: 100% 0.2em; }
 }
-/* Guide link: a quiet square bar with a square action, after the three steps. */
 .guide-cta {
   display: flex;
   justify-content: center;
 }
-.guide-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 1.5rem;
-  max-width: 100%;
-  padding: 0.5rem 0.5rem 0.5rem 1.75rem;
-  border-radius: 0;
-  background: color-mix(in srgb, var(--text) 9%, transparent);
-  color: var(--text);
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: var(--lh-ui);
-  transition: background-color 0.2s ease;
-}
-.guide-pill__go {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 0;
-  background: var(--accent-brass);
-  color: var(--background-deep);
-  transition: background-color 0.2s ease, transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
-}
-.guide-pill__icon { width: 1.125rem; height: 1.125rem; }
-@media (hover: hover) and (pointer: fine) {
-  .guide-pill:hover { background: color-mix(in srgb, var(--text) 15%, transparent); }
-  .guide-pill:hover .guide-pill__go { background: var(--accent-brass-hover); transform: translate(1px, -1px); }
-}
-.guide-pill:active .guide-pill__go { transform: scale(0.94); }
+.sprawa-pilna-section .section-intro { max-width: none; }
+.sprawa-pilna-section .section-intro span { display: block; }
 
 /* ---------- Adwokat (bio) ---------- */
 .bio-section {

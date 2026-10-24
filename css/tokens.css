@@ -11,6 +11,8 @@
   /* Brass for TEXT only; --accent-brass stays for rules, borders and buttons. */
   --accent-brass-text: #C9A66B;
   --accent-alert: #B5424C;
+  /* Red for the underline that marks key phrases (3:1 or better on the page background). */
+  --marker: #D8606B;
 
   /* The one place green is used: the call button on the contact card.
      Same in both themes; its glyph is white (3:1 checked in
@@ -79,6 +81,7 @@
   --accent-brass-hover: #5E4727;
   --accent-brass-text: #7A5C2E;
   --accent-alert: #9A3540;
+  --marker: #9A3540;
 }
 
 @media (min-width: 768px) {
