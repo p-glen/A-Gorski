@@ -1486,6 +1486,13 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
 .strefa-wiedzy-section {
   padding: var(--space-section-y) 0;
 }
+/* Same presence as the claim band: at least 72% of a screen, content centred. */
+.sprawa-pilna-section,
+.strefa-wiedzy-section {
+  display: grid;
+  align-items: center;
+  min-height: 72vh;
+}
 .strefa-wiedzy-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
