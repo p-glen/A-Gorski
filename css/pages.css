@@ -5,8 +5,10 @@
 
 /* The nav is fixed and takes no space; main.js publishes its height. */
 .page #page-content { padding-top: var(--nav-height, 5.5rem); }
-.container--article { max-width: 44rem; }
-.container--read { max-width: 48rem; }
+/* Inner pages share the landing's 1160px container; only running text is held
+   to a reading measure (65ch), so the page edges line up across the site. */
+.article__title, .article__head h1 { max-width: 26ch; }
+.lead, .page-head__lead { max-width: 60ch; }
 [hidden] { display: none !important; }
 
 /* ---------- page head (indexes) ---------- */
