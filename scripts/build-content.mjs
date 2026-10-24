@@ -8,12 +8,14 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { icon } from './icon.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SITE_URL = (process.env.SITE_URL || '').replace(/\/$/, '');
 const PHONE = '792 892 457';
 const PHONE_HREF = 'tel:+48792892457';
 const AUTHOR = 'Arkadiusz Górski';
+const BACK_ICON = await icon('arrow-left', 'breadcrumb__icon');
 const MONTHS = ['stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia'];
 
 const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
@@ -208,7 +210,7 @@ for (const p of posts) {
   const postBlocks = blocksOf(p.body);
   const main = `<article class="article article--post">
   <div class="container container--article">
-    <nav class="breadcrumb" aria-label="Ścieżka"><a href="${root}blog/">Blog</a><span aria-hidden="true">/</span><a href="${root}praktyki/${cat.slug}/">${esc(cat.short)}</a></nav>
+    <nav class="breadcrumb" aria-label="Ścieżka"><a class="breadcrumb__back" href="${root}blog/">${BACK_ICON}Blog</a><span aria-hidden="true">/</span><a href="${root}praktyki/${cat.slug}/">${esc(cat.short)}</a></nav>
     <header class="article__head">
       <p class="article__meta"><span>${AUTHOR}</span><span>${esc(metaLine(p))}</span></p>
       <h1 class="article__title">${inline(p.title)}</h1>
@@ -264,7 +266,7 @@ for (const p of practices) {
   const related = posts.filter((x) => x.category === p.slug);
   const main = `<article class="article article--practice">
   <div class="container container--article">
-    <nav class="breadcrumb" aria-label="Ścieżka"><a href="${root}praktyki/">Praktyki</a></nav>
+    <nav class="breadcrumb" aria-label="Ścieżka"><a class="breadcrumb__back" href="${root}praktyki/">${BACK_ICON}Praktyki</a></nav>
     <header class="article__head">
       <h1 class="article__title">${inline(p.title)}</h1>
     </header>
