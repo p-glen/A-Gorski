@@ -76,6 +76,7 @@ Klient zgodził się na poprawki literowe, stylistyczne oraz zmianę „my” na
 | C22 | Hierarchia przycisków (landing) | Nawigacja ma tylko „Pomoc 24/7” (kontur); hero ma jeden przycisk „Umów konsultację”; hasło ma jedyne mosiężne „Zadzwoń”; w „O mnie” „Umów konsultację” jest przyciskiem konturowym. Usunięty mosiężny „Umów konsultację” z nawigacji i konturowy „Pomoc 24/7” z hero | do klienta |
 | C23 | „O mnie”: układ | Zasady „Odpowiedzialność” i „Transparentność” usunięte z sekcji (to samo mówią wiersze „Ograniczona liczba spraw” i „Jasne zasady rozliczeń” w „Modelu pracy”). „Wybrane sprawy” zapisane jako lista z etykietami (Obrona gospodarcza, Pokrzywdzeni, Rynek kapitałowy, KNF, Compliance i AML), treść skrócona do jednego zdania na pozycję, sens bez zmian. Dane zawodowe w Roboto Mono jako metryka | do klienta |
 | C24 | „O mnie”: data | „2022-2026” poprawione na „2022–2026” (półpauza jak w pozostałych datach) | sprawdzone przez nas |
+| C25 | Hero i nawigacja | Podtytuł skrócony do „Bronię podejrzanych i reprezentuję pokrzywdzonych. Sprawy karne gospodarcze, compliance, AML.” (było: dwa zdania, 23 słowa); notka pod przyciskiem „Pierwsza rozmowa jest bezpłatna.” (bez „bez płatności z góry”); nagłówek zawsze w dwóch liniach; przycisk „Pomoc 24/7” z zieloną kropką dostępności, bez ikony telefonu | do klienta |
 
 ## E. Typografia i kolory: odstępstwa od specyfikacji
 
