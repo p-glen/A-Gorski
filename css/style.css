@@ -1376,6 +1376,12 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   /* One line: sized to the text column. */
   .bio-content h1,
   .bio-content h2 { font-size: min(var(--size-h2), 3.7vw); white-space: nowrap; }
+  /* The photo is pinned for the whole section: it starts flush with the top of
+     the section, and the text begins 30% of a screen down and ends 30% before
+     the end, so the photo is only released once the last button has risen
+     to 30% from the bottom of the screen. */
+  .bio-section { padding-block: 0; }
+  .bio-content { padding-block: 30svh; }
   .bio-panel .credentials { margin-bottom: 0; }
   .bio-panel .button-alert { align-self: flex-start; }
 }
