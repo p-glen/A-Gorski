@@ -71,7 +71,7 @@ Klient zgodził się na poprawki literowe, stylistyczne oraz zmianę „my” na
 | C17 | Nawigacja | „Praktyki, Adwokat, Blog, Zatrzymanie?” zamiast „Specjalizacje, Adwokat, Publikacje” | do klienta |
 | C18 | Kolejność wpisów (brak dat) | Prezes (1), AML (2), Czynny żal (3), Polityka antykorupcyjna (4), Mail na prywatną skrzynkę (5), Pracownik odchodzi (6), Firma okradziona (7), Przeszukanie w firmie (8). Landing pokazuje pierwsze trzy | do klienta |
 | C19 | Poradnik o zatrzymaniu | Spis treści usunięty (powtarzał 9 punktów, które są zaraz niżej); nagłówek „Dobre praktyki” stoi przed zdaniem „Oto dobre praktyki…”, punkty mają tytuły w skali H3 | do klienta |
-| C20 | Landing: hasło „To, kto odbiera telefon…” | Osobna sekcja, wyśrodkowana, min. 40% wysokości ekranu, skala do 60 px (większa niż H2) | do klienta |
+| C20 | Landing: hasło „To, kto odbiera telefon…” | Osobna sekcja, wyśrodkowana, 72% wysokości ekranu, do 72 px; pod nią przycisk „Zadzwoń: 792 892 457” i linia „Wolisz napisać? Signal na ten sam numer, wiadomości są szyfrowane.” (bez słowa „anonimowo”, bo Signal pokazuje numer nadawcy) | do klienta |
 | C21 | Podstrony (blog, wpisy, praktyki, poradnik, polityka) | Zamiast wąskiej kolumny w stylu Medium (44-48 rem) kontener 1160 px jak na landingu; tylko tekst ciągły ma 65 znaków w wierszu | do klienta |
 
 ## E. Typografia i kolory: odstępstwa od specyfikacji
