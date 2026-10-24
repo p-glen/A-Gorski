@@ -980,33 +980,73 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   border-bottom: 1px solid var(--accent-brass);
 }
 .claim__alt a:hover { color: var(--accent-brass-text); }
-.reason-list {
+/* Values and way of working: a heading with a soft second half and a short
+   description, then four numbered cards (hairline, tag, icon + title, text). */
+.reason-head {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  gap: 2rem 4rem;
+  align-items: start;
+  margin-bottom: 5rem;
+}
+.reason-head h2 {
+  margin: 0;
+}
+.reason-head h2 > span { display: block; white-space: nowrap; }
+.reason-head__soft { color: var(--text-muted); }
+.reason-head p {
+  max-width: 40ch;
+  margin: 0.5rem 0 0;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--size-note);
+  letter-spacing: var(--ls-note);
+  line-height: 1.8;
+}
+.principles {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 3rem 2.5rem;
+}
+.principle {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  align-items: flex-start;
 }
-.reason-item {
-  position: relative;
-  padding: 2rem 0;
+.principle__top {
   display: flex;
-  flex-direction: column;
-  border-top: 1px solid var(--border);
-}
-.reason-item:last-child {
+  align-items: baseline;
+  justify-content: space-between;
+  align-self: stretch;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--border);
 }
-.reason-item__header {
-  margin-bottom: 0.75rem;
+.principle__num,
+.principle__note {
+  font-family: var(--font-mono);
+  font-size: var(--size-note);
+  letter-spacing: var(--ls-note);
+  line-height: var(--lh-note);
+  color: var(--text-secondary);
 }
-.reason-item h3 {
+.principle h3 {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin: 0 0 1rem;
+}
+.principle__icon {
+  width: 1.75rem;
+  height: 1.75rem;
+  color: var(--accent-brass-text);
+}
+.principle p {
   margin: 0;
-}
-.reason-item__description {
-  max-width: 65ch;
   color: var(--text-secondary);
   font-size: var(--size-card);
-  margin: 0;
-  line-height: var(--lh-card);
+  line-height: 1.6;
 }
 
 /* ---------- Specjalizacje: carousel ----------
@@ -1765,11 +1805,8 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
 @media (max-width: 991px) {
   .strefa-wiedzy-grid,
   .steps-grid { grid-template-columns: repeat(2, 1fr); }
-  .reason-list { display: flex; flex-direction: column; }
-  .reason-item {
-    padding: 2rem 0;
-  }
-  .reason-item:not(:first-child) { border-top: 1px solid var(--border); }
+  .reason-head { grid-template-columns: 1fr; margin-bottom: 3.5rem; }
+  .principles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .rezerwacja-grid,
   .bio-grid { grid-template-columns: 1fr; }
   .bio-grid { gap: 2.5rem; }
@@ -1788,7 +1825,8 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
 
 @media (max-width: 767px) {
   .strefa-wiedzy-grid,
-  .steps-grid { grid-template-columns: 1fr; }
+  .steps-grid,
+  .principles { grid-template-columns: 1fr; }
   .site-nav__inner { padding: 1rem; }
   .site-nav__logo-img { height: 28px; }
   .site-nav__actions { gap: 0.25rem; }
@@ -1847,7 +1885,7 @@ body.nav-open .site-nav__links {
   @supports (animation-timeline: view()) {
     main h2,
     .section-intro,
-    .reason-item,
+    .principle,
     .step,
     .bio-grid > *,
     .knowledge-card {
@@ -1883,4 +1921,12 @@ body.nav-open .site-nav__links {
 .section-more {
   margin-top: 3.5rem;
   text-align: center;
+}
+
+/* Small screens: dots and arrows share the first row, the link gets its own. */
+@media (max-width: 767px) {
+  .carousel__controls { flex-wrap: wrap; row-gap: 0.5rem; }
+  .carousel__lead { display: contents; }
+  .carousel__arrows { order: 2; }
+  .carousel__lead .link-tertiary { order: 3; flex: 0 0 100%; }
 }

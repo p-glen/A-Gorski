@@ -86,6 +86,7 @@ Klient zgodził się na poprawki literowe, stylistyczne oraz zmianę „my” na
 | C32 | Strona główna: analizy | Pokazuje sześć pierwszych wpisów (3 × 2), tytuły 22 px wypełniają szerokość karty | do klienta |
 | C33 | „Zatrzymanie…”: wyróżnienia | Frazy „jaka jest sygnatura sprawy”, „Funkcjonariusze nie znajdą ci obrońcy”, „Po zatrzymaniu usłyszysz zarzuty” podkreślone grubą linią w kolorze marki (miedź/mosiądz, w jasnym motywie ciemniejszy odcień; kontrast linii min. 3:1). Podtytuł w dwóch liniach: „Zatrzymanie albo przeszukanie to moment, w którym łatwo powiedzieć za dużo.” / „Trzy rzeczy, które warto zrobić od razu:”. Link do poradnika jako przycisk drugorzędny „9 dobrych praktyk” | do klienta |
 | C34 | Karuzela specjalizacji | Kropki i strzałki kwadratowe (promień 0); „Wszystkie specjalizacje” jako link trzeciego stopnia (bez ramki) obok kropek, strzałki karuzeli po prawej | do klienta |
+| C35 | „Jak pracuję” (model pracy) | Sekcja przebudowana na nagłówek („Jak pracuję: cztery zasady, które stosuję w każdej sprawie.”, druga linia jaśniejsza) z opisem w czcionce technicznej oraz cztery numerowane karty z ikoną (osoba, uścisk dłoni, klepsydra, pióro), przypisem po prawej nad linią („Osobiście”, „24/7”, „Limit spraw”, „Na piśmie”) i niezmienionym tekstem zasad. Nagłówek i opis są nowe, do akceptacji | do klienta |
 
 ## E. Typografia i kolory: odstępstwa od specyfikacji
 
