@@ -17,6 +17,7 @@ const PHONE_HREF = 'tel:+48792892457';
 const AUTHOR = 'Arkadiusz Górski';
 const BACK_ICON = await icon('arrow-left', 'breadcrumb__icon');
 const CLOCK_ICON = await icon('clock', 'knowledge-card__icon');
+const PHONE_ICON = await icon('phone', 'claim__icon');
 const MONTHS = ['stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia'];
 
 const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
@@ -324,7 +325,7 @@ ${ctaBlock(root)}`;
   <header class="guide__hero">
     <div class="container container--article">
       <div class="guide__call">
-        <a class="guide__call-button" href="${PHONE_HREF}">Zadzwoń: ${PHONE}</a>
+        <a class="button-primary guide__call-button" href="${PHONE_HREF}">${PHONE_ICON}Zadzwoń: ${PHONE}</a>
         <p class="guide__call-note"><span class="guide__dot" aria-hidden="true"></span>24/7 w sprawach zatrzymań i przeszukań</p>
       </div>
       <h1 class="article__title">${inline(guide.title)}</h1>

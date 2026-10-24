@@ -299,16 +299,8 @@
   gap: 0.625rem;
   margin: 0 0 2rem;
 }
-.guide__call-button {
-  display: inline-flex;
-  padding: 0.875rem 1.75rem;
-  background-color: var(--call-green);
-  color: #FFFFFF;
-  border-radius: 2px;
-  font-size: 1.1875rem;
-  font-weight: 500;
-  line-height: var(--lh-ui);
-}
+/* The call button is the shared primary button; this only adds room around the icon. */
+.guide__call-button { padding: 0.875rem 1.75rem; }
 .guide__call-note {
   display: flex;
   align-items: center;
@@ -424,8 +416,8 @@
     bottom: 0;
     z-index: 90;
     padding: 0.875rem 1rem calc(0.875rem + env(safe-area-inset-bottom, 0px));
-    background-color: var(--call-green);
-    color: #FFFFFF;
+    background-color: var(--accent-brass);
+    color: var(--background-deep);
     font-size: 1.1875rem;
     font-weight: 500;
     transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
@@ -437,3 +429,10 @@
 @media (prefers-reduced-motion: reduce) {
   .guide__dot { animation: none; }
 }
+
+/* Guide page: one wider measure for the title, the lead and the steps, so they
+   share the same right edge (about 62rem of the 1160px column). */
+.page--guide .article__title,
+.page--guide .lead { max-width: 62rem; }
+.page--guide .article__title { text-wrap: pretty; }
+.page--guide .practice p { max-width: calc(62rem - 4.25rem); }
