@@ -16,6 +16,8 @@
      Same in both themes; its glyph is white (3:1 checked in
      scripts/check-contrast.mjs). */
   --call-green: #1F9D55;
+  /* Green as TEXT on its own translucent fill (the nav help pill). */
+  --call-green-text: #86E3AE;
 
   /* Frosted-glass buttons on the contact card (web approximation of a
      translucent material; solid fallback under reduced transparency). */
@@ -65,6 +67,7 @@
 }
 
 :root[data-theme="light"] {
+  --call-green-text: #0E6A37;
   --background: #F3EFE6;
   --surface: #EAE3D3;
   --background-deep: #FBF9F3;

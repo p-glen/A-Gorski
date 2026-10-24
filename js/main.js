@@ -8,11 +8,10 @@
     return root.getAttribute('data-theme') || 'dark';
   }
 
-  // The button names the mode it will switch to.
+  // A switch: "on" means the dark theme.
   function syncThemeToggle() {
     if (themeToggle) {
-      themeToggle.setAttribute('aria-label',
-        currentTheme() === 'dark' ? 'Włącz jasny motyw' : 'Włącz ciemny motyw');
+      themeToggle.setAttribute('aria-checked', currentTheme() === 'dark' ? 'true' : 'false');
     }
   }
   syncThemeToggle();

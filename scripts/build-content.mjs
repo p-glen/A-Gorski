@@ -87,6 +87,20 @@ function relink(html, root) {
     /^(https?:|tel:|mailto:|sms:|\/\/)/.test(v) ? m : `${attr}="${root}${v}"`);
 }
 
+// Which nav tab is current for a page directory (Start = the landing page).
+function navKey(dir) {
+  if (!dir) return 'start';
+  const first = dir.split('/')[0];
+  return first === guide.slug ? 'zatrzymanie' : ['praktyki', 'blog', 'o-mnie', 'kontakt'].includes(first) ? first : '';
+}
+function navFor(dir, root) {
+  const key = navKey(dir);
+  const html = NAV.replace(/ aria-current="page"/g, '')
+    .replace(new RegExp(`(<a [^>]*data-nav="${key}")`), '$1 aria-current="page"');
+  return relink(html, root);
+}
+const THEME_SCRIPT = '<script>try{var t=localStorage.getItem("kag-theme");if(!t&&matchMedia("(prefers-color-scheme: light)").matches)t="light";if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>';
+
 function page({ root, dir, title, description, robots, bodyClass, main, scripts = [], jsonld }) {
   const canonical = SITE_URL ? `\n  <link rel="canonical" href="${SITE_URL}/${dir ? dir + '/' : ''}">` : '';
   const ld = jsonld ? `\n  <script type="application/ld+json">${JSON.stringify(jsonld)}</script>` : '';
@@ -98,13 +112,14 @@ function page({ root, dir, title, description, robots, bodyClass, main, scripts 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(description)}">${robots ? `\n  <meta name="robots" content="${robots}">` : ''}${canonical}
+  ${THEME_SCRIPT}
   ${relink(FONT_LINKS.join('\n  '), root)}
   <link rel="stylesheet" href="${root}css/tokens.css?v=${ASSET_V}">
   <link rel="stylesheet" href="${root}css/style.css?v=${ASSET_V}">
   <link rel="stylesheet" href="${root}css/pages.css?v=${ASSET_V}">${ld}
 </head>
 <body class="${bodyClass}">
-  ${relink(NAV, root)}
+  ${navFor(dir, root)}
 
   <div id="page-content">
   <main>
@@ -125,7 +140,7 @@ function ctaBlock(root) {
     <h2 id="cta-title" class="cta-block__title">Porozmawiajmy o twojej sprawie</h2>
     <p class="cta-block__text">Pierwsza rozmowa jest bezpłatna, bez płatności z góry.</p>
     <div class="cta-block__actions">
-      <a class="button-primary" href="${root}#rezerwacja">Umów rozmowę</a>
+      <a class="button-primary" href="${root}kontakt/">Umów konsultację</a>
       <a class="cta-block__phone" href="${PHONE_HREF}">${PHONE}</a>
     </div>
     <p class="cta-block__note">W sprawach zatrzymań i przeszukań dostępny całą dobę.</p>
@@ -184,7 +199,7 @@ function postCard(p, root, featured) {
   const main = `<section class="blog-index">
   <div class="container container--read">
     <header class="page-head">
-      <h1>Blog</h1>
+      <h1>Analizy</h1>
       <p class="page-head__lead">Komentarze i analizy o praktyce karnej, compliance i postępowaniach sankcyjnych.</p>
     </header>
     <div class="chips" role="group" aria-label="Kategorie wpisów" data-chips hidden>
@@ -196,7 +211,7 @@ ${posts.map((p, i) => postCard(p, root, i === 0)).join('\n')}
   </div>
 </section>
 ${ctaBlock(root)}`;
-  emit('blog', page({ root, dir: 'blog', title: 'Blog: komentarze i analizy | Adwokat Arkadiusz Górski',
+  emit('blog', page({ root, dir: 'blog', title: 'Analizy: komentarze o prawie karnym gospodarczym | Adwokat Arkadiusz Górski',
     description: 'Komentarze i analizy o praktyce karnej, compliance, AML i postępowaniach sankcyjnych. Teksty adwokata Arkadiusza Górskiego.',
     bodyClass: 'page page--blog', main, scripts: ['js/blog.js'] }));
 }
@@ -210,7 +225,7 @@ for (const p of posts) {
   const postBlocks = blocksOf(p.body);
   const main = `<article class="article article--post">
   <div class="container container--article">
-    <nav class="breadcrumb" aria-label="Ścieżka"><a class="breadcrumb__back" href="${root}blog/">${BACK_ICON}Blog</a><span aria-hidden="true">/</span><a href="${root}praktyki/${cat.slug}/">${esc(cat.short)}</a></nav>
+    <nav class="breadcrumb" aria-label="Ścieżka"><a class="breadcrumb__back" href="${root}blog/">${BACK_ICON}Analizy</a><span aria-hidden="true">/</span><a href="${root}praktyki/${cat.slug}/">${esc(cat.short)}</a></nav>
     <header class="article__head">
       <p class="article__meta"><span>${AUTHOR}</span><span>${esc(metaLine(p))}</span></p>
       <h1 class="article__title">${inline(p.title)}</h1>
@@ -241,7 +256,7 @@ ${related.map((r) => `<li><a href="${postHref(root, r)}"><span class="related__c
   const main = `<section class="practice-index">
   <div class="container">
     <header class="page-head">
-      <h1>Praktyki</h1>
+      <h1>Specjalizacje</h1>
       <p class="page-head__lead">Praktyka jest zawężona świadomie. Sprawy karne gospodarcze, postępowania sankcyjne i compliance opierają się na tej samej wiedzy o tym, jak działają organy. Ten sam stan faktyczny bywa podstawą roszczeń cywilnych i karnych.</p>
     </header>
     <ul class="practice-grid">
@@ -255,7 +270,7 @@ ${practices.map((p) => `<li class="practice-card"><a href="${root}praktyki/${p.s
   </div>
 </section>
 ${ctaBlock(root)}`;
-  emit('praktyki', page({ root, dir: 'praktyki', title: 'Praktyki | Adwokat Arkadiusz Górski, Warszawa',
+  emit('praktyki', page({ root, dir: 'praktyki', title: 'Specjalizacje | Adwokat Arkadiusz Górski, Warszawa',
     description: 'Prawo karne, prawo karne gospodarcze i skarbowe, nieuczciwa konkurencja, compliance, AML i postępowania sankcyjne. Zakres praktyki adwokata.',
     bodyClass: 'page page--practices', main }));
 }
@@ -266,7 +281,7 @@ for (const p of practices) {
   const related = posts.filter((x) => x.category === p.slug);
   const main = `<article class="article article--practice">
   <div class="container container--article">
-    <nav class="breadcrumb" aria-label="Ścieżka"><a class="breadcrumb__back" href="${root}praktyki/">${BACK_ICON}Praktyki</a></nav>
+    <nav class="breadcrumb" aria-label="Ścieżka"><a class="breadcrumb__back" href="${root}praktyki/">${BACK_ICON}Specjalizacje</a></nav>
     <header class="article__head">
       <h1 class="article__title">${inline(p.title)}</h1>
     </header>
@@ -328,6 +343,18 @@ ${ctaBlock(root)}
   const jsonld = { '@context': 'https://schema.org', '@type': 'Article', headline: plain(guide.title), description: guide.metaDescription,
     inLanguage: 'pl', author: { '@type': 'Person', name: AUTHOR }, ...(guide.updated ? { dateModified: guide.updated } : {}) };
   emit(guide.slug, page({ root, dir: guide.slug, title: guide.metaTitle, description: guide.metaDescription, bodyClass: 'page page--guide', main, scripts: ['js/blog.js'], jsonld }));
+}
+
+// ---------- hand-written pages (content/pages/*.html) ----------
+// Each file starts with a <!--meta {json} --> comment (slug, title, description,
+// bodyClass, scripts) followed by the page's <section> markup.
+for (const file of fs.readdirSync(path.join(ROOT, 'content', 'pages')).filter((f) => f.endsWith('.html'))) {
+  const raw = read(`content/pages/${file}`);
+  const m = raw.match(/^<!--meta\s*([\s\S]*?)\s*-->\s*/);
+  const meta = JSON.parse(m[1]);
+  const root = '../';
+  emit(meta.slug, page({ root, dir: meta.slug, title: meta.title, description: meta.description,
+    bodyClass: meta.bodyClass, main: relink(raw.slice(m[0].length), root), scripts: meta.scripts || [] }));
 }
 
 // ---------- privacy (draft, not indexed) ----------
