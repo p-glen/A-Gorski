@@ -6,8 +6,8 @@ body {
   background-color: var(--background);
   color: var(--text);
   font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: var(--size-body);
+  line-height: 1.65;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 img { max-width: 100%; display: block; }
@@ -34,10 +34,11 @@ h1, h2, h3, h4 {
 }
 h1, h2 {
   font-family: var(--font-heading);
-  letter-spacing: 0;
+  font-weight: 500;
+  letter-spacing: -0.01em;
 }
 h1 { font-size: var(--size-h1); line-height: 1.1; }
-h2 { font-size: var(--size-h2); }
+h2 { font-size: var(--size-h2); line-height: 1.2; }
 h3, h4 {
   font-family: var(--font-body);
   font-weight: 600;
@@ -528,7 +529,7 @@ h4 { font-size: var(--size-h4); }
 .button-alert:hover,
 .button-alert:focus-visible {
   border-color: var(--accent-brass);
-  color: var(--accent-brass);
+  color: var(--accent-brass-text);
   background-color: color-mix(in srgb, var(--accent-brass) 8%, transparent);
 }
 .button-alert__icon {
@@ -620,8 +621,8 @@ h4 { font-size: var(--size-h4); }
   white-space: nowrap;
   transition: color 0.2s ease;
 }
-.site-nav__links a:hover { color: var(--accent-brass); }
-.site-nav__links a.site-nav__urgent { color: var(--accent-brass); }
+.site-nav__links a:hover { color: var(--accent-brass-text); }
+.site-nav__links a.site-nav__urgent { color: var(--accent-brass-text); }
 .site-nav__links a.site-nav__urgent:hover { color: var(--accent-brass-hover); }
 .site-nav__actions {
   display: flex;
@@ -763,7 +764,7 @@ h4 { font-size: var(--size-h4); }
 }
 .ds-panel__lede code {
   font-size: 0.75rem;
-  color: var(--accent-brass);
+  color: var(--accent-brass-text);
 }
 .ds-panel__fields {
   flex: 1;
@@ -923,7 +924,6 @@ h4 { font-size: var(--size-h4); }
   color: var(--text-secondary);
   font-size: var(--size-body);
   margin: 0;
-  line-height: 1.6;
 }
 
 /* ---------- Specjalizacje: carousel ----------
@@ -1027,7 +1027,7 @@ h4 { font-size: var(--size-h4); }
   transition: color 0.2s ease;
 }
 .specjalizacje-card__link:hover,
-.specjalizacje-card__link:focus-visible { color: var(--accent-brass); }
+.specjalizacje-card__link:focus-visible { color: var(--accent-brass-text); }
 .strefa-wiedzy-more {
   margin: 2.5rem 0 0;
   text-align: center;
@@ -1038,7 +1038,7 @@ h4 { font-size: var(--size-h4); }
   border-bottom: 1px solid var(--accent-brass);
   padding-bottom: 0.125rem;
 }
-.strefa-wiedzy-more a:hover { color: var(--accent-brass); }
+.strefa-wiedzy-more a:hover { color: var(--accent-brass-text); }
 
 /* Controls: dots left, arrows right, both aligned with the page container. */
 .carousel__controls {
@@ -1220,7 +1220,7 @@ h4 { font-size: var(--size-h4); }
 }
 .urgent-cta-link__go {
   font-size: var(--size-small);
-  color: var(--accent-brass);
+  color: var(--accent-brass-text);
   white-space: nowrap;
 }
 
@@ -1260,6 +1260,21 @@ h4 { font-size: var(--size-h4); }
   line-height: 1.5;
   color: var(--text-secondary);
 }
+.bio-content > p {
+  max-width: 65ch;
+  margin: 0 0 1em;
+}
+.bio-cases {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 65ch;
+  margin: 0 0 2rem;
+  padding-left: 1.25rem;
+  list-style: disc;
+  color: var(--text-secondary);
+}
+.bio-cases li::marker { color: var(--text-muted); }
 /* Three plain house rules, label left and sentence right; the dividers sit
    between the rows only. */
 .bio-rules {
@@ -1379,14 +1394,13 @@ h4 { font-size: var(--size-h4); }
 }
 .rezerwacja-tel {
   display: inline-block;
-  font-family: var(--font-heading);
-  font-weight: 500;
-  font-size: clamp(1.625rem, 2vw + 1rem, 2.25rem);
+  font-weight: 600;
+  font-size: clamp(1.75rem, 3vw, 2rem);
   color: var(--text);
   margin: 0.25rem 0 0.75rem;
   transition: color 0.2s ease;
 }
-.rezerwacja-tel:hover { color: var(--accent-brass); }
+.rezerwacja-tel:hover { color: var(--accent-brass-text); }
 .rezerwacja-signal {
   display: flex;
   align-items: center;
@@ -1505,7 +1519,7 @@ h4 { font-size: var(--size-h4); }
   font-size: var(--size-body);
   line-height: 1.8;
 }
-.footer-grid a:hover { color: var(--accent-brass); }
+.footer-grid a:hover { color: var(--accent-brass-text); }
 .footer-assoc {
   margin-top: 0.875rem;
   padding-top: 0.875rem;

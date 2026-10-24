@@ -28,7 +28,7 @@ function ratio(a, b) {
 }
 
 const SURFACES = ['--background', '--surface', '--background-deep'];
-const TEXTS = ['--text', '--text-secondary', '--text-muted', '--accent-brass', '--accent-brass-hover'];
+const TEXTS = ['--text', '--text-secondary', '--text-muted', '--accent-brass', '--accent-brass-text', '--accent-brass-hover'];
 const MIN = 4.5;
 
 let failures = 0;
@@ -36,7 +36,8 @@ for (const [name, theme] of [['dark', dark], ['light', light]]) {
   for (const t of TEXTS) {
     for (const s of SURFACES) {
       const r = ratio(theme[t], theme[s]);
-      const ok = r >= MIN;
+      // Main text aims for AAA (7:1), everything else for AA (4.5:1).
+      const ok = r >= (t === '--text' ? 7 : MIN);
       if (!ok) failures++;
       console.log(`${ok ? 'ok  ' : 'FAIL'} ${name.padEnd(5)} ${t} on ${s}: ${r.toFixed(2)}:1`);
     }

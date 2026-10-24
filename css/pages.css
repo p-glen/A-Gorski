@@ -61,26 +61,34 @@
 }
 .post-card__cat {
   margin: 0 0 0.5rem;
-  color: var(--accent-brass);
+  color: var(--accent-brass-text);
   font-size: var(--size-small);
   font-weight: 600;
 }
 .post-card__title {
   margin: 0 0 0.75rem;
-  font-size: clamp(1.375rem, 1vw + 1.1rem, 1.75rem);
-  line-height: 1.25;
+  font-family: var(--font-body);
+  font-size: var(--size-h3);
+  font-weight: 600;
+  line-height: 1.3;
   text-wrap: balance;
   transition: color 0.2s ease;
 }
-.post-card--featured .post-card__title { font-size: clamp(1.75rem, 2vw + 1.2rem, 2.375rem); }
+.post-card--featured .post-card__title {
+  font-family: var(--font-heading);
+  font-size: var(--size-h2);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
 .post-card__excerpt {
-  max-width: 60ch;
+  max-width: 65ch;
   margin: 0 0 1rem;
   color: var(--text-secondary);
 }
 .post-card__meta { margin: 0; color: var(--text-muted); font-size: var(--size-small); }
 .post-card__link:hover .post-card__title,
-.post-card__link:focus-visible .post-card__title { color: var(--accent-brass); }
+.post-card__link:focus-visible .post-card__title { color: var(--accent-brass-text); }
 .post-card__cover {
   display: flex;
   align-items: flex-end;
@@ -111,8 +119,8 @@
 .breadcrumb a:hover { color: var(--text); border-bottom-color: var(--accent-brass); }
 .article__title {
   margin: 0 0 1.25rem;
-  font-size: clamp(1.875rem, 3vw + 1rem, 2.875rem);
-  line-height: 1.15;
+  font-size: var(--size-h2);
+  line-height: 1.2;
   text-wrap: balance;
 }
 .article__meta {
@@ -125,21 +133,28 @@
 }
 .article--practice .article__title { margin-bottom: 2rem; }
 
-.prose { font-size: 1.125rem; line-height: 1.7; }
-.prose > * + * { margin-top: 1.25rem; }
-.prose p { margin-bottom: 0; }
-.prose h2 {
-  margin-top: 2.75rem;
-  font-size: clamp(1.5rem, 1.2vw + 1.2rem, 1.875rem);
-  line-height: 1.25;
+/* Reading text: 17px / 1.65, never wider than 65 characters. Section heads
+   inside an article are H3-scale body-font headings (the display face is
+   reserved for page-level H1/H2 at 32px and up). */
+.prose { font-size: var(--size-body); line-height: 1.65; }
+.prose > * { max-width: 65ch; }
+.prose p { margin: 0 0 1em; }
+.prose h2, .prose h3 {
+  margin: 2.5rem 0 0.75rem;
+  font-family: var(--font-body);
+  font-size: var(--size-h3);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0;
   text-wrap: balance;
   scroll-margin-top: calc(var(--nav-height, 72px) + 1rem);
 }
-.prose h2 + * { margin-top: 1rem; }
+.prose > :first-child { margin-top: 0; }
 .prose ul, .prose ol {
   display: flex;
   flex-direction: column;
   gap: 0.625rem;
+  margin: 0 0 1em;
   padding-left: 1.25rem;
 }
 .prose ul { list-style: disc; }
@@ -149,8 +164,8 @@
 .prose a { border-bottom: 1px solid var(--accent-brass); }
 .lead {
   color: var(--text-secondary);
-  font-size: 1.3125rem;
-  line-height: 1.55;
+  font-size: var(--size-lead);
+  line-height: 1.5;
 }
 .article__legal {
   margin: 2.5rem 0 0;
@@ -160,7 +175,13 @@
 
 /* ---------- related posts ---------- */
 .related { padding-bottom: clamp(3rem, 6vw, 5rem); }
-.related__title { margin: 0 0 1.5rem; font-size: 1.5rem; }
+.related__title {
+  margin: 0 0 1.5rem;
+  font-family: var(--font-body);
+  font-size: var(--size-h3);
+  font-weight: 600;
+  letter-spacing: 0;
+}
 .related__list {
   list-style: none;
   margin: 0;
@@ -174,15 +195,15 @@
   gap: 0.25rem;
   padding: 1.25rem 0;
 }
-.related__cat { color: var(--accent-brass); font-size: var(--size-small); font-weight: 600; }
+.related__cat { color: var(--accent-brass-text); font-size: var(--size-small); font-weight: 600; }
 .related__name {
-  font-family: var(--font-heading);
-  font-size: 1.25rem;
-  line-height: 1.3;
+  font-size: var(--size-h4);
+  font-weight: 600;
+  line-height: 1.35;
   transition: color 0.2s ease;
 }
 .related__list a:hover .related__name,
-.related__list a:focus-visible .related__name { color: var(--accent-brass); }
+.related__list a:focus-visible .related__name { color: var(--accent-brass-text); }
 
 /* ---------- call to action at the end of every page ---------- */
 .cta-block {
@@ -193,7 +214,7 @@
 }
 .cta-block__title {
   margin: 0 0 0.75rem;
-  font-size: clamp(1.625rem, 1.5vw + 1.2rem, 2.25rem);
+  font-size: var(--size-h2);
 }
 .cta-block__text { margin: 0 0 1.5rem; color: var(--text-secondary); }
 .cta-block__actions {
@@ -203,12 +224,11 @@
   gap: 1rem 2rem;
 }
 .cta-block__phone {
-  font-family: var(--font-heading);
-  font-size: clamp(1.625rem, 2vw + 1rem, 2.25rem);
-  font-weight: 500;
+  font-size: var(--size-h3);
+  font-weight: 600;
   transition: color 0.2s ease;
 }
-.cta-block__phone:hover { color: var(--accent-brass); }
+.cta-block__phone:hover { color: var(--accent-brass-text); }
 .cta-block__note {
   margin: 1.25rem 0 0;
   color: var(--text-muted);
@@ -250,7 +270,7 @@
 }
 .toc {
   margin: 0 0 2.5rem;
-  padding: 1.5rem;
+  padding: 2rem;
   background-color: var(--background-deep);
   border: 1px solid var(--border);
   border-radius: 2px;
@@ -285,23 +305,21 @@
   scroll-margin-top: calc(var(--nav-height, 72px) + 1rem);
 }
 .practice__n {
-  color: var(--accent-brass);
-  font-family: var(--font-heading);
-  font-size: 1.75rem;
-  line-height: 1.1;
+  color: var(--accent-brass-text);
+  font-size: var(--size-h3);
+  font-weight: 600;
+  line-height: 1.3;
 }
 .practice__title {
   margin: 0 0 0.5rem;
-  font-family: var(--font-body);
-  font-size: 1.1875rem;
+  font-size: var(--size-h4);
   font-weight: 600;
   line-height: 1.35;
 }
 .practice p {
+  max-width: 65ch;
   margin: 0;
   color: var(--text-secondary);
-  font-size: 1.0625rem;
-  line-height: 1.65;
 }
 .callbar { display: none; }
 
@@ -330,8 +348,11 @@
 }
 .practice-card__title {
   margin: 0.25rem 0 0;
-  font-size: 1.5rem;
-  line-height: 1.25;
+  font-family: var(--font-body);
+  font-size: var(--size-h3);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0;
   text-wrap: balance;
 }
 .practice-card__text { margin: 0; color: var(--text-secondary); }
@@ -342,7 +363,7 @@
   font-weight: 500;
 }
 .practice-card a:hover .practice-card__title,
-.practice-card a:focus-visible .practice-card__title { color: var(--accent-brass); }
+.practice-card a:focus-visible .practice-card__title { color: var(--accent-brass-text); }
 
 /* ---------- small screens ---------- */
 @media (max-width: 767px) {

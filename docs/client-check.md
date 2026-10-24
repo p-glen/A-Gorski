@@ -70,6 +70,20 @@ Klient zgodził się na poprawki literowe, stylistyczne oraz zmianę „my” na
 | C17 | Nawigacja | „Praktyki, Adwokat, Blog, Zatrzymanie?” zamiast „Specjalizacje, Adwokat, Publikacje” | do klienta |
 | C18 | Kolejność wpisów (brak dat) | Prezes (1), AML (2), Czynny żal (3), Polityka antykorupcyjna (4), Mail na prywatną skrzynkę (5), Pracownik odchodzi (6), Firma okradziona (7), Przeszukanie w firmie (8). Landing pokazuje pierwsze trzy | do klienta |
 
+## E. Typografia i kolory: odstępstwa od specyfikacji
+
+Specyfikację (fonty, skala, kolory, szerokość i odstępy) wdrożono w prototypie. Poniżej to, co zrobiono inaczej niż w opisie, razem z powodem.
+
+| ID | Punkt specyfikacji | Co zrobiliśmy | Powód |
+|---|---|---|---|
+| E1 | Etykiety: 13 px, wersaliki, odstęp 0,08em | Podpisy zostają 14 px, zapis zdaniowy, bez wersalików | Czytelność na telefonie pod stresem; wcześniej ustalone zdaniowe podpisy na karcie kontaktowej |
+| E2 | H1 maks. 56 px | Hero H1 56 px; tytuł artykułu w skali H2 (32-40 px) | Długie tytuły wpisów (do 80 znaków) w 56 px dawałyby 5 linii |
+| E3 | Bodoni tylko H1 i H2, od 32 px | Nagłówki w treści artykułu, tytuły kart, „Czytaj dalej", numery praktyk i numer telefonu przeszły na Plex | Zgodnie ze specyfikacją; telefon nie jest nagłówkiem |
+| E4 | H3 1,5 rem | Wszędzie 24 px (tytuły w modelu pracy, krokach, kartach) | Zgodnie ze specyfikacją; wcześniej 18 px |
+| E5 | `--accent-brass-text` | Nowy token (ciemny #C9A66B, jasny #7A5C2E) dla całego tekstu w kolorze mosiądzu; `--accent-brass` zostaje dla linii, ramek i przycisków | Zgodnie ze specyfikacją; kontrast sprawdzony skryptem (tekst główny 14:1, mosiądz od 4,8:1) |
+| E6 | „Case Studies", „cytat w kartach Model Pracy" | Nie dotyczy | Tych elementów nie ma w obecnym prototypie (rozwiązania z poprzedniej wersji Webflow) |
+| E7 | Nazwy tokenów | `--font-heading` (nie `--font-display`), `--size-*`, `--text`, `--text-secondary` | Zachowano obecne nazwy; przy porcie do Webflow zmapować na zmienne z opisu |
+
 ## D. Otwarte (nie blokują prototypu)
 
 | ID | Co | Uwagi |
