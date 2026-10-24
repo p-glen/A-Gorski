@@ -1294,8 +1294,8 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
 }
 .bio-grid {
   display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  gap: clamp(2rem, 6vw, 5.5rem);
+  grid-template-columns: minmax(0, 19rem) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
   align-items: start;
 }
 .portrait {
@@ -1314,7 +1314,7 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   }
 }
 .bio-content h2 {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
 }
 .bio-intro {
   max-width: 52ch;
@@ -1336,34 +1336,20 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   margin: 0 0 0.5rem;
 }
 .bio-group__desc {
-  max-width: 52ch;
+  max-width: 64ch;
   margin: 0 0 1.5rem;
   color: var(--text-secondary);
 }
-/* Desktop: the portrait stays put while the text column moves through three
-   full-height panels (about, cases, professional data). Snapping is only
-   "proximity" so the page never traps the scroll, and it is off for reduced
-   motion and on small screens, where the panels are just stacked content. */
-@media (max-width: 991px) {
-  .bio-panel + .bio-panel { margin-top: 3rem; }
-}
+/* Desktop: the portrait stays put while the text column scrolls through three
+   short panels (about, cases, professional data), each revealed as it enters. */
+.bio-panel + .bio-panel { margin-top: 4rem; }
 @media (min-width: 992px) {
-  /* One line: sized to the text column (597px wide at full container). */
-  .bio-content h2 { font-size: min(2.6rem, 3.7vw); white-space: nowrap; }
-  .bio-panel {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: calc(100svh - var(--nav-height, 5rem));
-    padding: 2rem 0;
-    scroll-margin-top: var(--nav-height, 5rem);
-  }
+  /* One line: sized to the text column. */
+  .bio-content h2 { font-size: min(var(--size-h2), 3.7vw); white-space: nowrap; }
   .bio-panel .credentials { margin-bottom: 0; }
   .bio-panel .button-alert { align-self: flex-start; }
 }
 @media (min-width: 992px) and (prefers-reduced-motion: no-preference) {
-  html { scroll-snap-type: y proximity; }
-  .bio-panel { scroll-snap-align: start; }
   @supports (animation-timeline: view()) {
     .bio-panel > * {
       animation: bio-in linear both;
@@ -1406,7 +1392,40 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   line-height: 1.7;
   color: var(--text);
 }
-.credentials--cases dd {
+.credentials dd { text-wrap: pretty; }
+.credentials dd a {
+  color: var(--text);
+  border-bottom: 1px solid var(--accent-brass);
+}
+.credentials dd a:hover { color: var(--accent-brass-text); }
+/* Inline technical terms (standards) use the mono of the data sheets;
+   journal titles use the serif so they stand out from running text. */
+.tech {
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  letter-spacing: var(--ls-note);
+  color: var(--text);
+}
+.pub {
+  font-family: var(--font-serif);
+  font-style: normal;
+  color: var(--text);
+}
+.timeline {
+  display: grid;
+  gap: 0.625rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.timeline li {
+  display: grid;
+  grid-template-columns: 5.75rem minmax(0, 1fr);
+  gap: 0.75rem;
+}
+.timeline li > span:first-child { color: var(--text-secondary); }
+.credentials--prose dd {
   font-family: var(--font-body);
   font-size: var(--size-card);
   line-height: 1.6;
