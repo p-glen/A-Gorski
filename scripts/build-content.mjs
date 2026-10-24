@@ -369,10 +369,11 @@ ${renderBlocks(blocksOf(privacy.body))}
 {
   const top = posts.slice(0, 3);
   const cards = top.map((p) => `          <a class="knowledge-card" href="blog/${p.slug}/">
-            <div class="knowledge-card__head">
-              <h3>${inline(p.title)}</h3>
-              ${p.date ? `<time class="knowledge-card__time" datetime="${p.date}">${fmtMonth(p.date)}</time>` : `<span class="knowledge-card__time">${p.min} min</span>`}
+            <div class="knowledge-card__meta">
+              ${p.date ? `<time class="knowledge-card__date" datetime="${p.date}">${fmtMonth(p.date)}</time>` : '<span></span>'}
+              <span class="knowledge-card__time">${p.min} min czytania</span>
             </div>
+            <h3>${inline(p.title)}</h3>
             <span class="knowledge-card__tag">${esc(catShort(p.category))}</span>
           </a>`).join('\n');
   const re = /(<!-- BLOG-CARDS:start -->)[\s\S]*?(<!-- BLOG-CARDS:end -->)/;

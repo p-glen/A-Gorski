@@ -1478,25 +1478,24 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
 .strefa-wiedzy-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  gap: 2.5rem;
 }
-/* Cards: date (or reading time) top right next to the title, category pinned
-   to the bottom so all three cards share one height. */
+/* Cards: date and reading time on the first line, the title below it with
+   room to breathe, the category pinned to the bottom. */
 .knowledge-card {
   display: flex;
   flex-direction: column;
-  min-height: 13rem;
+  min-height: 17rem;
   border-top: 1px solid var(--border);
-  padding-top: 1.5rem;
+  padding-top: 1.25rem;
 }
-.knowledge-card__head {
+.knowledge-card__meta {
   display: flex;
-  align-items: flex-start;
+  align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
 }
-.knowledge-card__head h3 { margin-bottom: 0; }
-.knowledge-card__tag { margin-top: auto; padding-top: 1.5rem; }
+.knowledge-card__date,
 .knowledge-card__time {
   font-family: var(--font-mono);
   font-size: var(--size-note);
@@ -1504,14 +1503,15 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   line-height: var(--lh-note);
   color: var(--text-secondary);
   white-space: nowrap;
-  padding-top: 0.25rem;
 }
 .knowledge-card h3 {
+  margin: 2.25rem 0 0;
   line-height: var(--lh-h3);
-  margin-bottom: 0.875rem;
 }
 .knowledge-card__tag {
   display: inline-block;
+  margin-top: auto;
+  padding-top: 2rem;
   font-size: var(--size-note);
   color: var(--text-secondary);
   font-weight: 400;
@@ -1826,6 +1826,6 @@ body.nav-open .site-nav__links {
 /* Anchored sections stop below the fixed nav. */
 [data-section] { scroll-margin-top: var(--nav-height, 5rem); }
 .section-more {
-  margin-top: 2.5rem;
+  margin-top: 3.5rem;
   text-align: center;
 }
