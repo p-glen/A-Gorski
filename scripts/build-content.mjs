@@ -309,18 +309,12 @@ ${ctaBlock(root)}`;
     </div>
   </header>
   <div class="container container--article">
-    <nav class="toc" aria-label="Spis treści">
-      <h2 class="toc__title">Spis treści</h2>
-      <ol class="toc__list">
-${items.map((i) => `<li><a href="#praktyka-${i.n}">${inline(i.title)}</a></li>`).join('\n')}
-      </ol>
-    </nav>
     <div class="prose">
-${renderBlocks(pre.slice(1))}
       <h2 id="dobre-praktyki">Dobre praktyki</h2>
+${renderBlocks(pre.slice(1))}
     </div>
     <ol class="practices">
-${items.map((i) => `<li class="practice" id="praktyka-${i.n}"><span class="practice__n" aria-hidden="true">${i.n}</span><div><h3 class="practice__title">${inline(i.title)}</h3><p>${inline(i.text)}</p></div></li>`).join('\n')}
+${items.map((i) => `<li class="practice" id="praktyka-${i.n}"><span class="practice__n" aria-hidden="true">${String(i.n).padStart(2, '0')}</span><div><h3 class="practice__title">${inline(i.title)}</h3><p>${inline(i.text)}</p></div></li>`).join('\n')}
     </ol>
     <div class="prose">
 ${renderBlocks(post)}

@@ -70,6 +70,7 @@ Klient zgodził się na poprawki literowe, stylistyczne oraz zmianę „my” na
 | C16 | Struktura poradnika | Dodane przez nas elementy: przycisk „Zadzwoń” u góry, spis treści, nagłówek „Dobre praktyki”, przyklejony pasek „Zadzwoń” na telefonie. Treść klienta bez zmian poza A-poprawkami | do klienta |
 | C17 | Nawigacja | „Praktyki, Adwokat, Blog, Zatrzymanie?” zamiast „Specjalizacje, Adwokat, Publikacje” | do klienta |
 | C18 | Kolejność wpisów (brak dat) | Prezes (1), AML (2), Czynny żal (3), Polityka antykorupcyjna (4), Mail na prywatną skrzynkę (5), Pracownik odchodzi (6), Firma okradziona (7), Przeszukanie w firmie (8). Landing pokazuje pierwsze trzy | do klienta |
+| C19 | Poradnik o zatrzymaniu | Spis treści usunięty (powtarzał 9 punktów, które są zaraz niżej); nagłówek „Dobre praktyki” stoi przed zdaniem „Oto dobre praktyki…”, punkty mają tytuły w skali H3 | do klienta |
 
 ## E. Typografia i kolory: odstępstwa od specyfikacji
 

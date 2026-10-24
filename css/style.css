@@ -197,6 +197,9 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   width: 1.75rem;
   height: 1.75rem;
 }
+/* The call action is the one filled glyph (Lucide is outline-only, so the
+   path is filled with currentColor). */
+.scene__action--call .scene__icon { fill: currentColor; }
 /* Frosted glass: a web approximation (translucent fill, blur, a hairline
    and an inner highlight), not a platform material. */
 .scene__action--glass .scene__disc {
