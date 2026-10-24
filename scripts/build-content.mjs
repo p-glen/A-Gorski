@@ -16,6 +16,7 @@ const PHONE = '792 892 457';
 const PHONE_HREF = 'tel:+48792892457';
 const AUTHOR = 'Arkadiusz Górski';
 const BACK_ICON = await icon('arrow-left', 'breadcrumb__icon');
+const CLOCK_ICON = await icon('clock', 'knowledge-card__icon');
 const MONTHS = ['stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia'];
 
 const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
@@ -369,12 +370,12 @@ ${renderBlocks(blocksOf(privacy.body))}
 {
   const top = posts.slice(0, 3);
   const cards = top.map((p) => `          <a class="knowledge-card" href="blog/${p.slug}/">
-            <div class="knowledge-card__meta">
-              ${p.date ? `<time class="knowledge-card__date" datetime="${p.date}">${fmtMonth(p.date)}</time>` : '<span></span>'}
-              <span class="knowledge-card__time">${p.min} min czytania</span>
-            </div>
+            ${p.date ? `<time class="knowledge-card__date" datetime="${p.date}">${fmtMonth(p.date)}</time>` : '<span class="knowledge-card__date" aria-hidden="true"></span>'}
             <h3>${inline(p.title)}</h3>
-            <span class="knowledge-card__tag">${esc(catShort(p.category))}</span>
+            <div class="knowledge-card__foot">
+              <span class="knowledge-card__tag">${esc(catShort(p.category))}</span>
+              <span class="knowledge-card__time">${CLOCK_ICON}${p.min}<span class="sr-only"> min czytania</span></span>
+            </div>
           </a>`).join('\n');
   const re = /(<!-- BLOG-CARDS:start -->)[\s\S]*?(<!-- BLOG-CARDS:end -->)/;
   if (!re.test(landing)) throw new Error('index.html: BLOG-CARDS markers missing');

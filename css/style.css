@@ -1491,8 +1491,9 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   grid-template-columns: repeat(3, 1fr);
   gap: 2.5rem;
 }
-/* Cards: date and reading time on the first line, the title below it with
-   room to breathe, the category pinned to the bottom. */
+/* Cards, top to bottom: the date (month.year), the title, then a footer row
+   with the category on the left and the reading time (clock + minutes) on
+   the right. */
 .knowledge-card {
   display: flex;
   flex-direction: column;
@@ -1500,36 +1501,44 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   border-top: 1px solid var(--border);
   padding-top: 1.25rem;
 }
-.knowledge-card__meta {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-}
 .knowledge-card__date,
-.knowledge-card__time {
+.knowledge-card__time,
+.knowledge-card__tag {
   font-family: var(--font-mono);
   font-size: var(--size-note);
   letter-spacing: var(--ls-note);
   line-height: var(--lh-note);
   color: var(--text-secondary);
-  white-space: nowrap;
+}
+.knowledge-card__date {
+  display: block;
+  min-height: var(--lh-note);
 }
 .knowledge-card h3 {
   margin: 2.25rem 0 0;
   line-height: var(--lh-h3);
 }
-.knowledge-card__tag {
-  display: inline-block;
+.knowledge-card__foot {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
   margin-top: auto;
   padding-top: 2rem;
-  font-size: var(--size-note);
-  color: var(--text-secondary);
+}
+.knowledge-card__tag {
   font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: var(--ls-note);
-  line-height: var(--lh-note);
-  font-family: var(--font-mono);
+}
+.knowledge-card__time {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  white-space: nowrap;
+}
+.knowledge-card__icon {
+  width: 0.9375rem;
+  height: 0.9375rem;
 }
 .knowledge-card:hover h3,
 .knowledge-card:focus-visible h3 {
