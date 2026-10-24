@@ -88,7 +88,7 @@ Klient zgodził się na poprawki literowe, stylistyczne oraz zmianę „my” na
 | C34 | Karuzela specjalizacji | Kropki i strzałki kwadratowe (promień 0); „Wszystkie specjalizacje” jako link trzeciego stopnia (bez ramki) obok kropek, strzałki karuzeli po prawej | do klienta |
 | C35 | „Jak pracuję” (model pracy) | Sekcja przebudowana na nagłówek („Jak pracuję: cztery zasady, które stosuję w każdej sprawie.”, druga linia jaśniejsza) z opisem w czcionce technicznej oraz cztery numerowane karty z ikoną (osoba, uścisk dłoni, klepsydra, pióro), przypisem po prawej nad linią („Osobiście”, „24/7”, „Limit spraw”, „Na piśmie”) i niezmienionym tekstem zasad. Nagłówek i opis są nowe, do akceptacji | do klienta |
 | C36 | Poradnik o zatrzymaniu | Przycisk „Zadzwoń” jako przycisk główny (miedź) zamiast zielonego, także pasek połączenia na telefonie; tytuł, wstęp i kroki na jednej, szerszej mierze (ok. 62 rem) | do klienta |
-| C37 | Poradnik: wyróżnienia i karty | Podkreślone frazy: „może trwać do 48 godzin”, „a sąd ma kolejne 24 godziny”, „maksymalnie 3 miesiące”. Przycisk „Zadzwoń” pod wstępem. Dziewięć praktyk jako karty 3 × 3 (2 kolumny na tablecie, 1 na telefonie) z większymi odstępami; treść bez zmian | do klienta |
+| C37 | Poradnik: wyróżnienia i karty | Podkreślone frazy: „może trwać do 48 godzin”, „a sąd ma kolejne 24 godziny”, „maksymalnie 3 miesiące”. Przycisk „Zadzwoń” pod wstępem. Dziewięć praktyk jako szerokie karty w jednej kolumnie (numer i tytuł po lewej, tekst po prawej; na telefonie jedna pod drugą) z większymi odstępami; treść bez zmian | do klienta |
 
 ## E. Typografia i kolory: odstępstwa od specyfikacji
 

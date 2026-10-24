@@ -338,7 +338,7 @@ ${ctaBlock(root)}`;
 ${renderBlocks(pre.slice(1))}
     </div>
     <ol class="practices">
-${items.map((i) => `<li class="practice" id="praktyka-${i.n}"><span class="practice__n" aria-hidden="true">${String(i.n).padStart(2, '0')}</span><div><h3 class="practice__title">${inline(i.title)}</h3><p>${inline(i.text)}</p></div></li>`).join('\n')}
+${items.map((i) => `<li class="practice" id="praktyka-${i.n}"><span class="practice__n" aria-hidden="true">${String(i.n).padStart(2, '0')}</span><h3 class="practice__title">${inline(i.title)}</h3><p>${inline(i.text)}</p></li>`).join('\n')}
     </ol>
     <div class="prose">
 ${renderBlocks(post)}
