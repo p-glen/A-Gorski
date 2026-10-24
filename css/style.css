@@ -1319,48 +1319,25 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   max-width: 65ch;
   margin: 0 0 1em;
 }
-.bio-cases {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  max-width: 65ch;
-  margin: 0 0 2rem;
-  padding-left: 1.25rem;
-  list-style: disc;
-  color: var(--text-secondary);
-}
-.bio-cases li::marker { color: var(--text-muted); }
-/* Three plain house rules, label left and sentence right; the dividers sit
-   between the rows only. */
-.bio-rules {
-  margin-bottom: 2rem;
-}
-.bio-rules li {
-  display: grid;
-  grid-template-columns: 11.5rem 1fr;
-  gap: 1rem;
-  padding: 0.875rem 0;
-  font-size: var(--size-body);
-  color: var(--text-secondary);
-}
-.bio-rules li + li {
-  border-top: 1px solid var(--border);
-}
-.bio-rules strong {
-  color: var(--text);
-  font-weight: 600;
+/* Cases and professional data share one spec-sheet pattern: a mono label on
+   the left, the value on the right, hairlines between rows. Data is set in
+   mono (it is a record), the case descriptions stay in the text face. */
+.bio-group {
+  margin: 2.5rem 0 1rem;
 }
 .credentials {
-  margin: 0 0 2.25rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--border);
   display: grid;
-  gap: 0.75rem;
+  margin: 0 0 1rem;
+  border-top: 1px solid var(--border);
 }
 .credentials div {
   display: grid;
-  grid-template-columns: 11.5rem 1fr;
+  grid-template-columns: 13.5rem 1fr;
   gap: 1rem;
+  padding: 0.875rem 0;
+}
+.credentials div + div {
+  border-top: 1px solid var(--border);
 }
 .credentials dt {
   font-size: var(--size-note);
@@ -1368,14 +1345,23 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: var(--ls-note);
-  line-height: var(--lh-note);
+  line-height: 1.75;
   font-family: var(--font-mono);
 }
 .credentials dd {
   margin: 0;
-  font-size: var(--size-body);
+  font-family: var(--font-mono);
+  font-size: 0.9375rem;
+  line-height: 1.7;
   color: var(--text);
 }
+.credentials--cases dd {
+  font-family: var(--font-body);
+  font-size: var(--size-card);
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+.bio-content .button-alert { margin-top: 1.5rem; }
 .credentials .bio-todo {
   color: var(--text-muted);
   font-style: italic;
@@ -1633,7 +1619,6 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   .rezerwacja-grid,
   .bio-grid { grid-template-columns: 1fr; }
   .bio-grid { gap: 2.5rem; }
-  .bio-rules li,
   .credentials div { grid-template-columns: 1fr; gap: 0.25rem; }
   .portrait { max-width: 26rem; }
   .footer-grid { grid-template-columns: 1fr 1fr; }

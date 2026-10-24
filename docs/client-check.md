@@ -74,6 +74,8 @@ Klient zgodził się na poprawki literowe, stylistyczne oraz zmianę „my” na
 | C20 | Landing: hasło „To, kto odbiera telefon…” | Osobna sekcja, wyśrodkowana, 72% wysokości ekranu, do 72 px; pod nią przycisk „Zadzwoń: 792 892 457” i linia „Wolisz napisać? Signal na ten sam numer, wiadomości są szyfrowane.” (bez słowa „anonimowo”, bo Signal pokazuje numer nadawcy) | do klienta |
 | C21 | Podstrony (blog, wpisy, praktyki, poradnik, polityka) | Zamiast wąskiej kolumny w stylu Medium (44-48 rem) kontener 1160 px jak na landingu; tylko tekst ciągły ma 65 znaków w wierszu | do klienta |
 | C22 | Hierarchia przycisków (landing) | Nawigacja ma tylko „Pomoc 24/7” (kontur); hero ma jeden przycisk „Umów konsultację”; hasło ma jedyne mosiężne „Zadzwoń”; w „O mnie” „Umów konsultację” jest przyciskiem konturowym. Usunięty mosiężny „Umów konsultację” z nawigacji i konturowy „Pomoc 24/7” z hero | do klienta |
+| C23 | „O mnie”: układ | Zasady „Odpowiedzialność” i „Transparentność” usunięte z sekcji (to samo mówią wiersze „Ograniczona liczba spraw” i „Jasne zasady rozliczeń” w „Modelu pracy”). „Wybrane sprawy” zapisane jako lista z etykietami (Obrona gospodarcza, Pokrzywdzeni, Rynek kapitałowy, KNF, Compliance i AML), treść skrócona do jednego zdania na pozycję, sens bez zmian. Dane zawodowe w Roboto Mono jako metryka | do klienta |
+| C24 | „O mnie”: data | „2022-2026” poprawione na „2022–2026” (półpauza jak w pozostałych datach) | sprawdzone przez nas |
 
 ## E. Typografia i kolory: odstępstwa od specyfikacji
 
