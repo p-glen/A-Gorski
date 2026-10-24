@@ -1314,7 +1314,6 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   }
 }
 .bio-content h2 {
-  max-width: 14ch;
   margin-bottom: 1.25rem;
 }
 .bio-intro {
@@ -1334,7 +1333,48 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
    the left, the value on the right, hairlines between rows. Data is set in
    mono (it is a record), the case descriptions stay in the text face. */
 .bio-group {
-  margin: 2.5rem 0 1rem;
+  margin: 0 0 0.5rem;
+}
+.bio-group__desc {
+  max-width: 52ch;
+  margin: 0 0 1.5rem;
+  color: var(--text-secondary);
+}
+/* Desktop: the portrait stays put while the text column moves through three
+   full-height panels (about, cases, professional data). Snapping is only
+   "proximity" so the page never traps the scroll, and it is off for reduced
+   motion and on small screens, where the panels are just stacked content. */
+@media (max-width: 991px) {
+  .bio-panel + .bio-panel { margin-top: 3rem; }
+}
+@media (min-width: 992px) {
+  /* One line: sized to the text column (597px wide at full container). */
+  .bio-content h2 { font-size: min(2.6rem, 3.7vw); white-space: nowrap; }
+  .bio-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100svh - var(--nav-height, 5rem));
+    padding: 2rem 0;
+    scroll-margin-top: var(--nav-height, 5rem);
+  }
+  .bio-panel .credentials { margin-bottom: 0; }
+  .bio-panel .button-alert { align-self: flex-start; }
+}
+@media (min-width: 992px) and (prefers-reduced-motion: no-preference) {
+  html { scroll-snap-type: y proximity; }
+  .bio-panel { scroll-snap-align: start; }
+  @supports (animation-timeline: view()) {
+    .bio-panel > * {
+      animation: bio-in linear both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 45%;
+    }
+  }
+}
+@keyframes bio-in {
+  from { opacity: 0; transform: translateY(1.5rem); }
+  to { opacity: 1; transform: none; }
 }
 .credentials {
   display: grid;

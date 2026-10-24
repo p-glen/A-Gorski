@@ -77,6 +77,7 @@ Klient zgodził się na poprawki literowe, stylistyczne oraz zmianę „my” na
 | C23 | „O mnie”: układ | Zasady „Odpowiedzialność” i „Transparentność” usunięte z sekcji (to samo mówią wiersze „Ograniczona liczba spraw” i „Jasne zasady rozliczeń” w „Modelu pracy”). „Wybrane sprawy” zapisane jako lista z etykietami (Obrona gospodarcza, Pokrzywdzeni, Rynek kapitałowy, KNF, Compliance i AML), treść skrócona do jednego zdania na pozycję, sens bez zmian. Dane zawodowe w Roboto Mono jako metryka | do klienta |
 | C24 | „O mnie”: data | „2022-2026” poprawione na „2022–2026” (półpauza jak w pozostałych datach) | sprawdzone przez nas |
 | C25 | Hero i nawigacja | Podtytuł skrócony do „Bronię podejrzanych i reprezentuję pokrzywdzonych. Sprawy karne gospodarcze, compliance, AML.” (było: dwa zdania, 23 słowa); notka pod przyciskiem „Pierwsza rozmowa jest bezpłatna.” (bez „bez płatności z góry”); nagłówek zawsze w dwóch liniach; przycisk „Pomoc 24/7” z zieloną kropką dostępności, bez ikony telefonu | do klienta |
+| C26 | „O mnie”: układ i opisy | Trzy panele na pełną wysokość ekranu (O mnie, Wybrane sprawy, Dane zawodowe), zdjęcie przyklejone, lekkie przyciąganie przy przewijaniu na desktopie. Nowe opisy pod nagłówkami: „Sprawy, w których występuję jako obrońca, pełnomocnik lub doradca.” i „Wpis na listę adwokatów, doświadczenie i wykształcenie.” Nagłówek „Gdy zadzwonisz, odbiorę ja.” w jednej linii | do klienta |
 
 ## E. Typografia i kolory: odstępstwa od specyfikacji
 
