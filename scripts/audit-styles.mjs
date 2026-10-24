@@ -30,7 +30,7 @@ for (const [w, theme] of [[1440, 'dark'], [1440, 'light'], [390, 'dark'], [390, 
     const keys = Object.keys(a.headings[h]);
     check(`${tag} ${h}: one style`, keys.length === 1, keys.join('  //  '));
     const fonts = keys.map((k) => k.split('|')[0]);
-    const want = h === 'h1' || h === 'h2' ? 'Bodoni Moda' : 'IBM Plex Sans';
+    const want = h === 'h4' ? 'Inter' : 'Inter Tight';
     check(`${tag} ${h}: font ${want}`, fonts.every((f) => f === want), fonts.join(','));
     // On a phone the hero copy sits on the photograph and is always light
     // type on a dark scrim, whatever the theme (see style.css, max-width 899px).

@@ -8,12 +8,14 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { icon } from './icon.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SITE_URL = (process.env.SITE_URL || '').replace(/\/$/, '');
 const PHONE = '792 892 457';
 const PHONE_HREF = 'tel:+48792892457';
 const AUTHOR = 'Arkadiusz Górski';
+const BACK_ICON = await icon('arrow-left', 'breadcrumb__icon');
 const MONTHS = ['stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia'];
 
 const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
@@ -77,7 +79,8 @@ const landing = read('index.html');
 const ASSET_V = (landing.match(/css\/style\.css\?v=(\d+)/) || [, '1'])[1];
 const NAV = landing.match(/<header class="site-nav">[\s\S]*?<\/header>/)[0];
 const FOOTER = landing.match(/<footer class="site-footer">[\s\S]*?<\/footer>/)[0];
-const FONT_LINKS = (landing.match(/<link[^>]+fonts\.(?:googleapis|gstatic)\.com[^>]*>/g) || []).join('\n  ');
+// Fonts are self-hosted (css/fonts.css); the preload links are copied from the landing page.
+const FONT_LINKS = (landing.match(/<link[^>]+rel="(?:preload|stylesheet)"[^>]*fonts[^>]*>/g) || []);
 
 function relink(html, root) {
   return html.replace(/\b(href|src)="([^"]*)"/g, (m, attr, v) =>
@@ -95,7 +98,7 @@ function page({ root, dir, title, description, robots, bodyClass, main, scripts 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(description)}">${robots ? `\n  <meta name="robots" content="${robots}">` : ''}${canonical}
-  ${FONT_LINKS}
+  ${relink(FONT_LINKS.join('\n  '), root)}
   <link rel="stylesheet" href="${root}css/tokens.css?v=${ASSET_V}">
   <link rel="stylesheet" href="${root}css/style.css?v=${ASSET_V}">
   <link rel="stylesheet" href="${root}css/pages.css?v=${ASSET_V}">${ld}
@@ -204,15 +207,17 @@ for (const p of posts) {
   const sameCat = posts.filter((x) => x.slug !== p.slug && x.category === p.category);
   const rest = posts.filter((x) => x.slug !== p.slug && x.category !== p.category);
   const related = [...sameCat, ...rest].slice(0, 3);
-  const main = `<article class="article">
+  const postBlocks = blocksOf(p.body);
+  const main = `<article class="article article--post">
   <div class="container container--article">
-    <nav class="breadcrumb" aria-label="Ścieżka"><a href="${root}blog/">Blog</a><span aria-hidden="true">/</span><a href="${root}praktyki/${cat.slug}/">${esc(cat.short)}</a></nav>
+    <nav class="breadcrumb" aria-label="Ścieżka"><a class="breadcrumb__back" href="${root}blog/">${BACK_ICON}Blog</a><span aria-hidden="true">/</span><a href="${root}praktyki/${cat.slug}/">${esc(cat.short)}</a></nav>
     <header class="article__head">
-      <h1 class="article__title">${inline(p.title)}</h1>
       <p class="article__meta"><span>${AUTHOR}</span><span>${esc(metaLine(p))}</span></p>
+      <h1 class="article__title">${inline(p.title)}</h1>
     </header>
     <div class="prose">
-${renderBlocks(blocksOf(p.body))}
+      <p class="lead">${inline(postBlocks[0])}</p>
+${renderBlocks(postBlocks.slice(1))}
     </div>${p.updated ? `\n    <p class="article__legal">Stan prawny na: ${esc(fmtDate(p.updated))}</p>` : ''}
   </div>
 </article>
@@ -261,7 +266,7 @@ for (const p of practices) {
   const related = posts.filter((x) => x.category === p.slug);
   const main = `<article class="article article--practice">
   <div class="container container--article">
-    <nav class="breadcrumb" aria-label="Ścieżka"><a href="${root}praktyki/">Praktyki</a></nav>
+    <nav class="breadcrumb" aria-label="Ścieżka"><a class="breadcrumb__back" href="${root}praktyki/">${BACK_ICON}Praktyki</a></nav>
     <header class="article__head">
       <h1 class="article__title">${inline(p.title)}</h1>
     </header>
@@ -306,18 +311,12 @@ ${ctaBlock(root)}`;
     </div>
   </header>
   <div class="container container--article">
-    <nav class="toc" aria-label="Spis treści">
-      <h2 class="toc__title">Spis treści</h2>
-      <ol class="toc__list">
-${items.map((i) => `<li><a href="#praktyka-${i.n}">${inline(i.title)}</a></li>`).join('\n')}
-      </ol>
-    </nav>
     <div class="prose">
-${renderBlocks(pre.slice(1))}
       <h2 id="dobre-praktyki">Dobre praktyki</h2>
+${renderBlocks(pre.slice(1))}
     </div>
     <ol class="practices">
-${items.map((i) => `<li class="practice" id="praktyka-${i.n}"><span class="practice__n" aria-hidden="true">${i.n}</span><div><h3 class="practice__title">${inline(i.title)}</h3><p>${inline(i.text)}</p></div></li>`).join('\n')}
+${items.map((i) => `<li class="practice" id="praktyka-${i.n}"><span class="practice__n" aria-hidden="true">${String(i.n).padStart(2, '0')}</span><div><h3 class="practice__title">${inline(i.title)}</h3><p>${inline(i.text)}</p></div></li>`).join('\n')}
     </ol>
     <div class="prose">
 ${renderBlocks(post)}

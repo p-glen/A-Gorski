@@ -33,7 +33,7 @@ Poza bankami, firmami inwestycyjnymi czy ubezpieczycielami są to m.in.:
 
 ## Ile kosztuje zaniedbanie?
 
-Kary administracyjne sięgają **dwukrotności osiągniętej korzyści lub do 1 mln euro** , a w przypadku m.in. banków i firm inwestycyjnych – **do 5 mln euro** . Kara może zostać nałożona również na osobę odpowiedzialną za wykonywanie obowiązków AML.
+Kary administracyjne sięgają **dwukrotności osiągniętej korzyści lub do 1 mln euro**, a w przypadku m.in. banków i firm inwestycyjnych – **do 5 mln euro**. Kara może zostać nałożona również na osobę odpowiedzialną za wykonywanie obowiązków AML.
 
 ## AML dotyczy też „zwykłych” spółek
 

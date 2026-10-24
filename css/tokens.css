@@ -23,19 +23,41 @@
   --glass-border: rgb(255 255 255 / 0.24);
   --glass-ink: #FFFFFF;
 
-  --font-heading: 'Bodoni Moda', serif;
-  --font-body: 'IBM Plex Sans', sans-serif;
+  /* One grotesk in two cuts (after brand.mit.edu), a serif for H1 and the
+     top of a post, a mono for footnotes. Text above 20px (1.25rem) is
+     --font-display and 20px and below is --font-body; exceptions: H1 and
+     .heading-condensed (--font-serif-condensed), post standfirst (--font-serif),
+     footnotes (--font-mono). */
+  --font-display: 'Inter Tight', Arial, sans-serif;
+  --font-body: 'Inter', Arial, sans-serif;
+  --font-serif: 'Roboto Serif', Georgia, serif;
+  --font-serif-condensed: 'Roboto Serif Condensed', 'Roboto Serif', Georgia, serif;
+  --font-mono: 'Roboto Mono', ui-monospace, monospace;
 
-  /* Type scale. Bodoni Moda for H1/H2 only (never below 32px), IBM Plex Sans
-     for everything else. Captions stay at 14px (spec says 13px) so they
-     remain readable on a phone under stress. */
-  --size-h1: clamp(2.5rem, 5vw, 3.5rem);
-  --size-h2: clamp(2rem, 3.5vw, 2.5rem);
+  /* Type scale: size, leading and tracking per role. */
+  --size-h1: clamp(2.75rem, 6vw, 4.5rem);
+  --size-h2: clamp(2rem, 4vw, 2.75rem);
   --size-h3: 1.5rem;
   --size-h4: 1.0625rem;
   --size-lead: 1.25rem;
   --size-body: 1.0625rem;
+  --size-card: 1rem;
   --size-small: 0.875rem;
+  --size-note: 0.8125rem;
+  --lh-h1: 1.05;
+  --lh-h2: 1.05;
+  --lh-h3: 1.15;
+  --lh-lead: 1.4;
+  --lh-body: 1.55;
+  --lh-prose: 1.6;
+  --lh-card: 1.4;
+  --lh-ui: 1.25;
+  --lh-note: 1.3;
+  /* Inter Tight already ships tight spacing: no negative tracking anywhere. */
+  --ls-h1: 0.005em;
+  --ls-h2: 0;
+  --ls-h3: 0;
+  --ls-note: 0.04em;
 
   /* Section rhythm: tight on a phone, generous on a desktop. */
   --space-section-y: 4rem;
