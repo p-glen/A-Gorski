@@ -73,6 +73,7 @@ Klient zgodził się na poprawki literowe, stylistyczne oraz zmianę „my” na
 | C19 | Poradnik o zatrzymaniu | Spis treści usunięty (powtarzał 9 punktów, które są zaraz niżej); nagłówek „Dobre praktyki” stoi przed zdaniem „Oto dobre praktyki…”, punkty mają tytuły w skali H3 | do klienta |
 | C20 | Landing: hasło „To, kto odbiera telefon…” | Osobna sekcja, wyśrodkowana, 72% wysokości ekranu, do 72 px; pod nią przycisk „Zadzwoń: 792 892 457” i linia „Wolisz napisać? Signal na ten sam numer, wiadomości są szyfrowane.” (bez słowa „anonimowo”, bo Signal pokazuje numer nadawcy) | do klienta |
 | C21 | Podstrony (blog, wpisy, praktyki, poradnik, polityka) | Zamiast wąskiej kolumny w stylu Medium (44-48 rem) kontener 1160 px jak na landingu; tylko tekst ciągły ma 65 znaków w wierszu | do klienta |
+| C22 | Hierarchia przycisków (landing) | Nawigacja ma tylko „Pomoc 24/7” (kontur); hero ma jeden przycisk „Umów konsultację”; hasło ma jedyne mosiężne „Zadzwoń”; w „O mnie” „Umów konsultację” jest przyciskiem konturowym. Usunięty mosiężny „Umów konsultację” z nawigacji i konturowy „Pomoc 24/7” z hero | do klienta |
 
 ## E. Typografia i kolory: odstępstwa od specyfikacji
 

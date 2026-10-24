@@ -1650,7 +1650,6 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
 }
 
 @media (max-width: 767px) {
-  .site-nav__actions .button-primary { display: none; }
   .strefa-wiedzy-grid,
   .steps-grid { grid-template-columns: 1fr; }
   .site-nav__inner { padding: 1rem; }
