@@ -370,7 +370,6 @@ ${renderBlocks(blocksOf(privacy.body))}
 {
   const top = posts.slice(0, 3);
   const cards = top.map((p) => `          <a class="knowledge-card" href="blog/${p.slug}/">
-            ${p.date ? `<time class="knowledge-card__date" datetime="${p.date}">${fmtMonth(p.date)}</time>` : '<span class="knowledge-card__date" aria-hidden="true"></span>'}
             <h3>${inline(p.title)}</h3>
             <div class="knowledge-card__foot">
               <span class="knowledge-card__tag">${esc(catShort(p.category))}</span>

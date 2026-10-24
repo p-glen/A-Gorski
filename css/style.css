@@ -1491,17 +1491,15 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   grid-template-columns: repeat(3, 1fr);
   gap: 2.5rem;
 }
-/* Cards, top to bottom: the date (month.year), the title, then a footer row
-   with the category on the left and the reading time (clock + minutes) on
-   the right. */
+/* Cards: the title, then a footer row with the category on the left and the
+   reading time (clock + minutes) on the right. */
 .knowledge-card {
   display: flex;
   flex-direction: column;
-  min-height: 17rem;
+  min-height: 10.5rem;
   border-top: 1px solid var(--border);
-  padding-top: 1.25rem;
+  padding-top: 1.5rem;
 }
-.knowledge-card__date,
 .knowledge-card__time,
 .knowledge-card__tag {
   font-family: var(--font-mono);
@@ -1510,12 +1508,8 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   line-height: var(--lh-note);
   color: var(--text-secondary);
 }
-.knowledge-card__date {
-  display: block;
-  min-height: var(--lh-note);
-}
 .knowledge-card h3 {
-  margin: 2.25rem 0 0;
+  margin: 0;
   line-height: var(--lh-h3);
 }
 .knowledge-card__foot {
@@ -1524,7 +1518,7 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   justify-content: space-between;
   gap: 1rem;
   margin-top: auto;
-  padding-top: 2rem;
+  padding-top: 1.5rem;
 }
 .knowledge-card__tag {
   font-weight: 400;
