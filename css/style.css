@@ -1496,7 +1496,7 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
 .strefa-wiedzy-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2.5rem;
+  gap: 3rem 2.5rem;
 }
 /* Cards: the title, then a footer row with the category on the left and the
    reading time (clock + minutes) on the right. */
@@ -1517,7 +1517,10 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
 }
 .knowledge-card h3 {
   margin: 0;
+  font-size: 1.375rem;
   line-height: var(--lh-h3);
+  /* Fill the card: balancing would pull every line in from the right edge. */
+  text-wrap: pretty;
 }
 .knowledge-card__foot {
   display: flex;

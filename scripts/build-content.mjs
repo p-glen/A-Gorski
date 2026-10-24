@@ -366,9 +366,9 @@ ${renderBlocks(blocksOf(privacy.body))}
     robots: 'noindex', bodyClass: 'page page--article', main }));
 }
 
-// ---------- landing: refresh the three blog cards ----------
+// ---------- landing: refresh the six blog cards ----------
 {
-  const top = posts.slice(0, 3);
+  const top = posts.slice(0, 6);
   const cards = top.map((p) => `          <a class="knowledge-card" href="blog/${p.slug}/">
             <h3>${inline(p.title)}</h3>
             <div class="knowledge-card__foot">

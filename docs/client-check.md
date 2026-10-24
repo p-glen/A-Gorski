@@ -83,6 +83,7 @@ Klient zgodził się na poprawki literowe, stylistyczne oraz zmianę „my” na
 | C29 | Nawigacja: wygląd | Pasek w szerokości treści (1160 px), logo po lewej, zakładki po prawej, tekst 14 px. „Pomoc 24/7” jako półprzezroczysta biała kapsuła bez ramki z zieloną pulsującą kropką; ikona motywu po jej prawej. Na telefonie przełącznik motywu w menu hamburgerowym. Motyw początkowy zgodny z ustawieniem systemu (domyślnie ciemny) | do klienta |
 | C30 | „O mnie”: zdjęcie i ruch | Zdjęcie od lewej krawędzi strony do kolumny tekstu, na wysokość ekranu pod nawigacją, przyklejone podczas przewijania; zdjęcie zaczyna się równo z górą sekcji i zostaje przypięte do końca; tekst zaczyna się 30% ekranu niżej i kończy 30% przed końcem sekcji; elementy sekcji wyłaniają się przez zmianę przezroczystości (bez rozmycia) od dołu i zanikają u góry. Karty analiz na stronie głównej: tytuł, na dole kategoria po lewej i czas czytania (ikona zegara i liczba minut) po prawej; bez daty | do klienta |
 | C31 | Wysokość sekcji | Sekcje „Zatrzymanie, przeszukanie…” i „Komentarze i analizy” mają minimum 72% wysokości ekranu, treść wyśrodkowana pionowo, jak sekcja z hasłem | do klienta |
+| C32 | Strona główna: analizy | Pokazuje sześć pierwszych wpisów (3 × 2), tytuły 22 px wypełniają szerokość karty | do klienta |
 
 ## E. Typografia i kolory: odstępstwa od specyfikacji
 
