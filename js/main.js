@@ -1,6 +1,6 @@
 (function () {
   var root = document.documentElement;
-  var themeToggle = document.querySelector('.theme-toggle');
+  var themeToggles = document.querySelectorAll('.theme-toggle');
   var stored = localStorage.getItem('kag-theme');
   if (stored) root.setAttribute('data-theme', stored);
 
@@ -8,22 +8,22 @@
     return root.getAttribute('data-theme') || 'dark';
   }
 
-  // A switch: "on" means the dark theme.
+  // Each toggle names the mode it will switch to (there is one in the bar and
+  // one inside the mobile menu).
   function syncThemeToggle() {
-    if (themeToggle) {
-      themeToggle.setAttribute('aria-checked', currentTheme() === 'dark' ? 'true' : 'false');
-    }
+    var label = currentTheme() === 'dark' ? 'Włącz jasny motyw' : 'Włącz ciemny motyw';
+    themeToggles.forEach(function (btn) { btn.setAttribute('aria-label', label); });
   }
   syncThemeToggle();
 
-  if (themeToggle) {
-    themeToggle.addEventListener('click', function () {
+  themeToggles.forEach(function (btn) {
+    btn.addEventListener('click', function () {
       var next = currentTheme() === 'dark' ? 'light' : 'dark';
       root.setAttribute('data-theme', next);
       localStorage.setItem('kag-theme', next);
       syncThemeToggle();
     });
-  }
+  });
 
   var navToggle = document.querySelector('.nav-toggle');
   if (navToggle) {
