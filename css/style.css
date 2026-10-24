@@ -703,7 +703,7 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   width: 2.75rem;
   height: 2.75rem;
   border: 0;
-  border-radius: 50%;
+  border-radius: 0;
   background: transparent;
   color: var(--text);
   cursor: pointer;
@@ -1121,6 +1121,11 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   justify-content: space-between;
   margin-top: 1.75rem;
 }
+.carousel__lead {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
 .carousel__dots {
   display: flex;
   align-items: center;
@@ -1141,7 +1146,7 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   top: 50%;
   width: 0.5rem;
   height: 0.5rem;
-  border-radius: 50%;
+  border-radius: 0;
   transform: translate(-50%, -50%);
   background-color: var(--border);
   transition: background-color 0.2s ease, transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
@@ -1153,7 +1158,6 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
 .carousel__dot:focus-visible {
   outline: 2px solid var(--accent-brass);
   outline-offset: -4px;
-  border-radius: 50%;
 }
 .carousel__arrows {
   display: flex;
@@ -1166,7 +1170,7 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   width: 3rem;
   height: 3rem;
   border: 1px solid var(--border);
-  border-radius: 50%;
+  border-radius: 0;
   background-color: var(--surface);
   color: var(--text);
   cursor: pointer;
@@ -1856,6 +1860,26 @@ body.nav-open .site-nav__links {
 
 /* Anchored sections stop below the fixed nav. */
 [data-section] { scroll-margin-top: var(--nav-height, 5rem); }
+.link-tertiary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: var(--lh-ui);
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+.link-tertiary__icon {
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .link-tertiary:hover { color: var(--accent-brass-text); }
+  .link-tertiary:hover .link-tertiary__icon { transform: translateX(2px); }
+}
 .section-more {
   margin-top: 3.5rem;
   text-align: center;

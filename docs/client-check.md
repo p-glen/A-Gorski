@@ -85,6 +85,7 @@ Klient zgodził się na poprawki literowe, stylistyczne oraz zmianę „my” na
 | C31 | Wysokość sekcji | Sekcje „Zatrzymanie, przeszukanie…” i „Komentarze i analizy” mają minimum 72% wysokości ekranu, treść wyśrodkowana pionowo, jak sekcja z hasłem | do klienta |
 | C32 | Strona główna: analizy | Pokazuje sześć pierwszych wpisów (3 × 2), tytuły 22 px wypełniają szerokość karty | do klienta |
 | C33 | „Zatrzymanie…”: wyróżnienia | Frazy „jaka jest sygnatura sprawy”, „Funkcjonariusze nie znajdą ci obrońcy”, „Po zatrzymaniu usłyszysz zarzuty” podkreślone grubą czerwoną linią (kontrast linii min. 5:1). Podtytuł w dwóch liniach: „Zatrzymanie albo przeszukanie to moment, w którym łatwo powiedzieć za dużo.” / „Trzy rzeczy, które warto zrobić od razu:”. Link do poradnika jako przycisk drugorzędny „9 dobrych praktyk” | do klienta |
+| C34 | Karuzela specjalizacji | Kropki i strzałki kwadratowe (promień 0); „Wszystkie specjalizacje” jako link trzeciego stopnia (bez ramki) obok kropek, strzałki karuzeli po prawej | do klienta |
 
 ## E. Typografia i kolory: odstępstwa od specyfikacji
 
