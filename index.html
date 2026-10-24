@@ -9,9 +9,9 @@
   <link rel="preload" href="fonts/inter-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/inter-tight-500-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/roboto-serif-condensed-600-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/fonts.css?v=93">
-  <link rel="stylesheet" href="css/tokens.css?v=93">
-  <link rel="stylesheet" href="css/style.css?v=93">
+  <link rel="stylesheet" href="css/fonts.css?v=95">
+  <link rel="stylesheet" href="css/tokens.css?v=95">
+  <link rel="stylesheet" href="css/style.css?v=95">
 </head>
 <body>
 
@@ -371,25 +371,25 @@
         <div class="strefa-wiedzy-grid">
           <!-- BLOG-CARDS:start -->
           <a class="knowledge-card" href="blog/prezes-odpowiada-karnie-za-podatki-spolki-nawet-jesli-ich-nie-wyliczal/">
-            <h3>Prezes odpowiada karnie za podatki spółki, nawet jeśli ich nie wyliczał</h3>
-            <div class="knowledge-card__meta">
-              <span class="knowledge-card__tag">Karne gospodarcze i skarbowe</span>
+            <div class="knowledge-card__head">
+              <h3>Prezes odpowiada karnie za podatki spółki, nawet jeśli ich nie wyliczał</h3>
               <span class="knowledge-card__time">2 min</span>
             </div>
+            <span class="knowledge-card__tag">Karne gospodarcze i skarbowe</span>
           </a>
           <a class="knowledge-card" href="blog/nie-jestes-bankiem-a-i-tak-dotyczy-cie-aml-sprawdz-zanim-przyjdzie/">
-            <h3>Nie jesteś bankiem, a i tak dotyczy Cię AML? Sprawdź, zanim przyjdzie kontrola</h3>
-            <div class="knowledge-card__meta">
-              <span class="knowledge-card__tag">AML</span>
+            <div class="knowledge-card__head">
+              <h3>Nie jesteś bankiem, a i tak dotyczy Cię AML? Sprawdź, zanim przyjdzie kontrola</h3>
               <span class="knowledge-card__time">2 min</span>
             </div>
+            <span class="knowledge-card__tag">AML</span>
           </a>
           <a class="knowledge-card" href="blog/czynny-zal-podatnika-co-daje-kiedy-dziala-a-kiedy-jest-za-pozno/">
-            <h3>Czynny żal podatnika. Co daje, kiedy działa, a kiedy jest za późno?</h3>
-            <div class="knowledge-card__meta">
-              <span class="knowledge-card__tag">Karne gospodarcze i skarbowe</span>
+            <div class="knowledge-card__head">
+              <h3>Czynny żal podatnika. Co daje, kiedy działa, a kiedy jest za późno?</h3>
               <span class="knowledge-card__time">2 min</span>
             </div>
+            <span class="knowledge-card__tag">Karne gospodarcze i skarbowe</span>
           </a>
           <!-- BLOG-CARDS:end -->
         </div>
@@ -457,7 +457,9 @@
             var f = frames[i];
             if (f.contentWindow !== e.source) continue;
             if (d.type === "calendesk-resize" && typeof d.height === "number") { f.style.height = d.height + "px"; }
-            if (d.type === "calendesk-scroll" && typeof d.top === "number") {
+            // Only follow the widget's scroll requests after the visitor has clicked inside it;
+            // on load it asks to scroll too, which pulled the whole page down to the booking frame.
+            if (d.type === "calendesk-scroll" && typeof d.top === "number" && document.activeElement === f) {
               var r = f.getBoundingClientRect();
               var margin = parseFloat(getComputedStyle(f).scrollMarginTop) || 0;
               window.scrollTo(0, Math.max(0, window.pageYOffset + r.top + d.top - margin));

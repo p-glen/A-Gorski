@@ -69,6 +69,11 @@ function renderBlock(b) {
 const renderBlocks = (blocks) => blocks.map(renderBlock).join('\n');
 const plain = (md) => md.replace(/\*\*/g, '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
 const readingMin = (body) => Math.max(1, Math.ceil(plain(body).split(/\s+/).length / 200));
+// Short form for cards: 11.2026.
+function fmtMonth(iso) {
+  const m = /^(\d{4})-(\d{2})-\d{2}$/.exec(iso || '');
+  return m ? `${m[2]}.${m[1]}` : '';
+}
 function fmtDate(iso) {
   const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || '');
   return m ? `${Number(m[3])} ${MONTHS[Number(m[2]) - 1]} ${m[1]}` : '';
@@ -364,11 +369,11 @@ ${renderBlocks(blocksOf(privacy.body))}
 {
   const top = posts.slice(0, 3);
   const cards = top.map((p) => `          <a class="knowledge-card" href="blog/${p.slug}/">
-            <h3>${inline(p.title)}</h3>
-            <div class="knowledge-card__meta">
-              <span class="knowledge-card__tag">${esc(catShort(p.category))}</span>
-              ${p.date ? `<time class="knowledge-card__time" datetime="${p.date}">${fmtDate(p.date)}</time>` : `<span class="knowledge-card__time">${p.min} min</span>`}
+            <div class="knowledge-card__head">
+              <h3>${inline(p.title)}</h3>
+              ${p.date ? `<time class="knowledge-card__time" datetime="${p.date}">${fmtMonth(p.date)}</time>` : `<span class="knowledge-card__time">${p.min} min</span>`}
             </div>
+            <span class="knowledge-card__tag">${esc(catShort(p.category))}</span>
           </a>`).join('\n');
   const re = /(<!-- BLOG-CARDS:start -->)[\s\S]*?(<!-- BLOG-CARDS:end -->)/;
   if (!re.test(landing)) throw new Error('index.html: BLOG-CARDS markers missing');
