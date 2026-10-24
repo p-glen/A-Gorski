@@ -1,5 +1,14 @@
 # PROJEKT: Strona WWW — Kancelaria Adwokacka Arka Górskiego (prawo karne)
 
+## 0.3 PODSTRONY TREŚCIOWE: BLOG, PRAKTYKI, PORADNIK (2026-10-24)
+
+Treści od klienta (`Resources/*.docx`) są przekonwertowane do `content/` (Markdown z frontmatterem odpowiadającym polom Webflow CMS). Strony generuje `node scripts/build-content.mjs` (bez zależności): `blog/`, `praktyki/`, strona poradnika (slug z H1), `polityka-prywatnosci/`, oraz trzy karty bloga w `index.html` między znacznikami `BLOG-CARDS`.
+- Wspólne częściowe (nawigacja, stopka) pobierane z `index.html`, linki względne (GitHub Pages ma prefiks `/A-Gorski/`). `SITE_URL=... node scripts/build-content.mjs` dodaje canonical i `sitemap.xml`.
+- Style: `css/pages.css` (po `style.css`), skrypt chipów i paska telefonu: `js/blog.js`.
+- Każde odstępstwo od tekstu klienta i niepewny fakt: `docs/client-check.md` (paczka do weryfikacji z klientem).
+- Po zmianie treści: edytuj `content/*.md`, uruchom build, nie edytuj ręcznie wygenerowanych stron.
+- Nie wypychać na `main` przed akceptacją (Pages publikuje z `main`).
+
 ## 0.2 JEDNOLITY SYSTEM WIZUALNY + DWA TRYBY (2026-09-30)
 
 Zastępuje plan stylowania sekcji z §5 (każda sekcja miała „kolor tożsamości”: zielony, mosiądz, biały). Spec: `docs/superpowers/specs/2026-09-30-unified-design-system-design.md`, plan: `docs/superpowers/plans/2026-09-30-unified-design-system.md`.
