@@ -1326,14 +1326,19 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   border: 1px solid var(--border);
 }
 @media (min-width: 992px) {
-  /* The text column is taller than the photo: the photo stays beside it,
-     tall enough to fill the side of the viewport. */
+  /* The photo runs from the left edge of the page to the text column and stays
+     in view while the text scrolls: a full-height side panel, not a thumbnail. */
   .portrait {
+    --bleed: calc(1.5rem - min(0px, (1160px - 100vw) / 2));
     position: sticky;
-    top: calc(var(--nav-height, 5rem) + 1.5rem);
-    aspect-ratio: 1 / 2;
-    max-height: calc(100svh - var(--nav-height, 5rem) - 3rem);
-    object-position: 50% 22%;
+    top: var(--nav-height, 5rem);
+    width: calc(100% + var(--bleed));
+    max-width: none;
+    height: calc(100svh - var(--nav-height, 5rem));
+    margin-left: calc(-1 * var(--bleed));
+    aspect-ratio: auto;
+    border-width: 0 1px 0 0;
+    object-position: 50% 18%;
   }
 }
 .bio-content h1,
@@ -1374,8 +1379,8 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   .bio-panel .credentials { margin-bottom: 0; }
   .bio-panel .button-alert { align-self: flex-start; }
 }
-/* Content eases in from the bottom edge of the viewport and out at the top,
-   with a light blur, driven by each element's own scroll position. Plain
+/* Content eases in from the bottom edge of the viewport and out at the top
+   (opacity and a small lift, no blur), driven by each element's own scroll position. Plain
    visible content is the default where view timelines are unsupported. */
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
@@ -1391,10 +1396,10 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   }
 }
 @keyframes edge-fade {
-  0% { opacity: 0; filter: blur(8px); transform: translateY(1.25rem); }
-  18% { opacity: 1; filter: blur(0); transform: none; }
-  82% { opacity: 1; filter: blur(0); transform: none; }
-  100% { opacity: 0; filter: blur(8px); transform: translateY(-1.25rem); }
+  0% { opacity: 0; transform: translateY(0.75rem); }
+  18% { opacity: 1; transform: none; }
+  82% { opacity: 1; transform: none; }
+  100% { opacity: 0; transform: translateY(-0.75rem); }
 }
 .credentials {
   display: grid;
