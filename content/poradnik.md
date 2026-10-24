@@ -6,7 +6,7 @@ metaDescription: Co robić w razie zatrzymania przez Policję, CBA lub ABW: 9 do
 updated:
 ---
 
-Zatrzymanie przez Policję, CBA czy ABW to dla większości osób sytuacja zupełnie nowa i bardzo stresująca. Tymczasem to pierwsze godziny często przesądzają o dalszym przebiegu sprawy. Samo zatrzymanie może trwać do 48 godzin, a sąd ma kolejne 24 godziny na decyzję o tymczasowym aresztowaniu. Tymczasowe aresztowanie to maksymalnie 3 miesiące, które może być wielokrotnie przedłużane.
+Zatrzymanie przez Policję, CBA czy ABW to dla większości osób sytuacja zupełnie nowa i bardzo stresująca. Tymczasem to pierwsze godziny często przesądzają o dalszym przebiegu sprawy. Samo zatrzymanie ==może trwać do 48 godzin==, ==a sąd ma kolejne 24 godziny== na decyzję o tymczasowym aresztowaniu. Tymczasowe aresztowanie to ==maksymalnie 3 miesiące==, które może być wielokrotnie przedłużane.
 
 Oto dobre praktyki, o których warto pamiętać na wypadek zatrzymania:
 

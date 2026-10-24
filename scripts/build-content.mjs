@@ -44,7 +44,7 @@ const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, 
 // Keeps one-letter Polish words (w, z, i, o, u, a) glued to the next word.
 const nbsp = (s) => s.replace(/(^|[\s(„])([wziouaWZIOUA])\s+(?=\S)/g, '$1$2 ');
 function inline(s) {
-  let t = esc(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  let t = esc(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/==(.+?)==/g, '<mark class="marker">$1</mark>');
   t = t.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '<a href="$2">$1</a>');
   return nbsp(t);
 }
@@ -324,12 +324,12 @@ ${ctaBlock(root)}`;
   const main = `<article class="guide">
   <header class="guide__hero">
     <div class="container container--article">
+      <h1 class="article__title">${inline(guide.title)}</h1>
+      <p class="lead">${inline(pre[0])}</p>
       <div class="guide__call">
         <a class="button-primary guide__call-button" href="${PHONE_HREF}">${PHONE_ICON}Zadzwoń: ${PHONE}</a>
         <p class="guide__call-note"><span class="guide__dot" aria-hidden="true"></span>24/7 w sprawach zatrzymań i przeszukań</p>
       </div>
-      <h1 class="article__title">${inline(guide.title)}</h1>
-      <p class="lead">${inline(pre[0])}</p>
     </div>
   </header>
   <div class="container container--article">

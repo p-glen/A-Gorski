@@ -297,7 +297,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 0.625rem;
-  margin: 0 0 2rem;
+  margin: 2.25rem 0 0;
 }
 /* The call button is the shared primary button; this only adds room around the icon. */
 .guide__call-button { padding: 0.875rem 1.75rem; }
@@ -322,22 +322,26 @@
   font-weight: 600;
   line-height: var(--lh-h2);
 }
+/* The nine practices as cards: generous padding, a readable measure
+   (no stretched lines, no one-word last lines). */
 .practices {
-  list-style: none;
-  margin: 1.5rem 0 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0 3rem;
   padding: 0;
-  border-top: 1px solid var(--border);
+  list-style: none;
 }
 .practice {
-  display: grid;
-  grid-template-columns: 3rem minmax(0, 1fr);
-  gap: 1rem;
-  padding: 2rem 0;
-  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 2rem 2.25rem;
+  border: 1px solid var(--border);
+  background-color: color-mix(in srgb, var(--text) 3%, transparent);
   scroll-margin-top: calc(var(--nav-height, 72px) + 1rem);
 }
 .practice__n {
-  padding-top: 0.5rem;
+  margin-bottom: 1.75rem;
   color: var(--text-secondary);
   font-size: var(--size-note);
   font-weight: 400;
@@ -346,14 +350,23 @@
   letter-spacing: var(--ls-note);
 }
 .practice__title {
-  margin: 0 0 0.625rem;
+  margin: 0 0 1rem;
+  font-size: 1.375rem;
+  text-wrap: pretty;
 }
 .practice p {
-  max-width: 60ch;
   margin: 0;
   color: var(--text-secondary);
-  font-size: var(--size-card);
-  line-height: 1.5;
+  font-size: var(--size-body);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+@media (max-width: 1023px) {
+  .practices { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 599px) {
+  .practices { grid-template-columns: 1fr; }
+  .practice { padding: 1.5rem; }
 }
 .callbar { display: none; }
 
@@ -435,4 +448,3 @@
 .page--guide .article__title,
 .page--guide .lead { max-width: 62rem; }
 .page--guide .article__title { text-wrap: pretty; }
-.page--guide .practice p { max-width: calc(62rem - 4.25rem); }
