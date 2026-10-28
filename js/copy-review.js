@@ -195,7 +195,8 @@
     '.copy-toggle:focus-visible{outline:2px solid var(--accent-brass);outline-offset:2px}' +
     '.copy-toggle--menu{display:none}' +
     '@media (max-width:1023px){.site-nav__actions .copy-toggle{display:none}}' +
-    'body.nav-open .copy-toggle--menu{display:flex;align-items:center;justify-content:flex-start;gap:.75rem;width:auto;height:auto;padding:.5rem 0;border-radius:0;font-size:1rem;font-weight:500;color:var(--text-secondary)}' +
+    'body.nav-open .copy-toggle--menu{display:flex;align-items:center;justify-content:flex-start;gap:.875rem;width:100%;height:auto;min-height:3.5rem;padding:0;border-radius:0;border-bottom:1px solid var(--border);font-size:1.1875rem;font-weight:500;color:var(--text-secondary)}' +
+    'body.nav-open .copy-toggle--menu .copy-toggle__icon{width:1.25rem;height:1.25rem}' +
     'body.nav-open .copy-toggle--menu[aria-pressed="true"]{color:var(--accent-brass-text)}' +
     'body.nav-open .copy-toggle--menu[aria-pressed="true"]::after{display:none}' +
     '.copy-sub{margin:0 auto 2rem;text-align:center;font-family:var(--font-body);font-weight:500;font-size:var(--size-lead);color:var(--text)}' +

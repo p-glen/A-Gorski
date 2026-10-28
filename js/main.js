@@ -10,9 +10,12 @@
 
   // Each toggle names the mode it will switch to (there is one in the bar and
   // one inside the mobile menu).
+  var themeColor = document.querySelector('meta[name="theme-color"]');
   function syncThemeToggle() {
     var label = currentTheme() === 'dark' ? 'Włącz jasny motyw' : 'Włącz ciemny motyw';
     themeToggles.forEach(function (btn) { btn.setAttribute('aria-label', label); });
+    // Browser chrome on phones follows the page, not just the system setting.
+    if (themeColor) themeColor.setAttribute('content', currentTheme() === 'dark' ? '#1C1A17' : '#F3EFE6');
   }
   syncThemeToggle();
 
@@ -49,17 +52,34 @@
     });
   }
 
+  // Menu (phones and tablets): the button states what it does, the page
+  // behind stays put while it is open, Escape closes it and returns focus,
+  // and it closes by itself when the window grows to the desktop bar.
   var navToggle = document.querySelector('.nav-toggle');
+  function setMenu(open) {
+    document.body.classList.toggle('nav-open', open);
+    if (navToggle) {
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      navToggle.setAttribute('aria-label', open ? 'Zamknij menu' : 'Otwórz menu');
+    }
+  }
   if (navToggle) {
     navToggle.addEventListener('click', function () {
-      document.body.classList.toggle('nav-open');
+      setMenu(!document.body.classList.contains('nav-open'));
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && document.body.classList.contains('nav-open')) {
+        setMenu(false);
+        navToggle.focus();
+      }
+    });
+    window.matchMedia('(min-width: 1024px)').addEventListener('change', function (e) {
+      if (e.matches) setMenu(false);
     });
   }
 
   document.querySelectorAll('.site-nav__links a').forEach(function (link) {
-    link.addEventListener('click', function () {
-      document.body.classList.remove('nav-open');
-    });
+    link.addEventListener('click', function () { setMenu(false); });
   });
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -70,8 +90,24 @@
   // the crop geometry when the layout changes. With reduced motion (or no
   // JS) this never runs, data-scene is never set, and the section stays a
   // plain, stacked page.
+  // A phone on its side is too short for the card to fit one screen, so it
+  // gets the plain stacked page, like reduced motion does. Re-checked on
+  // rotation: the scene starts or stops without a reload.
   var scene = document.querySelector('.scene');
-  if (scene && !reduceMotion) initScene(scene);
+  var short = window.matchMedia('(max-height: 520px)');
+  var sceneApi = null;
+  function syncScene() {
+    if (!scene || reduceMotion) return;
+    if (short.matches) {
+      if (sceneApi) sceneApi.stop();
+    } else if (sceneApi) {
+      sceneApi.start();
+    } else {
+      sceneApi = initScene(scene);
+    }
+  }
+  syncScene();
+  short.addEventListener('change', syncScene);
 
   function initScene(scene) {
     var stage = scene.querySelector('.scene__stage');
@@ -86,11 +122,10 @@
     var IMG_W = 896, IMG_H = 1200;
     var CROP = { x: 450, y: 285, half: 150 };
 
-    // Opt in first: the sticky layout changes the geometry we measure.
-    root.setAttribute('data-scene', 'on');
-
+    var active = false;
     var travel = 1;
     function measure() {
+      if (!active) return;
       var s = stage.getBoundingClientRect();
       var a = avatar.getBoundingClientRect();
       var W = s.width, H = s.height;
@@ -152,6 +187,7 @@
     var ticking = false;
     function update() {
       ticking = false;
+      if (!active) return;
       var p = Math.min(Math.max(-scene.getBoundingClientRect().top / travel, 0), 1);
       var v = p.toFixed(4);
       scene.style.setProperty('--p', v);
@@ -175,7 +211,31 @@
       window.addEventListener('resize', measure);
     }
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
-    measure();
+
+    function start() {
+      if (active) return;
+      active = true;
+      // Opt in first: the sticky layout changes the geometry we measure.
+      root.setAttribute('data-scene', 'on');
+      measure();
+    }
+    // Back to the plain stacked page: no scene attributes, nothing hidden
+    // from keyboard or screen reader.
+    function stop() {
+      if (!active) return;
+      active = false;
+      root.removeAttribute('data-scene');
+      scene.removeAttribute('data-ready');
+      scene.removeAttribute('data-state');
+      scene.removeAttribute('style');
+      if (nav) nav.style.removeProperty('--p');
+      state = null;
+      setFocusable(card, true);
+      setFocusable(hero, true);
+      card.removeAttribute('aria-hidden');
+    }
+    start();
+    return { start: start, stop: stop };
   }
 
   var siteNav = document.querySelector('.site-nav');

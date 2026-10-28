@@ -895,12 +895,22 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
 }
 .nav-toggle {
   display: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  margin-right: -0.5rem;
   background: none;
-  border: none;
+  border: 0;
   color: var(--text);
-  font-size: 1.5rem;
   cursor: pointer;
 }
+.nav-toggle svg { width: 1.5rem; height: 1.5rem; }
+.nav-toggle__close { display: none; }
+body.nav-open .nav-toggle__open { display: none; }
+body.nav-open .nav-toggle__close { display: block; }
+.nav-toggle:focus-visible { outline: 2px solid var(--accent-brass); outline-offset: -2px; }
 
 /* ---------- Hero copy ---------- */
 .scene__hero h1 {
@@ -1841,7 +1851,6 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   .site-nav__logo-img { height: 28px; }
   .site-nav__actions { gap: 0.25rem; }
   .button-alert--nav { padding: 0.5rem 0.625rem; gap: 0.5rem; font-size: 0.9375rem; }
-  .nav-toggle { padding: 0 0.25rem; }
   .footer-grid { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; gap: 0.5rem; }
 }
@@ -1850,37 +1859,86 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   .button-alert__hours { display: none; }
 }
 
-/* The theme toggle lives inside the opened menu on small screens. */
-body.nav-open .theme-toggle--menu {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 0.75rem;
-  width: auto;
-  height: auto;
-  padding: 0.5rem 0;
-  border-radius: 0;
-  border-top: 1px solid var(--border);
-  padding-top: 1.25rem;
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-}
-body.nav-open .theme-toggle--menu:hover { background: transparent; }
-
-/* mobile nav open state */
+/* Phone and tablet menu: a full-height sheet under the bar. Rows are 56 px
+   tall (44 px is the floor for a touch target); each tab is one big target
+   with its "full page" arrow as a second one at the right. The page behind
+   does not scroll while it is open. (The bar has a backdrop-filter, which
+   makes it the containing block, so the sheet is absolute, not fixed.) */
+body.nav-open { overflow: hidden; }
 body.nav-open .site-nav__links {
   display: flex;
   flex-direction: column;
+  align-items: stretch;
+  gap: 0;
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
+  height: calc(100dvh - 100%);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0.5rem 1.5rem calc(2rem + env(safe-area-inset-bottom, 0px));
   background-color: var(--background);
-  border-bottom: 1px solid var(--border);
-  padding: 1.5rem;
-  gap: 1.25rem;
 }
+body.nav-open .site-nav__item {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+}
+body.nav-open .site-nav__links a:not(.site-nav__detail) {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-height: 3.5rem;
+  font-size: 1.1875rem;
+  color: var(--text);
+}
+body.nav-open .site-nav__item:has(a[aria-current]) > a:first-child { color: var(--accent-brass-text); }
+body.nav-open .site-nav__detail {
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  padding: 0;
+  margin-right: -1rem;
+}
+body.nav-open .site-nav__detail-icon { width: 1.25rem; height: 1.25rem; }
+body.nav-open .theme-toggle--menu {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.875rem;
+  width: 100%;
+  height: auto;
+  min-height: 3.5rem;
+  padding: 0;
+  border-radius: 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 1.1875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+body.nav-open .theme-toggle--menu svg { width: 1.25rem; height: 1.25rem; }
+/* The one thing to do in a crisis sits at the bottom of the sheet, in thumb
+   reach: the number and when someone answers. */
+.site-nav__call { display: none; }
+body.nav-open .site-nav__links a.site-nav__call {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 1rem;
+  margin-top: auto;
+  padding: 1rem 1.25rem;
+  min-height: 4rem;
+  white-space: normal;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--call-green) 80%, #000);  /* white text: 4.9:1 */
+  color: #fff;
+}
+.site-nav__call-icon { width: 1.5rem; height: 1.5rem; flex-shrink: 0; fill: currentColor; }
+.site-nav__call-text { display: flex; flex-direction: column; gap: 0.125rem; }
+.site-nav__call-main { font-size: 1.1875rem; font-weight: 600; line-height: var(--lh-ui); }
+.site-nav__call-sub { font-size: var(--size-small); line-height: var(--lh-ui); }
 
 /* ---------- Desktop reveal ----------
    Desktop mode only: a phone visitor may be mid-crisis, so nothing there
@@ -1939,4 +1997,83 @@ body.nav-open .site-nav__links {
   .carousel__lead { display: contents; }
   .carousel__arrows { order: 2; }
   .carousel__lead .link-tertiary { order: 3; flex: 0 0 100%; }
+}
+
+/* ---------- Phones ----------
+   Found by measuring at 320, 375 and 812 x 375: bar controls under 44 px,
+   centred paragraphs, a contact card taller than a short screen, a nowrap
+   button wider than the viewport. Touch rules key on width or a coarse
+   pointer so a narrow desktop window gets them too. */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+a, button { -webkit-tap-highlight-color: color-mix(in srgb, var(--accent-brass) 22%, transparent); }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* Bar: logo, the call pill and the menu button are all 44 px targets. */
+@media (max-width: 1023px) {
+  .site-nav__logo { display: flex; align-items: center; min-height: 2.75rem; }
+  .button-alert--nav { min-height: 2.75rem; padding-block: 0; }
+}
+@media (max-width: 767px) {
+  .site-nav__inner { padding: 0.5rem 1rem; gap: 0.5rem; }
+}
+
+/* Short screens (small phones, and phones on their side): the contact card
+   has to fit what it shows, so its pieces shrink with the height. In
+   landscape js/main.js drops the scene altogether and the page is stacked. */
+@media (max-height: 700px) {
+  .scene { --avatar-d: clamp(6rem, 21svh, 9rem); }
+  .scene__card { padding-top: 4.25rem; padding-bottom: 1.5rem; }
+  .scene__name { margin-top: 1.125rem; font-size: clamp(1.875rem, 7vw, 2.75rem); }
+  .scene__org { margin-bottom: 1.25rem; }
+  .scene__disc { width: 3.75rem; height: 3.75rem; }
+  .scene__line { margin-top: 1.125rem; }
+}
+@media (max-height: 640px) {
+  .scene__cue { display: none; }
+}
+
+@media (max-width: 767px) {
+  /* Reading: left edge, measure and size set for a thumb-scrolled column.
+     Centred multi-line paragraphs have no edge to return to. */
+  .text-center { text-align: left; }
+  .section-intro { margin-left: 0; margin-right: 0; font-size: var(--size-body); line-height: var(--lh-body); text-wrap: pretty; }
+  .hero__lead { font-size: 1.125rem; text-wrap: pretty; }
+  h1, h2, h3 { text-wrap: balance; }
+  .copy-sub { text-align: left; }
+
+  /* A nowrap label wider than the screen stretched its whole container
+     (329 px of button in a 296 px column at 320). Wrap, and fill the row. */
+  .button-alert { white-space: normal; }
+  .guide-cta .button-alert,
+  .bio-content .button-alert {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    min-height: 3rem;
+  }
+}
+
+/* Touch targets (HIG: 44 x 44 pt). Inline links inside sentences are left
+   alone; everything that stands on its own gets the height. */
+@media (max-width: 1023px), (pointer: coarse) {
+  .specjalizacje-card__link,
+  .link-tertiary { display: inline-flex; align-items: center; min-height: 2.75rem; }
+  .carousel__dot { width: 1.75rem; }
+  .rezerwacja-tel { padding-block: 0.75rem; margin-block: 0; }
+  .contact-switch__tab { min-height: 2.75rem; }
+  .footer-grid > div:nth-child(n+2) p br { display: none; }
+  .footer-grid > div:nth-child(n+2) p a {
+    display: block;
+    padding-block: 0.6875rem;
+  }
+  .footer-grid > div:first-child p a { display: inline-block; padding-block: 0.6875rem; }
+}
+@media (max-width: 359px) {
+  .scene__actions { gap: 0.25rem; }
+  .scene__action { font-size: 0.8125rem; }
 }

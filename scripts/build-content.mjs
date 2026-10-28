@@ -116,7 +116,8 @@ function page({ root, dir, title, description, robots, bodyClass, main, scripts 
 <html lang="pl" data-theme="dark">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1C1A17">
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(description)}">${robots ? `\n  <meta name="robots" content="${robots}">` : ''}${canonical}
   ${THEME_SCRIPT}
@@ -374,7 +375,7 @@ ${renderBlocks(blocksOf(privacy.body))}
             <h3>${inline(p.title)}</h3>
             <div class="knowledge-card__foot">
               <span class="knowledge-card__tag">${esc(catShort(p.category))}</span>
-              <span class="knowledge-card__time">${CLOCK_ICON}${p.min}<span class="sr-only"> min czytania</span></span>
+              <span class="knowledge-card__time">${CLOCK_ICON}${p.min} min<span class="sr-only"> czytania</span></span>
             </div>
           </a>`).join('\n');
   const re = /(<!-- BLOG-CARDS:start -->)[\s\S]*?(<!-- BLOG-CARDS:end -->)/;
