@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Górski;Arkadiusz;;Adwokat;
+FN:Adwokat Arkadiusz Górski
+ORG:Kancelaria Adwokacka Arkadiusz Górski
+TITLE:Adwokat
+TEL;TYPE=WORK,VOICE:+48792892457
+ADR;TYPE=WORK:;;ul. Mokotowska 57 lok. 4;Warszawa;;00-542;Polska
+NOTE:Pomoc 24/7 w sprawach zatrzymań i przeszukań.
+END:VCARD

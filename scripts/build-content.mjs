@@ -18,6 +18,7 @@ const AUTHOR = 'Arkadiusz Górski';
 const BACK_ICON = await icon('arrow-left', 'breadcrumb__icon');
 const CLOCK_ICON = await icon('clock', 'knowledge-card__icon');
 const PHONE_ICON = await icon('phone', 'claim__icon');
+const SAVE_ICON = await icon('user-plus', 'link-tertiary__icon');
 const MONTHS = ['stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia'];
 
 const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
@@ -121,6 +122,7 @@ function page({ root, dir, title, description, robots, bodyClass, main, scripts 
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(description)}">${robots ? `\n  <meta name="robots" content="${robots}">` : ''}${canonical}
   ${THEME_SCRIPT}
+  <noscript><style>.callbar--wait{transform:none}</style></noscript>
   ${relink(FONT_LINKS.join('\n  '), root)}
   <link rel="stylesheet" href="${root}css/tokens.css?v=${ASSET_V}">
   <link rel="stylesheet" href="${root}css/style.css?v=${ASSET_V}">
@@ -135,6 +137,8 @@ ${main}
   </main>
   ${relink(FOOTER, root)}
   </div>
+
+  <a class="callbar callbar--wait" href="${PHONE_HREF}">Zadzwoń: ${PHONE}</a>
 
   ${js}
 </body>
@@ -330,6 +334,7 @@ ${ctaBlock(root)}`;
       <div class="guide__call">
         <a class="button-primary guide__call-button" href="${PHONE_HREF}">${PHONE_ICON}Zadzwoń: ${PHONE}</a>
         <p class="guide__call-note"><span class="guide__dot" aria-hidden="true"></span>24/7 w sprawach zatrzymań i przeszukań</p>
+        <a class="link-tertiary guide__save" href="${root}kancelaria-gorski.vcf" download>${SAVE_ICON}Zapisz numer w kontaktach</a>
       </div>
     </div>
   </header>
@@ -346,8 +351,7 @@ ${renderBlocks(post)}
     </div>${guide.updated ? `\n    <p class="article__legal">Stan prawny na: ${esc(fmtDate(guide.updated))}</p>` : ''}
   </div>
 </article>
-${ctaBlock(root)}
-<a class="callbar" href="${PHONE_HREF}">Zadzwoń: ${PHONE}</a>`;
+${ctaBlock(root)}`;
   const jsonld = { '@context': 'https://schema.org', '@type': 'Article', headline: plain(guide.title), description: guide.metaDescription,
     inLanguage: 'pl', author: { '@type': 'Person', name: AUTHOR }, ...(guide.updated ? { dateModified: guide.updated } : {}) };
   emit(guide.slug, page({ root, dir: guide.slug, title: guide.metaTitle, description: guide.metaDescription, bodyClass: 'page page--guide', main, scripts: ['js/blog.js'], jsonld }));

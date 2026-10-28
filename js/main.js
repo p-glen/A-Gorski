@@ -82,6 +82,26 @@
     link.addEventListener('click', function () { setMenu(false); });
   });
 
+  // Sticky call bar (phones, inner pages). It stays out of the way while the
+  // page's own call to action is on screen (the guide's call button, the
+  // closing block, the footer) and while the title block is, so two never
+  // compete for one screen. Without JS a <noscript> rule keeps it in view.
+  var callbar = document.querySelector('.callbar');
+  if (callbar && 'IntersectionObserver' in window) {
+    var visible = new Set();
+    var watch = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) visible.add(e.target); else visible.delete(e.target);
+      });
+      callbar.classList.toggle('callbar--wait', visible.size > 0);
+    });
+    [
+      document.querySelector('.guide__call-button, .article__head, .page-head'),
+      document.querySelector('.cta-block'),
+      document.querySelector('.site-footer')
+    ].forEach(function (el) { if (el) watch.observe(el); });
+  }
+
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // Contact card -> hero scene (see "Scene" in style.css). Scroll position

@@ -19,15 +19,3 @@
     });
   });
 })();
-
-// Guide: the sticky call bar waits until the call button in the page header
-// has scrolled out of view, so the first screen never shows two of them.
-(function () {
-  var bar = document.querySelector('.callbar');
-  var button = document.querySelector('.guide__call-button');
-  if (!bar || !button || !('IntersectionObserver' in window)) return;
-  bar.classList.add('callbar--wait');
-  new IntersectionObserver(function (entries) {
-    bar.classList.toggle('callbar--wait', entries[0].isIntersecting);
-  }).observe(button);
-})();

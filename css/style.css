@@ -1673,8 +1673,9 @@ body.nav-open .nav-toggle__close { display: block; }
   gap: 0.5rem;
   color: var(--text-muted);
   font-size: var(--size-small);
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
 }
+.rezerwacja-save { margin: 0 0 1.5rem; }
 .rezerwacja-address {
   font-style: normal;
   color: var(--text-secondary);
