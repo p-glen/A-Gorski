@@ -691,23 +691,24 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
 }
 .site-tools[hidden] { display: none; }
 
-/* Theme switch, in the main navigation: a quiet round button that shows the
-   mode you would switch to (sun while dark, moon while light). */
-/* Theme toggle: the icon of the mode it switches to, in a round frame. On small
-   screens it moves into the menu (see .theme-toggle--menu). */
+/* Theme toggle: just the icon of the mode it switches to (sun while dark, moon
+   while light), no frame; it takes the brass colour on hover/focus. Its box is
+   no taller than the "Pomoc 24/7" pill next to it. On small screens it moves
+   into the menu (see .theme-toggle--menu). */
 .theme-toggle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 2.75rem;
-  height: 2.75rem;
-  border: 1px solid var(--border);
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0;
   border-radius: 50%;
   background: transparent;
   color: var(--text);
   cursor: pointer;
-  transition: transform 0.16s cubic-bezier(0.23, 1, 0.32, 1), background-color 0.2s ease;
+  transition: transform 0.16s cubic-bezier(0.23, 1, 0.32, 1), color 0.2s ease;
 }
 .theme-toggle__sun,
 .theme-toggle__moon {
@@ -719,7 +720,7 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
 :root[data-theme="light"] .theme-toggle__moon { display: block; }
 .theme-toggle:active { transform: scale(0.94); }
 @media (hover: hover) and (pointer: fine) {
-  .theme-toggle:hover { background-color: var(--surface); }
+  .theme-toggle:hover { color: var(--accent-brass-text); }
 }
 .theme-toggle--menu { display: none; border: 0; border-radius: 0; }
 .theme-toggle:focus-visible,

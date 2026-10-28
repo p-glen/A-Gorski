@@ -111,7 +111,7 @@ const THEME_SCRIPT = '<script>try{var t=localStorage.getItem("kag-theme");if(!t&
 function page({ root, dir, title, description, robots, bodyClass, main, scripts = [], jsonld }) {
   const canonical = SITE_URL ? `\n  <link rel="canonical" href="${SITE_URL}/${dir ? dir + '/' : ''}">` : '';
   const ld = jsonld ? `\n  <script type="application/ld+json">${JSON.stringify(jsonld)}</script>` : '';
-  const js = ['js/main.js', ...scripts].map((s) => `<script src="${root}${s}?v=${ASSET_V}"></script>`).join('\n  ');
+  const js = ['js/main.js', ...scripts, 'js/copy-review.js'].map((s) => `<script src="${root}${s}?v=${ASSET_V}"></script>`).join('\n  ');
   return `<!doctype html>
 <html lang="pl" data-theme="dark">
 <head>
