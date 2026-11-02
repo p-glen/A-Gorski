@@ -1,5 +1,6 @@
 /* REVIEW ONLY: switches the page text between the original wording and the
-   lawyer's edits. Versions (pick one in the dropdown next to the theme toggle):
+   lawyer's edits, and (home page) the photo set. Two dropdowns next to the
+   theme toggle. Text versions:
      original  the prototype text
      client    25 Oct 2026, docx "TC_Teksty na stronie" (tracked changes)
      gdoc      28 Oct 2026, Google Doc "Teksty na stronie" (suggestions by the lawyer)
@@ -11,7 +12,12 @@
    version. Choosing a version undoes the current one and applies the new
    rules; the original is remembered. Nothing else on the page is touched.
    Each version is independent (the 28 Oct edits are not built on the 25 Oct
-   ones). The choice is kept in localStorage ("kag-copy") across pages. */
+   ones). The choice is kept in localStorage ("kag-copy") across pages.
+
+   Photo sets ("kag-photos", home page only): which portrait is the hero /
+   contact card and which one sits in the About section. A set also carries
+   the face crop for the round avatar, which main.js reads from the scene's
+   data-img / data-crop. */
 (function () {
   var KEY = 'kag-copy';
   var root = document.documentElement;
@@ -259,33 +265,88 @@
     }
   }
 
-  function versionOf(id) {
-    for (var i = 0; i < VERSIONS.length; i++) if (VERSIONS[i].id === id) return VERSIONS[i];
-    return VERSIONS[0];
+  var PHOTO_VERSIONS = [
+    { id: 'p1', label: 'Wersja 1', note: 'hero: kanapa, trampki · O mnie: stojąco',
+      hero: { src: 'img/arkadiusz-gorski-portret.webp?v=2', w: 1000, h: 1500, crop: [430, 265, 190] },
+      bio: { src: 'img/arkadiusz-gorski-fotel.webp?v=2', alt: 'Adwokat Arkadiusz Górski, portret' } },
+    { id: 'p2', label: 'Wersja 2', note: 'hero: hoker · O mnie: kanapa, trampki',
+      hero: { src: 'img/arkadiusz-gorski-hoker.webp', w: 1000, h: 1500, crop: [520, 225, 190] },
+      bio: { src: 'img/arkadiusz-gorski-portret.webp?v=2', alt: 'Adwokat Arkadiusz Górski siedzący na kanapie, portret' } }
+  ];
+
+  function versionOf(kind, id) {
+    var list = kind.versions;
+    for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
+    return list[0];
   }
 
   function setCopy(mode) {
-    var v = versionOf(mode);
+    var v = versionOf(KINDS.copy, mode);
     while (undo.length) undo.pop()();
     v.rules.forEach(function (r) { if (!r.p || r.p.test(path)) applyRule(r); });
     root.setAttribute('data-copy', v.id);
-    try { localStorage.setItem(KEY, v.id); } catch (e) {}
+    try { localStorage.setItem(KINDS.copy.key, v.id); } catch (e) {}
     switches.forEach(sync);
   }
 
-  var ICON = '<svg class="copy-toggle__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14.364 13.634a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506l4.013-4.009a1 1 0 0 0-3.004-3.004z" /><path d="M14.487 7.858A1 1 0 0 1 14 7V2" /><path d="M20 19.645V20a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l2.516 2.516" /><path d="M8 18h1" /></svg>';
+  function setPhotos(mode) {
+    var v = versionOf(KINDS.photos, mode);
+    var scene = document.querySelector('.scene');
+    if (scene) {
+      var h = v.hero;
+      scene.setAttribute('data-img', h.w + 'x' + h.h);
+      scene.setAttribute('data-crop', h.crop.join(','));
+      document.querySelectorAll('.scene__photo img, .scene__avatar').forEach(function (img) {
+        img.setAttribute('src', h.src);
+        img.setAttribute('width', h.w);
+        img.setAttribute('height', h.h);
+      });
+      // The square window of the photo shown in the round avatar
+      // (same maths as the comment above .scene__avatar in style.css).
+      var half = h.crop[2] * 2;
+      var av = document.querySelector('.scene__avatar');
+      if (av) {
+        av.style.left = (-(h.crop[0] - h.crop[2]) / half * 100) + '%';
+        av.style.top = (-(h.crop[1] - h.crop[2]) / half * 100) + '%';
+        av.style.width = (h.w / half * 100) + '%';
+      }
+      root.style.setProperty('--hero-img', 'url("' + new URL(h.src, document.baseURI).href + '")');
+      window.dispatchEvent(new CustomEvent('kag:photos'));
+    }
+    var portrait = document.querySelector('.bio-grid .portrait');
+    if (portrait) {
+      portrait.setAttribute('src', v.bio.src);
+      portrait.setAttribute('alt', v.bio.alt);
+    }
+    root.setAttribute('data-photos', v.id);
+    try { localStorage.setItem(KINDS.photos.key, v.id); } catch (e) {}
+    switches.forEach(sync);
+  }
+
+  var ICON_COPY = '<svg class="copy-toggle__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14.364 13.634a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506l4.013-4.009a1 1 0 0 0-3.004-3.004z" /><path d="M14.487 7.858A1 1 0 0 1 14 7V2" /><path d="M20 19.645V20a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l2.516 2.516" /><path d="M8 18h1" /></svg>';
+
+  var ICON_PHOTO = '<svg class="copy-toggle__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="18" height="18" x="3" y="3" rx="2" ry="2" /><circle cx="9" cy="9" r="2" /><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" /></svg>';
+
+  // One dropdown per kind of review choice; the first version is the shipped one.
+  var KINDS = {
+    copy: { key: 'kag-copy', attr: 'data-copy', versions: VERSIONS, set: setCopy, icon: ICON_COPY,
+      noun: 'tekstów', word: 'Teksty', first: 'wersja pierwotna', menu: 'Wersja tekstów na stronie' },
+    photos: { key: 'kag-photos', attr: 'data-photos', versions: PHOTO_VERSIONS, set: setPhotos, icon: ICON_PHOTO,
+      noun: 'zdjęć', word: 'Zdjęcia', first: 'Wersja 1', menu: 'Zestaw zdjęć na stronie' }
+  };
 
   var switches = [];
 
   function sync(sw) {
-    var v = versionOf(root.getAttribute('data-copy'));
-    var on = v.id !== 'original';
-    var name = on ? v.label + ', ' + v.note : 'wersja pierwotna';
+    var k = sw.kind;
+    var v = versionOf(k, root.getAttribute(k.attr));
+    var on = v.id !== k.versions[0].id;
+    var name = on ? v.label + ', ' + v.note : k.first;
     sw.btn.setAttribute('data-on', on ? 'true' : 'false');
-    sw.btn.setAttribute('aria-label', 'Wersja tekstów: ' + name + '. Zmień wersję.');
-    sw.btn.setAttribute('title', 'Wersja tekstów: ' + name);
+    sw.btn.setAttribute('aria-label', 'Wersja ' + k.noun + ': ' + name + '. Zmień wersję.');
+    sw.btn.setAttribute('title', 'Wersja ' + k.noun + ': ' + name);
     var text = sw.btn.querySelector('.copy-toggle__label');
-    if (text) text.textContent = 'Teksty: ' + (on ? v.label : 'wersja pierwotna');
+    if (text) text.textContent = k.word + ': ' + (on ? v.label : k.first);
     sw.items.forEach(function (it) {
       it.el.setAttribute('aria-checked', it.id === v.id ? 'true' : 'false');
     });
@@ -308,7 +369,7 @@
     }
   }
 
-  function addSwitch(parent, before, menu) {
+  function addSwitch(kind, parent, before, menu) {
     var wrap = document.createElement('div');
     wrap.className = 'copy-switch' + (menu ? ' copy-switch--menu' : '');
     var btn = document.createElement('button');
@@ -316,14 +377,14 @@
     btn.className = 'copy-toggle' + (menu ? ' copy-toggle--menu' : '');
     btn.setAttribute('aria-haspopup', 'menu');
     btn.setAttribute('aria-expanded', 'false');
-    btn.innerHTML = ICON + (menu ? '<span class="copy-toggle__label"></span>' : '');
+    btn.innerHTML = kind.icon + (menu ? '<span class="copy-toggle__label"></span>' : '');
     var list = document.createElement('div');
     list.className = 'copy-menu';
     list.setAttribute('role', 'menu');
-    list.setAttribute('aria-label', 'Wersja tekstów na stronie');
+    list.setAttribute('aria-label', kind.menu);
     list.hidden = true;
-    var sw = { btn: btn, list: list, items: [] };
-    VERSIONS.forEach(function (v) {
+    var sw = { kind: kind, btn: btn, list: list, items: [] };
+    kind.versions.forEach(function (v) {
       var el = document.createElement('button');
       el.type = 'button';
       el.setAttribute('role', 'menuitemradio');
@@ -332,7 +393,7 @@
       el.firstChild.textContent = v.label;
       el.lastChild.textContent = v.note;
       el.addEventListener('click', function () {
-        setCopy(v.id);
+        kind.set(v.id);
         closeMenu(sw, true);
       });
       list.appendChild(el);
@@ -403,13 +464,26 @@
     '.bio-content .bio-panel:nth-child(3) .credentials>[data-copy-hidden]+div:not([data-copy-hidden]){border-top:0;padding-top:0}';
   document.head.appendChild(style);
 
+  var hasPhotos = !!document.querySelector('.scene');
   var themeBar = document.querySelector('.site-nav__actions .theme-toggle');
-  if (themeBar) addSwitch(themeBar.parentNode, themeBar, false);
+  if (themeBar) {
+    addSwitch(KINDS.copy, themeBar.parentNode, themeBar, false);
+    if (hasPhotos) addSwitch(KINDS.photos, themeBar.parentNode, themeBar, false);
+  }
   var themeMenu = document.querySelector('.site-nav__links .theme-toggle--menu');
-  if (themeMenu) addSwitch(themeMenu.parentNode, themeMenu.nextSibling, true);
+  if (themeMenu) {
+    var afterTheme = themeMenu.nextSibling;
+    addSwitch(KINDS.copy, themeMenu.parentNode, afterTheme, true);
+    if (hasPhotos) addSwitch(KINDS.photos, themeMenu.parentNode, afterTheme, true);
+  }
 
-  var saved = 'original';
-  try { saved = versionOf(localStorage.getItem(KEY)).id; } catch (e) {}
+  function saved(kind) {
+    try { return versionOf(kind, localStorage.getItem(kind.key)).id; } catch (e) { return kind.versions[0].id; }
+  }
   root.setAttribute('data-copy', 'original');
-  setCopy(saved);
+  setCopy(saved(KINDS.copy));
+  if (hasPhotos) {
+    root.setAttribute('data-photos', 'p1');
+    setPhotos(saved(KINDS.photos));
+  }
 })();

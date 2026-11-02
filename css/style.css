@@ -69,7 +69,7 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   --text-o: clamp(0, calc(1 - (var(--p) - 0.04) * 4.6), 1);
   --hero-o: clamp(0, calc((var(--p) - 0.55) / 0.3), 1);
   --avatar-d: clamp(9rem, 30svh, 13rem);
-  --photo-w: min(100vw, calc(100svh * 896 / 1200));
+  --photo-w: min(100vw, calc(100svh * 1000 / 1500));
   position: relative;
   background-color: var(--background-deep);
 }
@@ -87,7 +87,7 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   position: absolute;
   inset: -12%;
   z-index: 0;
-  background: url('../img/arkadiusz-gorski-portret.webp') 50% 12% / cover;
+  background: var(--hero-img, url('../img/arkadiusz-gorski-portret.webp?v=2')) 50% 12% / cover;
   filter: blur(64px) saturate(1.3);
   opacity: 0.32;
 }
@@ -117,15 +117,15 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   overflow: hidden;
   background-color: var(--surface);
 }
-/* Head-and-shoulders crop of the portrait: the square window is 300 source
-   px wide, centred on (450, 285) of the 896 x 1200 image. JS uses the same
+/* Head-and-shoulders crop of the portrait: the square window is 380 source
+   px wide, centred on (430, 265) of the 1000 x 1500 image. JS uses the same
    numbers for the expanding photo, so the two line up.
-   width = 896/300, left = -(450-150)/300, top = -(285-150)/300. */
+   width = 1000/380, left = -(430-190)/380, top = -(265-190)/380. */
 .scene__avatar {
   position: absolute;
-  left: -100%;
-  top: -45%;
-  width: 298.67%;
+  left: -63.16%;
+  top: -19.74%;
+  width: 263.16%;
   max-width: none;
   height: auto;
 }
@@ -344,7 +344,7 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   padding: 4.5rem 0 4rem;
   background:
     linear-gradient(0deg, var(--background-deep) 0%, color-mix(in srgb, var(--background-deep) 72%, transparent) 100%),
-    url('../img/arkadiusz-gorski-portret.webp') 50% 12% / cover;
+    var(--hero-img, url('../img/arkadiusz-gorski-portret.webp?v=2')) 50% 12% / cover;
 }
 
 /* ----- Scene mode: one sticky stage, scroll-driven ----- */
@@ -920,6 +920,11 @@ body.nav-open .nav-toggle__close { display: block; }
 .scene__hero h1 span {
   display: block;
   white-space: nowrap;
+}
+/* Longer headline variants (the review versions) do not fit one line per span
+   on a phone or tablet: let them wrap there. */
+@media (max-width: 1100px) {
+  .scene__hero h1 span { white-space: normal; }
 }
 .hero__lead {
   font-size: var(--size-lead);

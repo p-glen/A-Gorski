@@ -137,15 +137,26 @@
     var nav = document.querySelector('.site-nav');
     var wide = window.matchMedia('(min-width: 900px)');
 
-    // Source image (img/arkadiusz-gorski-portret.webp) and the square window
-    // of it shown in the circle. Must match .scene__avatar in style.css.
-    var IMG_W = 896, IMG_H = 1200;
-    var CROP = { x: 450, y: 285, half: 150 };
+    // Source image size and the square window of it shown in the circle, read
+    // from the scene (data-img='WxH', data-crop='x,y,half'); must match the
+    // inline crop on .scene__avatar. Re-read on every measure so the review
+    // photo switch can change them.
+    var IMG_W = 1000, IMG_H = 1500;
+    var CROP = { x: 430, y: 265, half: 190 };
+    function readGeometry() {
+      var img = (scene.getAttribute('data-img') || '').split('x');
+      var c = (scene.getAttribute('data-crop') || '').split(',');
+      if (img.length === 2 && c.length === 3) {
+        IMG_W = +img[0]; IMG_H = +img[1];
+        CROP = { x: +c[0], y: +c[1], half: +c[2] };
+      }
+    }
 
     var active = false;
     var travel = 1;
     function measure() {
       if (!active) return;
+      readGeometry();
       var s = stage.getBoundingClientRect();
       var a = avatar.getBoundingClientRect();
       var W = s.width, H = s.height;
@@ -254,6 +265,7 @@
       setFocusable(hero, true);
       card.removeAttribute('aria-hidden');
     }
+    window.addEventListener('kag:photos', measure);
     start();
     return { start: start, stop: stop };
   }
