@@ -15,7 +15,10 @@
     var label = currentTheme() === 'dark' ? 'Włącz jasny motyw' : 'Włącz ciemny motyw';
     themeToggles.forEach(function (btn) { btn.setAttribute('aria-label', label); });
     // Browser chrome on phones follows the page, not just the system setting.
-    if (themeColor) themeColor.setAttribute('content', currentTheme() === 'dark' ? '#1C1A17' : '#F3EFE6');
+    if (themeColor) {
+      var steel = root.getAttribute('data-tone') === 'steel';
+      themeColor.setAttribute('content', currentTheme() === 'dark' ? (steel ? '#161A21' : '#1C1A17') : (steel ? '#EEF0F4' : '#F3EFE6'));
+    }
   }
   syncThemeToggle();
 

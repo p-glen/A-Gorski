@@ -456,6 +456,26 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   }
 }
 
+/* Steel tone, phone hero: same fixed dark palette, in steel values. */
+@media (max-width: 899px) {
+  :root[data-tone="steel"][data-scene="on"] .scene__scrim {
+    background: linear-gradient(to top,
+      #10131A 0%,
+      rgb(16 19 26 / 0.9) 34%,
+      rgb(16 19 26 / 0.3) 72%,
+      transparent 100%);
+  }
+  :root[data-tone="steel"][data-scene="on"] .scene__hero {
+    --text: #F0F2F5;
+    --text-secondary: #C3CAD6;
+    --text-muted: #98A2B3;
+    --border: #2D3544;
+    --background-deep: #10131A;
+    --accent-brass: #B9875A;
+    --accent-brass-hover: #D29A66;
+  }
+}
+
 /* Wide screens: the portrait keeps its own proportions on the right (no
    enlargement past the photo's resolution), dark stage on the left, and the
    hero copy sits in that dark space. */
@@ -1143,14 +1163,22 @@ body.nav-open .nav-toggle__close { display: block; }
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to bottom, rgb(23 20 15 / 0.45), transparent 40%),
-    rgb(176 141 87 / 0.08);
+    linear-gradient(to bottom, var(--tone-shade), transparent 40%),
+    var(--tone-tint);
   mix-blend-mode: multiply;
   pointer-events: none;
 }
 .specjalizacje-card__media:has(img) .specjalizacje-card__ph { display: none; }
 :root[data-theme="light"] .specjalizacje-card__media img {
   filter: sepia(0.2) saturate(0.9) brightness(0.95);
+}
+/* Steel tone: the generated area photos are warm brown; turn the sepia cast
+   to a muted steel blue (sepia then a half-turn of hue, low saturation). */
+:root[data-tone="steel"] .specjalizacje-card__media img {
+  filter: sepia(0.3) hue-rotate(180deg) saturate(0.55) contrast(1.06) brightness(0.9);
+}
+:root[data-tone="steel"][data-theme="light"] .specjalizacje-card__media img {
+  filter: sepia(0.3) hue-rotate(180deg) saturate(0.5) brightness(0.98);
 }
 
 .specjalizacje-card h3 {

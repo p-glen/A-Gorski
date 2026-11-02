@@ -11,6 +11,9 @@
   /* Brass for TEXT only; --accent-brass stays for rules, borders and buttons. */
   --accent-brass-text: #C9A66B;
   --accent-alert: #B5424C;
+  /* Overlay on the area photos (multiply): warm tint and top shade. */
+  --tone-tint: rgb(176 141 87 / 0.08);
+  --tone-shade: rgb(23 20 15 / 0.45);
   /* Underline that marks key phrases: the brand copper (brass), which has its own
      darker value in the light theme; 3:1 or better on the page background. */
   --marker: var(--accent-brass);
@@ -82,6 +85,41 @@
   --accent-brass-hover: #5E4727;
   --accent-brass-text: #7A5C2E;
   --accent-alert: #9A3540;
+}
+
+/* REVIEW ONLY (kag-tone): steel tone, the cool navy and cognac of the new
+   portraits (navy suit, grey studio, brown leather, tan shoes). Chosen in the
+   dropdown from js/copy-review.js; when agreed, fold these values into :root
+   and the light block above and delete this. */
+:root[data-tone="steel"] {
+  --background: #161A21;
+  --surface: #1F2530;
+  --background-deep: #10131A;
+  --text: #E9ECF1;
+  --text-secondary: #BEC5D1;
+  --text-muted: #98A2B3;
+  --border: #2D3544;
+  --accent-brass: #B9875A;
+  --accent-brass-hover: #D29A66;
+  --accent-brass-text: #D3A276;
+  --tone-tint: rgb(60 92 150 / 0.14);
+  --tone-shade: rgb(16 19 26 / 0.5);
+}
+:root[data-tone="steel"][data-theme="light"] {
+  --background: #EEF0F4;
+  --surface: #E1E5EC;
+  --background-deep: #F8F9FB;
+  --text: #141A23;
+  --text-secondary: #3A4352;
+  --text-muted: #546072;
+  --glass-bg: rgb(20 26 35 / 0.08);
+  --glass-border: rgb(20 26 35 / 0.18);
+  --glass-ink: #141A23;
+  --border: #CBD2DD;
+  --accent-brass: #8A5A33;
+  --accent-brass-hover: #6F4727;
+  --accent-brass-text: #8A5A33;
+  --tone-tint: rgb(60 92 150 / 0.08);
 }
 
 @media (min-width: 768px) {

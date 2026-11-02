@@ -1,6 +1,6 @@
 /* REVIEW ONLY: switches the page text between the original wording and the
-   lawyer's edits, and (home page) the photo set. Two dropdowns next to the
-   theme toggle. Text versions:
+   lawyer's edits, the photo set (home page) and the colour tone. Three
+   dropdowns next to the theme toggle. Text versions:
      original  the prototype text
      client    25 Oct 2026, docx "TC_Teksty na stronie" (tracked changes)
      gdoc      28 Oct 2026, Google Doc "Teksty na stronie" (suggestions by the lawyer)
@@ -17,7 +17,10 @@
    Photo sets ("kag-photos", home page only): which portrait is the hero /
    contact card and which one sits in the About section. A set also carries
    the face crop for the round avatar, which main.js reads from the scene's
-   data-img / data-crop. */
+   data-img / data-crop.
+
+   Tone ("kag-tone"): warm (shipped) or steel, set as data-tone on <html>;
+   the values live in css/tokens.css and a few overrides in css/style.css. */
 (function () {
   var KEY = 'kag-copy';
   var root = document.documentElement;
@@ -277,6 +280,11 @@
       bio: { src: 'img/arkadiusz-gorski-kanapa-trampki.webp', alt: 'Adwokat Arkadiusz Górski siedzący na kanapie, portret' } }
   ];
 
+  var TONE_VERSIONS = [
+    { id: 'warm', label: 'Ciepła', note: 'espresso i mosiądz (obecna)', meta: { dark: '#1C1A17', light: '#F3EFE6' } },
+    { id: 'steel', label: 'Stalowa', note: 'granat i koniak, jak na zdjęciach', meta: { dark: '#161A21', light: '#EEF0F4' } }
+  ];
+
   function versionOf(kind, id) {
     var list = kind.versions;
     for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
@@ -289,6 +297,16 @@
     v.rules.forEach(function (r) { if (!r.p || r.p.test(path)) applyRule(r); });
     root.setAttribute('data-copy', v.id);
     try { localStorage.setItem(KINDS.copy.key, v.id); } catch (e) {}
+    switches.forEach(sync);
+  }
+
+  function setTone(mode) {
+    var v = versionOf(KINDS.tone, mode);
+    if (v.id === 'warm') root.removeAttribute('data-tone'); else root.setAttribute('data-tone', v.id);
+    var light = root.getAttribute('data-theme') === 'light';
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', light ? v.meta.light : v.meta.dark);
+    try { localStorage.setItem(KINDS.tone.key, v.id); } catch (e) {}
     switches.forEach(sync);
   }
 
@@ -330,12 +348,16 @@
 
   var ICON_PHOTO = '<svg class="copy-toggle__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="18" height="18" x="3" y="3" rx="2" ry="2" /><circle cx="9" cy="9" r="2" /><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" /></svg>';
 
+  var ICON_TONE = '<svg class="copy-toggle__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" /><circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /><circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /><circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /><circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /></svg>';
+
   // One dropdown per kind of review choice; the first version is the shipped one.
   var KINDS = {
     copy: { key: 'kag-copy', attr: 'data-copy', versions: VERSIONS, set: setCopy, icon: ICON_COPY,
       noun: 'tekstów', word: 'Teksty', first: 'wersja pierwotna', menu: 'Wersja tekstów na stronie' },
     photos: { key: 'kag-photos', attr: 'data-photos', versions: PHOTO_VERSIONS, set: setPhotos, icon: ICON_PHOTO,
-      noun: 'zdjęć', word: 'Zdjęcia', first: 'Wersja 1', menu: 'Zestaw zdjęć na stronie' }
+      noun: 'zdjęć', word: 'Zdjęcia', first: 'Wersja 1', menu: 'Zestaw zdjęć na stronie' },
+    tone: { key: 'kag-tone', attr: 'data-tone', versions: TONE_VERSIONS, set: setTone, icon: ICON_TONE,
+      noun: 'tonacji', word: 'Tonacja', first: 'ciepła', menu: 'Tonacja kolorystyczna strony' }
   };
 
   var switches = [];
@@ -472,12 +494,14 @@
   if (themeBar) {
     addSwitch(KINDS.copy, themeBar.parentNode, themeBar, false);
     if (hasPhotos) addSwitch(KINDS.photos, themeBar.parentNode, themeBar, false);
+    addSwitch(KINDS.tone, themeBar.parentNode, themeBar, false);
   }
   var themeMenu = document.querySelector('.site-nav__links .theme-toggle--menu');
   if (themeMenu) {
     var afterTheme = themeMenu.nextSibling;
     addSwitch(KINDS.copy, themeMenu.parentNode, afterTheme, true);
     if (hasPhotos) addSwitch(KINDS.photos, themeMenu.parentNode, afterTheme, true);
+    addSwitch(KINDS.tone, themeMenu.parentNode, afterTheme, true);
   }
 
   function saved(kind) {
@@ -485,6 +509,7 @@
   }
   root.setAttribute('data-copy', 'original');
   setCopy(saved(KINDS.copy));
+  setTone(saved(KINDS.tone));
   if (hasPhotos) {
     root.setAttribute('data-photos', 'p1');
     setPhotos(saved(KINDS.photos));
