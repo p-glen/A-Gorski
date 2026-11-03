@@ -325,7 +325,7 @@
       bio: { src: 'img/arkadiusz-gorski-fotel.webp?v=2', alt: 'Adwokat Arkadiusz Górski, portret' } },
     { id: 'p2', label: 'Wersja 2', note: 'hero: hoker · O mnie: kanapa, trampki',
       hero: { src: 'img/arkadiusz-gorski-hoker.webp', w: 1000, h: 1500, crop: [520, 225, 190] },
-      bio: { src: 'img/arkadiusz-gorski-portret.webp?v=2', alt: 'Adwokat Arkadiusz Górski siedzący na kanapie, portret' } },
+      bio: { src: 'img/arkadiusz-gorski-kanapa-bok.webp', alt: 'Adwokat Arkadiusz Górski siedzący na oparciu kanapy, portret' } },
     { id: 'p3', label: 'Wersja 3', note: 'hero: szare tło, stojąco · O mnie: kanapa, trampki',
       hero: { src: 'img/arkadiusz-gorski-stoi.webp', w: 1000, h: 1500, crop: [480, 225, 190] },
       bio: { src: 'img/arkadiusz-gorski-kanapa-trampki.webp', alt: 'Adwokat Arkadiusz Górski siedzący na kanapie, portret' } }
@@ -574,15 +574,17 @@
 
   var hasPhotos = !!document.querySelector('.scene');
   var hasAreas = !!document.querySelector('.carousel');
+  // the dropdowns are hidden and stored choices ignored; set true to review variants again
+  var SHOW_SWITCHES = false;
   var themeBar = document.querySelector('.site-nav__actions .theme-toggle');
-  if (themeBar) {
+  if (SHOW_SWITCHES && themeBar) {
     addSwitch(KINDS.copy, themeBar.parentNode, themeBar, false);
     if (hasPhotos) addSwitch(KINDS.photos, themeBar.parentNode, themeBar, false);
     if (hasAreas) addSwitch(KINDS.areas, themeBar.parentNode, themeBar, false);
     addSwitch(KINDS.tone, themeBar.parentNode, themeBar, false);
   }
   var themeMenu = document.querySelector('.site-nav__links .theme-toggle--menu');
-  if (themeMenu) {
+  if (SHOW_SWITCHES && themeMenu) {
     var afterTheme = themeMenu.nextSibling;
     addSwitch(KINDS.copy, themeMenu.parentNode, afterTheme, true);
     if (hasPhotos) addSwitch(KINDS.photos, themeMenu.parentNode, afterTheme, true);
@@ -591,9 +593,10 @@
   }
 
   // shipped defaults: newest text, first photo set, steel tone (a stored choice wins)
-  var DEFAULTS = { 'kag-copy': 'nov3', 'kag-tone': 'steel' };
+  var DEFAULTS = { 'kag-copy': 'nov3', 'kag-tone': 'steel', 'kag-photos': 'p2' };
   function saved(kind) {
     var d = DEFAULTS[kind.key] || kind.versions[0].id;
+    if (!SHOW_SWITCHES) return d;
     try {
       var s = localStorage.getItem(kind.key);
       return s ? versionOf(kind, s).id : d;

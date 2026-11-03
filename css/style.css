@@ -946,6 +946,14 @@ body.nav-open .nav-toggle__close { display: block; }
 @media (max-width: 1100px) {
   .scene__hero h1 span { white-space: normal; }
 }
+@media (min-width: 900px) {
+  /* The headline stays in the space left of the portrait: it wraps instead of
+     running over the photo, where dark text on the grey backdrop and the dark
+     suit is unreadable in the light tone. */
+  .scene__hero .container > h1 { max-width: max(20rem, calc(100vw - var(--photo-w) * 0.9 - max(2rem, (100vw - 1160px) / 2 + 1.5rem))); }
+  .scene__hero h1 { font-size: min(var(--size-h1), 3.8vw); }
+  .scene__hero h1 span { white-space: normal; }
+}
 .hero__lead {
   font-size: var(--size-lead);
   color: var(--text-secondary);
@@ -2218,3 +2226,7 @@ a, button { -webkit-tap-highlight-color: color-mix(in srgb, var(--accent-brass) 
   .scene__actions { gap: 0.25rem; }
   .scene__action { font-size: 0.8125rem; }
 }
+
+/* Booking calendar (hero "Umów" action, Calendesk tab) hidden for now; markup kept. */
+.scene__action[data-hidden],
+.contact-switch__tabs[data-hidden] { display: none; }
