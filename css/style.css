@@ -169,12 +169,13 @@ h4 { font-family: var(--font-body); font-size: var(--size-h4); font-weight: 600;
   font-family: var(--font-display);
 }
 .scene__actions {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  display: flex;
+  justify-content: center;
   gap: 0.75rem;
   width: min(100%, 24rem);
 }
 .scene__action {
+  flex: 0 0 5.25rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1788,9 +1789,9 @@ body.nav-open .nav-toggle__close { display: block; }
 }
 .rezerwacja-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  align-items: center;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(3rem, 7vw, 6rem);
+  align-items: start;
 }
 .rezerwacja-content p {
   color: var(--text-secondary);
@@ -1836,18 +1837,46 @@ body.nav-open .nav-toggle__close { display: block; }
   font-size: var(--size-small);
   margin-bottom: 0.5rem;
 }
-.rezerwacja-save { margin: 0 0 1.5rem; }
+.rezerwacja-lede { max-width: 34rem; }
+.rezerwacja-signal { max-width: 34rem; margin-bottom: 0; }
+/* Practical details: same label-and-value rows as the About sheet, one rule
+   on top and space (not lines) between the rows. */
+.rezerwacja-details {
+  display: grid;
+  gap: 2rem;
+  margin: 0;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+.rezerwacja-details > div {
+  display: grid;
+  grid-template-columns: 8rem minmax(0, 1fr);
+  gap: 1rem;
+}
+.rezerwacja-details dt {
+  font-family: var(--font-mono);
+  font-size: var(--size-note);
+  font-weight: 400;
+  line-height: 1.75;
+  letter-spacing: var(--ls-note);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+.rezerwacja-details dd { margin: 0; }
+@media (max-width: 599px) {
+  .rezerwacja-details > div { grid-template-columns: 1fr; gap: 0.25rem; }
+}
+.rezerwacja-save { margin: 0; }
 .rezerwacja-address {
   font-style: normal;
-  color: var(--text-secondary);
-  line-height: 1.8;
+  color: var(--text);
+  line-height: 1.7;
   font-size: var(--size-body);
-  margin-bottom: 1.25rem;
 }
 .rezerwacja-hours {
   font-size: var(--size-body);
+  line-height: 1.7;
   color: var(--text-secondary);
-  margin-bottom: 2rem;
 }
 .rezerwacja-hours b { color: var(--text); font-weight: 600; }
 
