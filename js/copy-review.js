@@ -136,13 +136,10 @@
     // Working principles: the line under the headline is dropped
     { s: '.reason-head p', hide: true },
 
-    // Specializations: intro dropped, cards renamed and reordered
+    // Specializations: intro dropped, cards renamed (the order is fixed in index.html)
     { s: '.specjalizacje-section .section-intro', hide: true },
     { s: CARD + '1) p', text: 'Obrona podejrzanych i pomoc pokrzywdzonym na każdym etapie postępowania, w każdej sprawie karnej.' },
     { s: CARD + '2) h3', text: 'Prawo karne gospodarcze i karno skarbowe' },
-    // Moves go last: they change the :nth-of-type positions used above.
-    { s: CARDS + ':has(a[href*="prawo-karne-gospodarcze"])', moveBefore: CARDS + ':has(a[href$="praktyki/prawo-karne/"])' },
-    { s: CARDS + ':has(a[href*="zwalczanie-nieuczciwej"])', moveBefore: CARDS + ':has(a[href*="compliance"])' },
 
     // Detention section
     { s: '#sprawa-pilna .section-intro', text: 'Zatrzymanie lub przeszukanie to zdarzenia silnie stresogenne i nadzwyczajne w życiu każdego człowieka. Dobrze jest rozumieć procedurę, znać swoje uprawnienia, a także przewidywać dalsze kroki. To także moment na kontakt z adwokatem.' },
@@ -285,6 +282,11 @@
     { id: 'steel', label: 'Stalowa', note: 'granat i koniak, jak na zdjęciach', meta: { dark: '#161A21', light: '#EEF0F4' } }
   ];
 
+  var AREAS_VERSIONS = [
+    { id: 'bento', label: 'Bento', note: 'matryca z rysunkami (od 900 px)' },
+    { id: 'carousel', label: 'Karuzela', note: 'przewijany rząd kart' }
+  ];
+
   function versionOf(kind, id) {
     var list = kind.versions;
     for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
@@ -308,6 +310,15 @@
     if (meta) meta.setAttribute('content', light ? v.meta.light : v.meta.dark);
     try { localStorage.setItem(KINDS.tone.key, v.id); } catch (e) {}
     switches.forEach(sync);
+  }
+
+  function setAreas(mode) {
+    var v = versionOf(KINDS.areas, mode);
+    root.setAttribute('data-areas', v.id);
+    try { localStorage.setItem(KINDS.areas.key, v.id); } catch (e) {}
+    switches.forEach(sync);
+    // the carousel measures its cards: tell it the layout changed
+    window.dispatchEvent(new Event('resize'));
   }
 
   function setPhotos(mode) {
@@ -350,12 +361,16 @@
 
   var ICON_TONE = '<svg class="copy-toggle__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" /><circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /><circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /><circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /><circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /></svg>';
 
+  var ICON_AREAS = '<svg class="copy-toggle__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="7" height="7" x="3" y="3" rx="1" /><rect width="7" height="7" x="14" y="3" rx="1" /><rect width="7" height="7" x="14" y="14" rx="1" /><rect width="7" height="7" x="3" y="14" rx="1" /></svg>';
+
   // One dropdown per kind of review choice; the first version is the shipped one.
   var KINDS = {
     copy: { key: 'kag-copy', attr: 'data-copy', versions: VERSIONS, set: setCopy, icon: ICON_COPY,
       noun: 'tekstów', word: 'Teksty', first: 'wersja pierwotna', menu: 'Wersja tekstów na stronie' },
     photos: { key: 'kag-photos', attr: 'data-photos', versions: PHOTO_VERSIONS, set: setPhotos, icon: ICON_PHOTO,
       noun: 'zdjęć', word: 'Zdjęcia', first: 'Wersja 1', menu: 'Zestaw zdjęć na stronie' },
+    areas: { key: 'kag-areas', attr: 'data-areas', versions: AREAS_VERSIONS, set: setAreas, icon: ICON_AREAS,
+      noun: 'układu obszarów', word: 'Obszary', first: 'bento', menu: 'Układ sekcji obszarów praktyki' },
     tone: { key: 'kag-tone', attr: 'data-tone', versions: TONE_VERSIONS, set: setTone, icon: ICON_TONE,
       noun: 'tonacji', word: 'Tonacja', first: 'ciepła', menu: 'Tonacja kolorystyczna strony' }
   };
@@ -490,10 +505,12 @@
   document.head.appendChild(style);
 
   var hasPhotos = !!document.querySelector('.scene');
+  var hasAreas = !!document.querySelector('.carousel');
   var themeBar = document.querySelector('.site-nav__actions .theme-toggle');
   if (themeBar) {
     addSwitch(KINDS.copy, themeBar.parentNode, themeBar, false);
     if (hasPhotos) addSwitch(KINDS.photos, themeBar.parentNode, themeBar, false);
+    if (hasAreas) addSwitch(KINDS.areas, themeBar.parentNode, themeBar, false);
     addSwitch(KINDS.tone, themeBar.parentNode, themeBar, false);
   }
   var themeMenu = document.querySelector('.site-nav__links .theme-toggle--menu');
@@ -501,6 +518,7 @@
     var afterTheme = themeMenu.nextSibling;
     addSwitch(KINDS.copy, themeMenu.parentNode, afterTheme, true);
     if (hasPhotos) addSwitch(KINDS.photos, themeMenu.parentNode, afterTheme, true);
+    if (hasAreas) addSwitch(KINDS.areas, themeMenu.parentNode, afterTheme, true);
     addSwitch(KINDS.tone, themeMenu.parentNode, afterTheme, true);
   }
 
@@ -510,6 +528,7 @@
   root.setAttribute('data-copy', 'original');
   setCopy(saved(KINDS.copy));
   setTone(saved(KINDS.tone));
+  if (hasAreas) setAreas(saved(KINDS.areas));
   if (hasPhotos) {
     root.setAttribute('data-photos', 'p1');
     setPhotos(saved(KINDS.photos));

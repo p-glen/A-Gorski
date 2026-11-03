@@ -12,7 +12,7 @@
   <link rel="preload" href="fonts/roboto-serif-condensed-600-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/fonts.css?v=138">
   <link rel="stylesheet" href="css/tokens.css?v=143">
-  <link rel="stylesheet" href="css/style.css?v=144">
+  <link rel="stylesheet" href="css/style.css?v=146">
 </head>
 <body>
 
@@ -166,57 +166,69 @@
       </div>
 
       <!-- Carousel: native scroll-snap, so touch, trackpad and keyboard just
-           work; js/carousel.js only wires the arrows and dots. Photos go in
-           as the first child of .specjalizacje-card__media (see style.css). -->
+           work; js/carousel.js only wires the arrows and dots. Each card shows an
+           isometric figure (js/areas-art.js) in .specjalizacje-card__media. -->
       <div class="carousel" data-carousel role="group" aria-roledescription="karuzela" aria-label="Obszary praktyki">
         <div class="carousel__track" data-carousel-track tabindex="0" aria-label="Obszary praktyki, przewijana lista">
-          <article class="specjalizacje-card" role="group" aria-roledescription="slajd" aria-label="1 z 6">
+          <article class="specjalizacje-card" role="group" aria-roledescription="slajd" aria-label="1 z 6" data-area="akta">
             <div class="specjalizacje-card__media">
-              <img src="img/obszar-prawo-karne.webp" alt="" width="896" height="1200" loading="lazy" decoding="async" style="object-position: 50% 44%">
+              <div class="hl-fig" data-hl="akta" aria-hidden="true"></div>
             </div>
-            <h3>Prawo karne</h3>
-            <p>Obrona podejrzanych i pomoc pokrzywdzonym na każdym etapie postępowania.</p>
-            <a class="specjalizacje-card__link" href="praktyki/prawo-karne/">Zobacz zakres <span aria-hidden="true">→</span></a>
+            <div class="specjalizacje-card__body">
+              <h3>Prawo karne</h3>
+              <p>Obrona podejrzanych i pomoc pokrzywdzonym na każdym etapie postępowania.</p>
+              <a class="specjalizacje-card__link" href="praktyki/prawo-karne/">Zobacz zakres <span aria-hidden="true">→</span></a>
+            </div>
           </article>
-          <article class="specjalizacje-card" role="group" aria-roledescription="slajd" aria-label="2 z 6">
+          <article class="specjalizacje-card" role="group" aria-roledescription="slajd" aria-label="2 z 6" data-area="miasto">
             <div class="specjalizacje-card__media">
-              <img src="img/obszar-karne-gospodarcze.webp" alt="" width="896" height="1200" loading="lazy" decoding="async" style="object-position: 50% 68%">
+              <div class="hl-fig" data-hl="miasto" aria-hidden="true"></div>
             </div>
-            <h3>Prawo karne gospodarcze</h3>
-            <p>Przestępstwa popełnione przy prowadzeniu firmy lub zarządzaniu jej majątkiem.</p>
-            <a class="specjalizacje-card__link" href="praktyki/prawo-karne-gospodarcze-i-prawo-karne-skarbowe/">Zobacz zakres <span aria-hidden="true">→</span></a>
+            <div class="specjalizacje-card__body">
+              <h3>Prawo karne gospodarcze</h3>
+              <p>Przestępstwa popełnione przy prowadzeniu firmy lub zarządzaniu jej majątkiem.</p>
+              <a class="specjalizacje-card__link" href="praktyki/prawo-karne-gospodarcze-i-prawo-karne-skarbowe/">Zobacz zakres <span aria-hidden="true">→</span></a>
+            </div>
           </article>
-          <article class="specjalizacje-card" role="group" aria-roledescription="slajd" aria-label="3 z 6">
+          <article class="specjalizacje-card" role="group" aria-roledescription="slajd" aria-label="3 z 6" data-area="pieczec">
             <div class="specjalizacje-card__media">
-              <img src="img/obszar-criminal-compliance.webp" alt="" width="896" height="1200" loading="lazy" decoding="async" style="object-position: 50% 72%">
+              <div class="hl-fig" data-hl="pieczec" aria-hidden="true"></div>
             </div>
-            <h3>Criminal compliance</h3>
-            <p>Systemy zgodności i procedury, które ograniczają ryzyko karne w firmie.</p>
-            <a class="specjalizacje-card__link" href="praktyki/compliance-i-criminal-compliance/">Zobacz zakres <span aria-hidden="true">→</span></a>
+            <div class="specjalizacje-card__body">
+              <h3>Kary administracyjne</h3>
+              <p>Postępowania przed organami nadzoru i sądowa kontrola ich decyzji.</p>
+              <a class="specjalizacje-card__link" href="praktyki/postepowania-sankcyjne-administracyjne-kary-pieniezne/">Zobacz zakres <span aria-hidden="true">→</span></a>
+            </div>
           </article>
-          <article class="specjalizacje-card" role="group" aria-roledescription="slajd" aria-label="4 z 6">
+          <article class="specjalizacje-card" role="group" aria-roledescription="slajd" aria-label="4 z 6" data-area="sejf">
             <div class="specjalizacje-card__media">
-              <img src="img/obszar-aml.webp" alt="" width="896" height="1200" loading="lazy" decoding="async" style="object-position: 50% 55%">
+              <div class="hl-fig" data-hl="sejf" aria-hidden="true"></div>
             </div>
-            <h3>AML</h3>
-            <p>Obowiązki firm objętych ustawą AML oraz kontrole i kary GIIF.</p>
-            <a class="specjalizacje-card__link" href="praktyki/aml/">Zobacz zakres <span aria-hidden="true">→</span></a>
+            <div class="specjalizacje-card__body">
+              <h3>Zwalczanie nieuczciwej konkurencji</h3>
+              <p>Ochrona tajemnicy przedsiębiorstwa i reakcja na naruszenia, cywilnie i karnie.</p>
+              <a class="specjalizacje-card__link" href="praktyki/zwalczanie-nieuczciwej-konkurencji/">Zobacz zakres <span aria-hidden="true">→</span></a>
+            </div>
           </article>
-          <article class="specjalizacje-card" role="group" aria-roledescription="slajd" aria-label="5 z 6">
+          <article class="specjalizacje-card" role="group" aria-roledescription="slajd" aria-label="5 z 6" data-area="bramki">
             <div class="specjalizacje-card__media">
-              <img src="img/obszar-kary-administracyjne.webp" alt="" width="896" height="1200" loading="lazy" decoding="async" style="object-position: 50% 64%">
+              <div class="hl-fig" data-hl="bramki" aria-hidden="true"></div>
             </div>
-            <h3>Kary administracyjne</h3>
-            <p>Postępowania przed organami nadzoru i sądowa kontrola ich decyzji.</p>
-            <a class="specjalizacje-card__link" href="praktyki/postepowania-sankcyjne-administracyjne-kary-pieniezne/">Zobacz zakres <span aria-hidden="true">→</span></a>
+            <div class="specjalizacje-card__body">
+              <h3>Criminal compliance</h3>
+              <p>Systemy zgodności i procedury, które ograniczają ryzyko karne w firmie.</p>
+              <a class="specjalizacje-card__link" href="praktyki/compliance-i-criminal-compliance/">Zobacz zakres <span aria-hidden="true">→</span></a>
+            </div>
           </article>
-          <article class="specjalizacje-card" role="group" aria-roledescription="slajd" aria-label="6 z 6">
+          <article class="specjalizacje-card" role="group" aria-roledescription="slajd" aria-label="6 z 6" data-area="sito">
             <div class="specjalizacje-card__media">
-              <img src="img/obszar-nieuczciwa-konkurencja.webp" alt="" width="896" height="1200" loading="lazy" decoding="async" style="object-position: 50% 55%">
+              <div class="hl-fig" data-hl="sito" aria-hidden="true"></div>
             </div>
-            <h3>Zwalczanie nieuczciwej konkurencji</h3>
-            <p>Ochrona tajemnicy przedsiębiorstwa i reakcja na naruszenia, cywilnie i karnie.</p>
-            <a class="specjalizacje-card__link" href="praktyki/zwalczanie-nieuczciwej-konkurencji/">Zobacz zakres <span aria-hidden="true">→</span></a>
+            <div class="specjalizacje-card__body">
+              <h3>AML</h3>
+              <p>Obowiązki firm objętych ustawą AML oraz kontrole i kary GIIF.</p>
+              <a class="specjalizacje-card__link" href="praktyki/aml/">Zobacz zakres <span aria-hidden="true">→</span></a>
+            </div>
           </article>
         </div>
         <div class="container carousel__controls">
@@ -574,9 +586,10 @@
 
   <script src="js/main.js?v=97"></script>
   <script src="js/siren.js?v=34"></script>
-  <script src="js/carousel.js?v=34"></script>
+  <script src="js/carousel.js?v=35"></script>
+  <script src="js/areas-art.js?v=1"></script>
   <script src="js/contact-switch.js?v=90"></script>
   <script src="js/design-system.js?v=60"></script>
-  <script src="js/copy-review.js?v=9"></script>
+  <script src="js/copy-review.js?v=10"></script>
 </body>
 </html>

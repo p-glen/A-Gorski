@@ -1130,9 +1130,8 @@ body.nav-open .nav-toggle__close { display: block; }
 .specjalizacje-card__media {
   position: relative;
   overflow: hidden;
-  /* The photos are portrait (896 x 1200); the 4:3 window is cropped per photo
-     with object-position (set on each <img>) so the subject stays in it. */
-  aspect-ratio: 4 / 3;
+  /* The isometric figures are drawn in a 5:4 frame (see js/areas-art.js). */
+  aspect-ratio: 5 / 4;
   margin-bottom: 1.5rem;
   background-color: var(--surface);
   border: 1px solid var(--border);
@@ -1204,6 +1203,81 @@ body.nav-open .nav-toggle__close { display: block; }
 }
 .specjalizacje-card__link:hover,
 .specjalizacje-card__link:focus-visible { color: var(--accent-brass-text); }
+
+/* Isometric figures: one stroke in four weights, drawn from the page's own
+   tokens so both themes and both tones follow. The plate is the card's
+   ground; the bright stroke is the brass accent. */
+.specjalizacje-card__media {
+  --hairline-plate: var(--surface);
+  --hairline-hi: var(--accent-brass-text);
+  --hairline-edge: color-mix(in srgb, var(--text) 62%, var(--surface));
+  --hairline-mid: color-mix(in srgb, var(--text) 36%, var(--surface));
+  --hairline-lo: color-mix(in srgb, var(--text) 16%, var(--surface));
+}
+.hl-fig {
+  position: absolute;
+  inset: 0.5rem;
+  aspect-ratio: auto;
+}
+.hl-fig > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* The last cards need room after them to reach the start edge, so the arrows
+   and dots can step through every card (a flex item sized to the leftover). */
+.carousel__track::after {
+  content: "";
+  flex: 0 0 max(0px, calc(100% - min(84vw, 28rem) - 1.25rem));
+}
+
+/* Bento: from tablet width the six areas sit in a matrix instead of the
+   carousel (the review menu can switch back: data-areas="carousel"). */
+@media (min-width: 900px) {
+  :root:not([data-areas="carousel"]) .carousel__track {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+    max-width: calc(1160px + 3rem);
+    margin: 0 auto;
+    padding: 0.25rem 1.5rem 0.5rem;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+  :root:not([data-areas="carousel"]) .carousel__track::after { display: none; }
+  :root:not([data-areas="carousel"]) .specjalizacje-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    transition: border-color 0.2s ease;
+  }
+  :root:not([data-areas="carousel"]) .specjalizacje-card:hover { border-color: var(--accent-brass); }
+  :root:not([data-areas="carousel"]) .specjalizacje-card__media {
+    border: 0;
+    margin: 0;
+    background-color: transparent;
+  }
+  :root:not([data-areas="carousel"]) .specjalizacje-card__body { padding: 0.25rem 1.5rem 1.5rem; }
+  :root:not([data-areas="carousel"]) .specjalizacje-card h3 { margin-bottom: 0.5rem; }
+  :root:not([data-areas="carousel"]) .specjalizacje-card p { margin-bottom: 1.25rem; }
+
+  /* The matrix: a wide tile, a tall one, two small, a wide one, a small one. */
+  :root:not([data-areas="carousel"]) [data-area="akta"] { grid-column: 1 / span 2; flex-direction: row; align-items: center; }
+  :root:not([data-areas="carousel"]) [data-area="miasto"] { grid-column: 3; grid-row: 1 / span 2; }
+  :root:not([data-areas="carousel"]) [data-area="bramki"] { grid-column: 1 / span 2; flex-direction: row; align-items: center; }
+  :root:not([data-areas="carousel"]) [data-area="akta"] .specjalizacje-card__media,
+  :root:not([data-areas="carousel"]) [data-area="bramki"] .specjalizacje-card__media { flex: 0 0 52%; }
+  :root:not([data-areas="carousel"]) [data-area="akta"] .specjalizacje-card__body,
+  :root:not([data-areas="carousel"]) [data-area="bramki"] .specjalizacje-card__body { padding: 1.5rem 1.5rem 1.5rem 0; }
+  :root:not([data-areas="carousel"]) [data-area="bramki"] { flex-direction: row-reverse; }
+  :root:not([data-areas="carousel"]) [data-area="bramki"] .specjalizacje-card__body { padding: 1.5rem 0 1.5rem 1.5rem; }
+  /* The tall tile lets its figure take the spare height. */
+  :root:not([data-areas="carousel"]) [data-area="miasto"] .specjalizacje-card__media { aspect-ratio: auto; flex: 1 1 auto; min-height: 12rem; }
+
+  /* Only the link to the full list stays under the matrix. */
+  :root:not([data-areas="carousel"]) .carousel__dots,
+  :root:not([data-areas="carousel"]) .carousel__arrows { display: none; }
+  :root:not([data-areas="carousel"]) .carousel__controls { justify-content: center; margin-top: 1.5rem; }
+}
 
 /* Controls: dots left, arrows right, both aligned with the page container. */
 .carousel__controls {

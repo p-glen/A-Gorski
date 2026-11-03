@@ -9,7 +9,9 @@
     var prev = root.querySelector('[data-carousel-prev]');
     var next = root.querySelector('[data-carousel-next]');
     if (!track || !prev || !next) return;
-    var cards = Array.prototype.slice.call(track.children);
+    // Read live: the review script reorders the cards after this runs.
+    function list() { return Array.prototype.slice.call(track.querySelectorAll(':scope > .specjalizacje-card')); }
+    var cards = list();
     var dots = Array.prototype.slice.call(root.querySelectorAll('[data-carousel-dot]'));
     if (cards.length < 2) return;
 
@@ -17,16 +19,23 @@
     // other card's target is its offsetLeft minus this.
     function origin() { return cards[0].offsetLeft; }
 
+    // Where each card's start-edge position is; the spacer after the last card
+    // (see .carousel__track::after) lets every card reach it.
+    function stops() {
+      cards = list();
+      return cards.map(function (card) { return Math.min(maxScroll(), card.offsetLeft - origin()); });
+    }
+
     function maxScroll() { return track.scrollWidth - track.clientWidth; }
 
     // The card currently at the start edge. At the very end the last cards
     // cannot reach the start edge, so the end of the track means "last".
     function current() {
-      var x = track.scrollLeft;
+      var x = track.scrollLeft, at = stops();
       if (x >= maxScroll() - 2) return cards.length - 1;
       var best = 0, bestDist = Infinity;
-      cards.forEach(function (card, i) {
-        var d = Math.abs(card.offsetLeft - origin() - x);
+      at.forEach(function (s, i) {
+        var d = Math.abs(s - x);
         if (d < bestDist) { bestDist = d; best = i; }
       });
       return best;
@@ -42,16 +51,25 @@
       next.disabled = track.scrollLeft >= maxScroll() - 2;
     }
 
-    function go(i) {
-      i = Math.max(0, Math.min(cards.length - 1, i));
-      track.scrollTo({
-        left: Math.min(maxScroll(), cards[i].offsetLeft - origin()),
-        behavior: reduce.matches ? 'auto' : 'smooth'
-      });
+    function scrollToX(left) {
+      track.scrollTo({ left: left, behavior: reduce.matches ? 'auto' : 'smooth' });
     }
 
-    prev.addEventListener('click', function () { go(current() - 1); });
-    next.addEventListener('click', function () { go(current() + 1); });
+    function go(i) {
+      var at = stops();
+      scrollToX(at[Math.max(0, Math.min(at.length - 1, i))]);
+    }
+
+    // Arrows move to the nearest stop strictly before / after where the track
+    // is now, so they never stall when stops are clamped at the ends.
+    prev.addEventListener('click', function () {
+      var x = track.scrollLeft, before = stops().filter(function (s) { return s < x - 2; });
+      scrollToX(before.length ? before[before.length - 1] : 0);
+    });
+    next.addEventListener('click', function () {
+      var x = track.scrollLeft, after = stops().filter(function (s) { return s > x + 2; });
+      scrollToX(after.length ? after[0] : maxScroll());
+    });
     dots.forEach(function (dot, k) { dot.addEventListener('click', function () { go(k); }); });
 
     var ticking = false;
