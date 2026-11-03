@@ -225,7 +225,14 @@
       var p = Math.min(Math.max(-scene.getBoundingClientRect().top / travel, 0), 1);
       var v = p.toFixed(4);
       scene.style.setProperty('--p', v);
-      if (nav) nav.style.setProperty('--p', v);
+      if (nav) {
+        nav.style.setProperty('--p', v);
+        // The bar stays bare (no tint, blur, border or underline) while the
+        // finished hero fills the screen, so it never covers the portrait;
+        // it takes its surface once the page scrolls on.
+        var bare = scene.getBoundingClientRect().bottom >= window.innerHeight - 2;
+        if (bare) nav.setAttribute('data-bare', ''); else nav.removeAttribute('data-bare');
+      }
       setState(p < 0.5 ? 'card' : 'hero');
     }
     window.addEventListener('scroll', function () {
@@ -262,7 +269,7 @@
       scene.removeAttribute('data-ready');
       scene.removeAttribute('data-state');
       scene.removeAttribute('style');
-      if (nav) nav.style.removeProperty('--p');
+      if (nav) { nav.style.removeProperty('--p'); nav.removeAttribute('data-bare'); }
       state = null;
       setFocusable(card, true);
       setFocusable(hero, true);

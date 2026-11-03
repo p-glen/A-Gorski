@@ -325,7 +325,7 @@
       bio: { src: 'img/arkadiusz-gorski-fotel.webp?v=2', alt: 'Adwokat Arkadiusz Górski, portret' } },
     { id: 'p2', label: 'Wersja 2', note: 'hero: hoker · O mnie: kanapa, trampki',
       hero: { src: 'img/arkadiusz-gorski-hoker.webp', w: 1000, h: 1500, crop: [520, 225, 190] },
-      bio: { src: 'img/arkadiusz-gorski-kanapa-bok.webp', alt: 'Adwokat Arkadiusz Górski siedzący na oparciu kanapy, portret' } },
+      bio: { src: 'img/arkadiusz-gorski-kanapa-bok.webp?v=2', alt: 'Adwokat Arkadiusz Górski siedzący na oparciu kanapy, portret' } },
     { id: 'p3', label: 'Wersja 3', note: 'hero: szare tło, stojąco · O mnie: kanapa, trampki',
       hero: { src: 'img/arkadiusz-gorski-stoi.webp', w: 1000, h: 1500, crop: [480, 225, 190] },
       bio: { src: 'img/arkadiusz-gorski-kanapa-trampki.webp', alt: 'Adwokat Arkadiusz Górski siedzący na kanapie, portret' } }
