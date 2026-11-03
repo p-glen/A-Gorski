@@ -202,55 +202,19 @@
 
   // 3 Nov 2026: the lawyer's next round of remarks. It builds on the 28 Oct
   // version (nothing from it is lost) and the rules below win where they overlap.
-  // One figure, four fixed cells (sign, number, scale word, unit), right-aligned
-  // so every row reads like a bullet point for the text beside it. A row with
-  // no figure gets a dot. The number counts up from 0 when the row scrolls in.
-  function caseRow(plus, num, scale, unit, title, text) {
-    var metric;
-    if (num === null) metric = '<span class="case__metric"><i class="case__dot" aria-hidden="true"></i></span>';
-    else metric = '<span class="case__metric" aria-label="' + (plus ? 'ponad ' : '') + num + ' ' + (scale ? scale + ' ' : '') + unit + '">' +
-      '<b class="case__plus" aria-hidden="true">' + (plus ? '+' : '') + '</b>' +
-      '<b class="case__num" data-to="' + num + '" aria-hidden="true">0</b>' +
-      '<b class="case__scale" aria-hidden="true">' + scale + '</b>' +
-      '<b class="case__unit" aria-hidden="true">' + unit + '</b></span>';
-    return '<li class="case">' + metric + '<span class="case__body"><strong>' + title + '</strong> ' + text + '</span></li>';
+  // The figure is plain text, right-aligned in its column, so each row reads
+  // like a bullet point for the text beside it. A row with no figure leaves it empty.
+  function caseRow(metric, title, text) {
+    return '<li class="case"><span class="case__metric">' + metric + '</span>' +
+      '<span class="case__body"><strong>' + title + '</strong> ' + text + '</span></li>';
   }
-  var ICON_OPEN = '<svg class="cases__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">';
-  var CASE_ICONS = {
-    scale: ICON_OPEN + '<path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" /><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" /><path d="M7 21h10" /><path d="M12 3v18" /><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2" /></svg>',
-    chart: ICON_OPEN + '<path d="M3 3v16a2 2 0 0 0 2 2h16" /><path d="M18 17V9" /><path d="M13 17V5" /><path d="M8 17v-3" /></svg>',
-    truck: ICON_OPEN + '<path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" /><path d="M15 18H9" /><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14" /><circle cx="17" cy="18" r="2" /><circle cx="7" cy="18" r="2" /></svg>'
-  };
-  function caseGroup(icon, name, rows) {
-    return '<div class="cases__group"><h4>' + CASE_ICONS[icon] + name + '</h4><ul>' + rows.join('') + '</ul></div>';
-  }
-
-  // Counts the figures up from 0 when they scroll into view (at once under reduced motion).
-  function countUp() {
-    var els = document.querySelectorAll('.case__num[data-to]');
-    if (!els.length) return;
-    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    function run(el) {
-      var to = +el.getAttribute('data-to'), t0 = null;
-      if (reduce) { el.textContent = to; return; }
-      function step(now) {
-        if (t0 === null) t0 = now;
-        var k = Math.min(1, (now - t0) / 1400);
-        el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3)));
-        if (k < 1) requestAnimationFrame(step);
-      }
-      requestAnimationFrame(step);
-    }
-    if (!('IntersectionObserver' in window)) { Array.prototype.forEach.call(els, run); return; }
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { if (e.isIntersecting) { io.unobserve(e.target); run(e.target); } });
-    }, { threshold: 0.6 });
-    Array.prototype.forEach.call(els, function (el) { io.observe(el); });
+  function caseGroup(name, rows) {
+    return '<div class="cases__group"><h4>' + name + '</h4><ul>' + rows.join('') + '</ul></div>';
   }
 
   var RULES_NEXT = RULES_GDOC.filter(function (r) {
-    // the publications row is back (shortened below)
-    return r.s !== BIO + '1) .credentials div:nth-child(4)';
+    // the publications row is back (shortened below), and Dydaktyka keeps its header
+    return r.s !== BIO + '1) .credentials div:nth-child(4)' && r.s !== BIO + '1) .credentials div:nth-child(3) dt';
   }).concat([
     // Hero: "Działam" instead of "Bronię"
     { s: '.scene__hero h1', html: '<span>Działam tam, gdzie biznes</span> <span>zderza się z prawem karnym.</span>' },
@@ -259,28 +223,34 @@
     { s: '.claim__text', text: 'Im wcześniej porozmawiamy, tym więcej możemy zrobić.' },
     { s: '.claim__text', after: '<p class="claim__sub">Ustalimy, jak chronić Ciebie i Twoją firmę już podczas pierwszej rozmowy.</p>' },
 
+    // About me: a short lead under the heading, so the block does not read like a data sheet
+    { s: BIO + '1) .heading-condensed', after: '<p class="bio-lede">Sprawę przyjmuję, czytam akta i prowadzę osobiście. Dzwonisz bezpośrednio do mnie, bez sekretariatu.</p>' },
+
     // About me: the specialisation in the lawyer's words, publications folded
     { s: BIO + '1) .credentials div:nth-child(1) dd', text: 'Moją specjalizacją są sprawy karne gospodarcze, karne skarbowe oraz zwalczanie nieuczciwej konkurencji.' },
     { s: BIO + '1) .credentials div:nth-child(4) dd', html: 'Współautor komentarza do ustawy AML (C.H. Beck, 2021 i 2024). Moje teksty publikowały m.in. <cite class="pub">Parkiet</cite>, <cite class="pub">Monitor Prawniczy</cite> i <cite class="pub">Przegląd Sądowy</cite>.' },
 
+    // The compliance paragraph goes
+    { s: BIO + '1) .credentials div:nth-child(2)', hide: true },
+
     // Selected cases: the figure first, then a title and one short sentence
     { s: BIO + '2)', html: '<h3 class="bio-group">Wybrane sprawy</h3><div class="cases">' +
-      caseGroup('scale', 'Obrona karna', [
-        caseRow(false, 25, '', 'lat', 'Obrona w sprawie o zabójstwo.', 'Prokurator żądał 25 lat, postępowanie prawomocnie umorzono.')
+      caseGroup('Obrona karna', [
+        caseRow('25 lat', 'Obrona w sprawie o zabójstwo.', 'Prokurator żądał 25 lat, <span class="case__key">postępowanie prawomocnie umorzono</span>.')
       ]) +
-      caseGroup('chart', 'Obrona karna gospodarcza', [
-        caseRow(true, 100, 'mln', 'zł', 'Oszustwo rynkowe przy emisji obligacji.', 'Jeden z dwóch głównych obrońców.'),
-        caseRow(true, 10, 'mln', 'zł', 'Karuzela VAT.', 'Obrona podejrzanego o wyłudzenia podatku.'),
-        caseRow(false, 3, '', 'zarzuty', 'Rynek kapitałowy.', 'Manipulacja, insider trading i działalność bez zezwolenia w jednej sprawie.')
+      caseGroup('Obrona karna gospodarcza', [
+        caseRow('+ 100 mln zł', 'Oszustwo rynkowe przy emisji obligacji.', 'Byłem <span class="case__key">jednym z dwóch głównych obrońców</span> oskarżonego.'),
+        caseRow('+ 10 mln zł', 'Karuzela VAT.', 'Obrona podejrzanego w mechanizmie <span class="case__key">karuzeli podatkowej</span>.'),
+        caseRow('3 zarzuty', 'Rynek kapitałowy.', 'Manipulacja, insider trading i działalność bez zezwolenia: <span class="case__key">trzy najpoważniejsze zarzuty w jednej sprawie</span>.')
       ]) +
-      caseGroup('truck', 'Reprezentacja pokrzywdzonych', [
-        caseRow(true, 10, 'mln', '€', 'Kradzież towarów z transportów.', 'Spółka e-commerce z Niemiec, zabezpieczenia majątkowe uzyskane.'),
-        caseRow(true, 200, 'mln', 'zł', 'Działanie na szkodę spółki.', 'Reprezentacja pokrzywdzonego akcjonariusza.'),
-        caseRow(false, null, '', '', 'Postępowanie wyjaśniające w spółce.', 'Ustalone nadużycia menedżera i zawiadomienie do prokuratury.')
+      caseGroup('Reprezentacja pokrzywdzonych', [
+        caseRow('+ 10 mln €', 'Kradzież towarów z transportów.', 'Spółka e-commerce z Niemiec, <span class="case__key">sprawcy ustaleni, zabezpieczenia majątkowe uzyskane</span>.'),
+        caseRow('+ 200 mln zł', 'Działanie na szkodę spółki.', 'Reprezentacja akcjonariusza wobec <span class="case__key">pozornych umów i ugód zawieranych przez zarząd</span>.'),
+        caseRow('', 'Postępowanie wyjaśniające w spółce.', 'Ustaliłem nadużycia menedżera i <span class="case__key">skierowałem zawiadomienie do prokuratury</span>.')
       ]) + '</div>' },
 
-    // Professional data: the languages row goes as well
-    { s: BIO + '3) .credentials > div:nth-child(5)', hide: true }
+    // Professional data: the whole panel goes (the booking call below it stays)
+    { s: BIO + '3)', hide: true }
   ]);
 
   var VERSIONS = [
@@ -382,7 +352,6 @@
     while (undo.length) undo.pop()();
     v.rules.forEach(function (r) { if (!r.p || r.p.test(path)) applyRule(r); });
     root.setAttribute('data-copy', v.id);
-    countUp();
     try { localStorage.setItem(KINDS.copy.key, v.id); } catch (e) {}
     switches.forEach(sync);
   }
@@ -583,20 +552,20 @@
     '.scene__hero h1 .copy-h1-sub{white-space:normal;font-size:.5em;line-height:1.2;margin-top:.625rem;max-width:30ch}' +
     '.copy-list{margin:0;padding-left:1.1em;list-style:disc}' +
     '.copy-list li+li{margin-top:.5rem}' +
-    '.claim__sub{margin:1.25rem auto 0;max-width:44ch;font-size:var(--size-card);line-height:1.6;font-weight:400;color:var(--text-secondary)}' +
-    '.cases{display:grid;gap:2.25rem;margin-top:1.25rem}' +
-    '.cases__group h4{display:flex;align-items:center;gap:.625rem;margin:0 0 .25rem;font-family:var(--font-mono);font-size:var(--size-note);font-weight:400;letter-spacing:var(--ls-note);text-transform:uppercase;color:var(--text-secondary)}' +
-    '.cases__icon{flex:none;width:1.125rem;height:1.125rem;color:var(--accent-brass-text)}' +
+    '.claim__sub{margin:-1.75rem 0 1.75rem;max-width:none;font-size:1.25rem;line-height:1.5;font-weight:400;color:var(--text-secondary)}@media (min-width:768px){.claim__sub{white-space:nowrap}}' +
+    '.bio-lede{margin:0 0 1.75rem;max-width:46ch;font-size:var(--size-card);line-height:1.65;color:var(--text-secondary)}' +
+    '.cases{display:grid;gap:3.25rem;margin-top:1.5rem}' +
+    '.cases__group h4{display:flex;align-items:center;gap:.625rem;margin:0;padding:.875rem 0;border-bottom:1px solid var(--border);font-family:var(--font-mono);font-size:var(--size-note);font-weight:400;line-height:1.75;letter-spacing:var(--ls-note);text-transform:uppercase;color:var(--text-secondary)}' +
     '.cases__group ul{list-style:none;margin:0;padding:0}' +
-    '.case{display:grid;grid-template-columns:11.5rem 1fr;gap:1.5rem;padding:1rem 0;border-top:1px solid var(--border)}' +
-    '.case:first-child{border-top:0}' +
-    '.case__metric{display:grid;grid-template-columns:1.25ch 3.6ch 3.4ch 4.6ch;justify-content:end;column-gap:.4ch;font-size:1.25rem;line-height:1.3;color:var(--accent-brass-text);font-variant-numeric:tabular-nums}' +
-    '.case__metric b{font-weight:500;text-align:right}' +
-    '.case__metric .case__dot{grid-column:4;justify-self:end}' +
-    '.case__dot{display:inline-block;width:.4rem;height:.4rem;margin-top:.6rem;border-radius:50%;background:var(--accent-brass)}' +
-    '.case__body{color:var(--text-secondary);line-height:1.6}' +
+    '.case{display:grid;grid-template-columns:10.5rem 1fr;gap:1rem;padding:0}' +
+    '.cases__group ul{display:grid;gap:2.5rem;padding:2rem 0 .5rem}' +
+    '.case__metric{text-align:right;font-size:var(--size-card);line-height:1.6;font-weight:500;color:var(--text);font-variant-numeric:tabular-nums;white-space:nowrap}' +
+    '.case__body{font-size:var(--size-card);color:var(--text-secondary);line-height:1.6}' +
+    '.case__key{color:var(--text);background:linear-gradient(var(--accent-brass),var(--accent-brass)) no-repeat 0 100%/100% 1px;padding-bottom:.125rem;-webkit-box-decoration-break:clone;box-decoration-break:clone}' +
+    '@media (prefers-reduced-motion:no-preference){@supports (animation-timeline:view()){.case__key{background-size:0% 1px;animation:case-key linear both;animation-timeline:view();animation-range:cover 5% cover 28%}}}' +
+    '@keyframes case-key{to{background-size:100% 1px}}' +
     '.case__body strong{display:block;font-weight:500;color:var(--text)}' +
-    '@media (max-width:560px){.case{grid-template-columns:1fr;gap:.25rem}.case__metric{justify-content:start}.case__metric b{text-align:left}}' +
+    '@media (max-width:900px){.case{grid-template-columns:1fr;gap:.25rem}.case__metric{text-align:left}}' +
     '.copy-case{margin:0}' +
     '.copy-case+.copy-case,.copy-case+.copy-list{margin-top:.75rem}' +
     '.copy-case strong{display:block;font-weight:600;color:var(--text)}' +

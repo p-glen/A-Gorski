@@ -1123,6 +1123,17 @@ body.nav-open .nav-toggle__close { display: block; }
 .specjalizacje-card {
   flex: 0 0 min(84vw, 28rem);
   scroll-snap-align: start;
+  /* One card: the figure and the text share a single ground and border. */
+  display: flex;
+  flex-direction: column;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+}
+.specjalizacje-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 0.25rem 1.5rem 1.5rem;
 }
 
 /* Photo: large, with its own box so any shot can drop in. Placeholder until
@@ -1132,9 +1143,8 @@ body.nav-open .nav-toggle__close { display: block; }
   overflow: hidden;
   /* The isometric figures are drawn in a 5:4 frame (see js/areas-art.js). */
   aspect-ratio: 5 / 4;
-  margin-bottom: 1.5rem;
-  background-color: var(--surface);
-  border: 1px solid var(--border);
+  margin-bottom: 1rem;
+  background-color: transparent;
 }
 .specjalizacje-card__ph {
   position: absolute;
@@ -1182,6 +1192,9 @@ body.nav-open .nav-toggle__close { display: block; }
 
 .specjalizacje-card h3 {
   margin-bottom: 0.5rem;
+  /* Room for two lines in every card, so the descriptions and the links
+     start at the same height whether or not a title wraps. */
+  min-height: calc(var(--lh-h3) * 2em);
 }
 .specjalizacje-card p {
   max-width: 44ch;
@@ -1190,19 +1203,9 @@ body.nav-open .nav-toggle__close { display: block; }
   font-size: var(--size-card);
   line-height: var(--lh-card);
 }
-/* The scope, always written out: plain round bullets. */
-.specjalizacje-card__link {
-  display: inline-block;
-  color: var(--text);
-  font-size: var(--size-card);
-  font-weight: 500;
-  border-bottom: 1px solid var(--accent-brass);
-  padding-bottom: 0.125rem;
-  transition: color 0.2s ease;
-  line-height: var(--lh-ui);
-}
-.specjalizacje-card__link:hover,
-.specjalizacje-card__link:focus-visible { color: var(--accent-brass-text); }
+/* The card link is the same component as "Wszystkie specjalizacje"
+   (.link-tertiary: no underline, same size and arrow), pinned to the bottom. */
+.specjalizacje-card__link { margin-top: auto; align-self: flex-start; }
 
 /* Isometric figures: one stroke in four weights, drawn from the page's own
    tokens so both themes and both tones follow. The plate is the card's
@@ -1560,7 +1563,7 @@ body.nav-open .nav-toggle__close { display: block; }
      the end, so the photo is only released once the last button has risen
      to 30% from the bottom of the screen. */
   .bio-section { padding-block: 0; }
-  .bio-content { padding-block: 30svh; }
+  .bio-content { padding-block: 30svh 10svh; }
   .bio-panel .credentials { margin-bottom: 0; }
   .bio-panel .button-alert { align-self: flex-start; }
 }
@@ -1593,12 +1596,16 @@ body.nav-open .nav-toggle__close { display: block; }
 }
 .credentials div {
   display: grid;
-  grid-template-columns: 13.5rem 1fr;
+  grid-template-columns: 10.5rem 1fr;
   gap: 1rem;
   padding: 0.875rem 0;
 }
 .credentials div + div {
   border-top: 1px solid var(--border);
+}
+/* In the About panels the rows breathe more: the text sat close to the rules. */
+.bio-panel .credentials div {
+  padding: 1.375rem 0;
 }
 .credentials dt {
   font-size: var(--size-note);
@@ -1655,7 +1662,26 @@ body.nav-open .nav-toggle__close { display: block; }
   line-height: 1.6;
   color: var(--text-secondary);
 }
-.bio-content .button-alert { margin-top: 1.5rem; }
+.bio-content .button-alert,
+.bio-content .button-primary { margin-top: 1.5rem; }
+/* The booking call is the footer of the About section: its own band, not a
+   button left hanging under the last panel. */
+.bio-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem 2rem;
+  margin-top: 4rem;
+  padding: 1.5rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+}
+.bio-cta__text { margin: 0; max-width: 34ch; line-height: 1.55; color: var(--text-secondary); }
+.bio-cta__text strong { display: block; font-weight: 500; color: var(--text); }
+.bio-content .bio-cta .button-primary { flex: none; margin-top: 0; }
+@media (max-width: 640px) {
+  .bio-cta { flex-direction: column; align-items: flex-start; }
+}
 .credentials .bio-todo {
   color: var(--text-muted);
   font-style: italic;
