@@ -1216,9 +1216,10 @@ body.nav-open .nav-toggle__close { display: block; }
 }
 .hl-fig {
   position: absolute;
-  inset: 0.5rem;
+  inset: 1.25rem 2rem;   /* the figure sits small inside its card */
   aspect-ratio: auto;
 }
+:root[data-areas="bento"] .hl-fig { inset: 0.5rem; }
 .hl-fig > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
 
 /* The last cards need room after them to reach the start edge, so the arrows
@@ -1229,9 +1230,9 @@ body.nav-open .nav-toggle__close { display: block; }
 }
 
 /* Bento: from tablet width the six areas sit in a matrix instead of the
-   carousel (the review menu can switch back: data-areas="carousel"). */
+   carousel (review menu: data-areas="bento"; the carousel is the default). */
 @media (min-width: 900px) {
-  :root:not([data-areas="carousel"]) .carousel__track {
+  :root[data-areas="bento"] .carousel__track {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.25rem;
@@ -1241,8 +1242,8 @@ body.nav-open .nav-toggle__close { display: block; }
     overflow: visible;
     scroll-snap-type: none;
   }
-  :root:not([data-areas="carousel"]) .carousel__track::after { display: none; }
-  :root:not([data-areas="carousel"]) .specjalizacje-card {
+  :root[data-areas="bento"] .carousel__track::after { display: none; }
+  :root[data-areas="bento"] .specjalizacje-card {
     display: flex;
     flex-direction: column;
     min-width: 0;
@@ -1250,33 +1251,33 @@ body.nav-open .nav-toggle__close { display: block; }
     border: 1px solid var(--border);
     transition: border-color 0.2s ease;
   }
-  :root:not([data-areas="carousel"]) .specjalizacje-card:hover { border-color: var(--accent-brass); }
-  :root:not([data-areas="carousel"]) .specjalizacje-card__media {
+  :root[data-areas="bento"] .specjalizacje-card:hover { border-color: var(--accent-brass); }
+  :root[data-areas="bento"] .specjalizacje-card__media {
     border: 0;
     margin: 0;
     background-color: transparent;
   }
-  :root:not([data-areas="carousel"]) .specjalizacje-card__body { padding: 0.25rem 1.5rem 1.5rem; }
-  :root:not([data-areas="carousel"]) .specjalizacje-card h3 { margin-bottom: 0.5rem; }
-  :root:not([data-areas="carousel"]) .specjalizacje-card p { margin-bottom: 1.25rem; }
+  :root[data-areas="bento"] .specjalizacje-card__body { padding: 0.25rem 1.5rem 1.5rem; }
+  :root[data-areas="bento"] .specjalizacje-card h3 { margin-bottom: 0.5rem; }
+  :root[data-areas="bento"] .specjalizacje-card p { margin-bottom: 1.25rem; }
 
   /* The matrix: a wide tile, a tall one, two small, a wide one, a small one. */
-  :root:not([data-areas="carousel"]) [data-area="akta"] { grid-column: 1 / span 2; flex-direction: row; align-items: center; }
-  :root:not([data-areas="carousel"]) [data-area="miasto"] { grid-column: 3; grid-row: 1 / span 2; }
-  :root:not([data-areas="carousel"]) [data-area="bramki"] { grid-column: 1 / span 2; flex-direction: row; align-items: center; }
-  :root:not([data-areas="carousel"]) [data-area="akta"] .specjalizacje-card__media,
-  :root:not([data-areas="carousel"]) [data-area="bramki"] .specjalizacje-card__media { flex: 0 0 52%; }
-  :root:not([data-areas="carousel"]) [data-area="akta"] .specjalizacje-card__body,
-  :root:not([data-areas="carousel"]) [data-area="bramki"] .specjalizacje-card__body { padding: 1.5rem 1.5rem 1.5rem 0; }
-  :root:not([data-areas="carousel"]) [data-area="bramki"] { flex-direction: row-reverse; }
-  :root:not([data-areas="carousel"]) [data-area="bramki"] .specjalizacje-card__body { padding: 1.5rem 0 1.5rem 1.5rem; }
+  :root[data-areas="bento"] [data-area="akta"] { grid-column: 1 / span 2; flex-direction: row; align-items: center; }
+  :root[data-areas="bento"] [data-area="miasto"] { grid-column: 3; grid-row: 1 / span 2; }
+  :root[data-areas="bento"] [data-area="bramki"] { grid-column: 1 / span 2; flex-direction: row; align-items: center; }
+  :root[data-areas="bento"] [data-area="akta"] .specjalizacje-card__media,
+  :root[data-areas="bento"] [data-area="bramki"] .specjalizacje-card__media { flex: 0 0 52%; }
+  :root[data-areas="bento"] [data-area="akta"] .specjalizacje-card__body,
+  :root[data-areas="bento"] [data-area="bramki"] .specjalizacje-card__body { padding: 1.5rem 1.5rem 1.5rem 0; }
+  :root[data-areas="bento"] [data-area="bramki"] { flex-direction: row-reverse; }
+  :root[data-areas="bento"] [data-area="bramki"] .specjalizacje-card__body { padding: 1.5rem 0 1.5rem 1.5rem; }
   /* The tall tile lets its figure take the spare height. */
-  :root:not([data-areas="carousel"]) [data-area="miasto"] .specjalizacje-card__media { aspect-ratio: auto; flex: 1 1 auto; min-height: 12rem; }
+  :root[data-areas="bento"] [data-area="miasto"] .specjalizacje-card__media { aspect-ratio: auto; flex: 1 1 auto; min-height: 12rem; }
 
   /* Only the link to the full list stays under the matrix. */
-  :root:not([data-areas="carousel"]) .carousel__dots,
-  :root:not([data-areas="carousel"]) .carousel__arrows { display: none; }
-  :root:not([data-areas="carousel"]) .carousel__controls { justify-content: center; margin-top: 1.5rem; }
+  :root[data-areas="bento"] .carousel__dots,
+  :root[data-areas="bento"] .carousel__arrows { display: none; }
+  :root[data-areas="bento"] .carousel__controls { justify-content: center; margin-top: 1.5rem; }
 }
 
 /* Controls: dots left, arrows right, both aligned with the page container. */
@@ -1423,50 +1424,52 @@ body.nav-open .nav-toggle__close { display: block; }
 .steps-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 3rem 2.5rem;
-  margin-bottom: 4.5rem;
+  gap: 4rem 4rem;
+  margin-bottom: 5rem;
 }
 .step {
-  min-height: 13rem;
+  min-height: 15rem;
   border-top: 1px solid var(--border);
-  padding-top: 1.75rem;
+  padding-top: 2.25rem;
 }
 .step__num {
   display: block;
   font-size: var(--size-note);
   color: var(--text-secondary);
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   font-family: var(--font-mono);
   font-weight: 400;
   line-height: var(--lh-note);
   letter-spacing: var(--ls-note);
 }
 .step h3 {
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 }
 .step p {
   color: var(--text-secondary);
   font-size: var(--size-card);
   margin: 0;
-  line-height: 1.6;
+  line-height: 1.75;
 }
-/* Key phrases: plain text with a thick red line under it (not bold, not a
-   background). The line is 3:1 or better against the page in both themes. */
+/* Key phrases: a highlighter pass, not a link. Dark text on a bright brass
+   wash, so it reads as marked-up text in both themes (about 10:1 against the
+   page text colour it replaces) and never as something to click. */
 .marker {
   background-color: transparent; /* the browser's default <mark> is yellow */
-  color: inherit;
-  background-image: linear-gradient(var(--marker), var(--marker));
+  color: #1C1A17;
+  background-image: linear-gradient(#E6C27A, #E6C27A);
   background-repeat: no-repeat;
-  background-position: 0 100%;
-  background-size: 100% 0.2em;
-  padding-bottom: 0.08em;
+  background-position: 0 50%;
+  background-size: 100% 100%;
+  padding: 0.05em 0.3em;
+  border-radius: 0.125rem;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
     .marker {
-      background-size: 0% 0.2em;
+      background-size: 0% 100%;
       animation: marker-sweep linear both;
       animation-timeline: view();
       animation-range: entry 35% cover 45%;
@@ -1474,7 +1477,7 @@ body.nav-open .nav-toggle__close { display: block; }
   }
 }
 @keyframes marker-sweep {
-  to { background-size: 100% 0.2em; }
+  to { background-size: 100% 100%; }
 }
 .guide-cta {
   display: flex;
@@ -1679,9 +1682,9 @@ body.nav-open .nav-toggle__close { display: block; }
 .knowledge-card {
   display: flex;
   flex-direction: column;
-  min-height: 10.5rem;
+  min-height: 12rem;
   border-top: 1px solid var(--border);
-  padding-top: 1.5rem;
+  padding-top: 1.75rem;
 }
 .knowledge-card__time,
 .knowledge-card__tag {
@@ -1694,7 +1697,11 @@ body.nav-open .nav-toggle__close { display: block; }
 .knowledge-card h3 {
   margin: 0;
   font-size: 1.375rem;
-  line-height: var(--lh-h3);
+  /* Lighter and looser than the other h3s: these are long titles, and at the
+     heading weight and a tight leading they read as a solid block. */
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0;
   /* Fill the card: balancing would pull every line in from the right edge. */
   text-wrap: pretty;
 }

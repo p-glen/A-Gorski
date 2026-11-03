@@ -200,10 +200,56 @@
     { p: /\/praktyki\/prawo-karne\/$/, s: '#doswiadczenie + p', before: '<ul class="copy-list"><li>obrona w sprawie o zabójstwo w związku z obroną konieczną.</li></ul>' }
   ];
 
+  // 3 Nov 2026: the lawyer's next round of remarks. It builds on the 28 Oct
+  // version (nothing from it is lost) and the rules below win where they overlap.
+  function caseRow(metric, title, text) {
+    return '<li class="case"><span class="case__metric">' + (metric || '<i class="case__dot" aria-hidden="true"></i>') +
+      '</span><span class="case__body"><strong>' + title + '</strong> ' + text + '</span></li>';
+  }
+  function caseGroup(name, rows) {
+    return '<div class="cases__group"><h4>' + name + '</h4><ul>' + rows.join('') + '</ul></div>';
+  }
+
+  var RULES_NEXT = RULES_GDOC.filter(function (r) {
+    // the publications row is back (shortened below)
+    return r.s !== BIO + '1) .credentials div:nth-child(4)';
+  }).concat([
+    // Hero: "Działam" instead of "Bronię"
+    { s: '.scene__hero h1', html: '<span>Działam tam, gdzie biznes</span> <span>zderza się z prawem karnym.</span>' },
+
+    // Claim: the second sentence becomes secondary text under the headline
+    { s: '.claim__text', text: 'Im wcześniej porozmawiamy, tym więcej możemy zrobić.' },
+    { s: '.claim__text', after: '<p class="claim__sub">Ustalimy, jak chronić Ciebie i Twoją firmę już podczas pierwszej rozmowy.</p>' },
+
+    // About me: the specialisation in the lawyer's words, publications folded
+    { s: BIO + '1) .credentials div:nth-child(1) dd', text: 'Moją specjalizacją są sprawy karne gospodarcze, karne skarbowe oraz zwalczanie nieuczciwej konkurencji.' },
+    { s: BIO + '1) .credentials div:nth-child(4) dd', html: 'Współautor komentarza do ustawy AML (C.H. Beck, 2021 i 2024). Moje teksty publikowały m.in. <cite class="pub">Parkiet</cite>, <cite class="pub">Monitor Prawniczy</cite> i <cite class="pub">Przegląd Sądowy</cite>.' },
+
+    // Selected cases: the figure first, then a title and one short sentence
+    { s: BIO + '2)', html: '<h3 class="bio-group">Wybrane sprawy</h3><div class="cases">' +
+      caseGroup('Obrona karna', [
+        caseRow('25 lat', 'Obrona w sprawie o zabójstwo.', 'Prokurator żądał 25 lat, postępowanie prawomocnie umorzono.')
+      ]) +
+      caseGroup('Obrona karna gospodarcza', [
+        caseRow('setki mln zł', 'Oszustwo rynkowe przy emisji obligacji.', 'Jeden z dwóch głównych obrońców.'),
+        caseRow('dziesiątki mln zł', 'Karuzela VAT.', 'Obrona podejrzanego o wyłudzenia podatku.'),
+        caseRow('3 zarzuty', 'Rynek kapitałowy.', 'Manipulacja, insider trading i działalność bez zezwolenia w jednej sprawie.')
+      ]) +
+      caseGroup('Reprezentacja pokrzywdzonych', [
+        caseRow('kilkanaście mln €', 'Kradzież towarów z transportów.', 'Spółka e-commerce z Niemiec, zabezpieczenia majątkowe uzyskane.'),
+        caseRow('200+ mln zł', 'Działanie na szkodę spółki.', 'Reprezentacja pokrzywdzonego akcjonariusza.'),
+        caseRow('', 'Postępowanie wyjaśniające w spółce.', 'Ustalone nadużycia menedżera i zawiadomienie do prokuratury.')
+      ]) + '</div>' },
+
+    // Professional data: the languages row goes as well
+    { s: BIO + '3) .credentials > div:nth-child(5)', hide: true }
+  ]);
+
   var VERSIONS = [
     { id: 'original', label: 'Wersja pierwotna', note: 'tekst z prototypu', rules: [] },
     { id: 'client', label: '25.10.2026', note: 'uwagi w pliku Word', rules: RULES_CLIENT },
-    { id: 'gdoc', label: '28.10.2026', note: 'uwagi w Dokumencie Google', rules: RULES_GDOC }
+    { id: 'gdoc', label: '28.10.2026', note: 'uwagi w Dokumencie Google', rules: RULES_GDOC },
+    { id: 'nov3', label: '03.11.2026', note: 'kolejne uwagi (najnowsza)', rules: RULES_NEXT }
   ];
 
   function make(html) {
@@ -283,8 +329,8 @@
   ];
 
   var AREAS_VERSIONS = [
-    { id: 'bento', label: 'Bento', note: 'matryca z rysunkami (od 900 px)' },
-    { id: 'carousel', label: 'Karuzela', note: 'przewijany rząd kart' }
+    { id: 'carousel', label: 'Karuzela', note: 'przewijany rząd kart' },
+    { id: 'bento', label: 'Bento', note: 'matryca z rysunkami (od 900 px)' }
   ];
 
   function versionOf(kind, id) {
@@ -370,7 +416,7 @@
     photos: { key: 'kag-photos', attr: 'data-photos', versions: PHOTO_VERSIONS, set: setPhotos, icon: ICON_PHOTO,
       noun: 'zdjęć', word: 'Zdjęcia', first: 'Wersja 1', menu: 'Zestaw zdjęć na stronie' },
     areas: { key: 'kag-areas', attr: 'data-areas', versions: AREAS_VERSIONS, set: setAreas, icon: ICON_AREAS,
-      noun: 'układu obszarów', word: 'Obszary', first: 'bento', menu: 'Układ sekcji obszarów praktyki' },
+      noun: 'układu obszarów', word: 'Obszary', first: 'karuzela', menu: 'Układ sekcji obszarów praktyki' },
     tone: { key: 'kag-tone', attr: 'data-tone', versions: TONE_VERSIONS, set: setTone, icon: ICON_TONE,
       noun: 'tonacji', word: 'Tonacja', first: 'ciepła', menu: 'Tonacja kolorystyczna strony' }
   };
@@ -498,6 +544,17 @@
     '.scene__hero h1 .copy-h1-sub{white-space:normal;font-size:.5em;line-height:1.2;margin-top:.625rem;max-width:30ch}' +
     '.copy-list{margin:0;padding-left:1.1em;list-style:disc}' +
     '.copy-list li+li{margin-top:.5rem}' +
+    '.claim__sub{margin:1.25rem auto 0;max-width:44ch;font-size:var(--size-card);line-height:1.6;font-weight:400;color:var(--text-secondary)}' +
+    '.cases{display:grid;gap:2.25rem;margin-top:1.25rem}' +
+    '.cases__group h4{margin:0 0 .25rem;font-family:var(--font-mono);font-size:var(--size-note);font-weight:400;letter-spacing:var(--ls-note);text-transform:uppercase;color:var(--text-secondary)}' +
+    '.cases__group ul{list-style:none;margin:0;padding:0}' +
+    '.case{display:grid;grid-template-columns:10.5rem 1fr;gap:1.25rem;padding:1rem 0;border-top:1px solid var(--border)}' +
+    '.case:first-child{border-top:0}' +
+    '.case__metric{font-family:var(--font-heading);font-size:1.25rem;line-height:1.25;color:var(--accent-brass-text)}' +
+    '.case__dot{display:inline-block;width:.4rem;height:.4rem;margin-top:.55rem;border-radius:50%;background:var(--accent-brass)}' +
+    '.case__body{color:var(--text-secondary);line-height:1.6}' +
+    '.case__body strong{display:block;font-weight:500;color:var(--text)}' +
+    '@media (max-width:560px){.case{grid-template-columns:1fr;gap:.25rem}}' +
     '.copy-case{margin:0}' +
     '.copy-case+.copy-case,.copy-case+.copy-list{margin-top:.75rem}' +
     '.copy-case strong{display:block;font-weight:600;color:var(--text)}' +
