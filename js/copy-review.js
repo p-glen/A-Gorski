@@ -590,8 +590,14 @@
     addSwitch(KINDS.tone, themeMenu.parentNode, afterTheme, true);
   }
 
+  // shipped defaults: newest text, first photo set, steel tone (a stored choice wins)
+  var DEFAULTS = { 'kag-copy': 'nov3', 'kag-tone': 'steel' };
   function saved(kind) {
-    try { return versionOf(kind, localStorage.getItem(kind.key)).id; } catch (e) { return kind.versions[0].id; }
+    var d = DEFAULTS[kind.key] || kind.versions[0].id;
+    try {
+      var s = localStorage.getItem(kind.key);
+      return s ? versionOf(kind, s).id : d;
+    } catch (e) { return d; }
   }
   root.setAttribute('data-copy', 'original');
   setCopy(saved(KINDS.copy));
